@@ -78,17 +78,17 @@ describe('password', () => {
     });
     test('It should update password correctly and set active in true for new user', async () => {
       const newPassword = '1234Abcd';
-      await createUser({ ...user, email: 'new@zerf.com.ar', active: false });
-      const token = await encode('new@zerf.com.ar');
+      await createUser({ ...user, email: 'new@adoptame.com.ar', active: false });
+      const token = await encode('new@adoptame.com.ar');
       const response = await authRequest(token, 'post', '/users/password', { password: newPassword });
       expect(response.statusCode).toBe(201);
-      expect(response.body.email).toBe('new@zerf.com.ar');
+      expect(response.body.email).toBe('new@adoptame.com.ar');
       const signIn = await request()
         .post('/sign_in')
-        .send({ email: 'new@zerf.com.ar', password: newPassword });
+        .send({ email: 'new@adoptame.com.ar', password: newPassword });
       expect(signIn.statusCode).toBe(200);
       expect(signIn.body.expirationTime).toBe('1h');
-      const dbUser = await User.findOne({ email: 'new@zerf.com.ar' });
+      const dbUser = await User.findOne({ email: 'new@adoptame.com.ar' });
       expect(dbUser.active).toBe(true);
     });
     test('It should update password correctly if admin', async () => {

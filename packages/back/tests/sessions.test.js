@@ -99,10 +99,10 @@ describe('sessions', () => {
     });
     describe('new user', () => {
       test('It should send email if the user is new', async () => {
-        await createUser({ ...user, email: 'new@zerf.com.ar', active: false });
+        await createUser({ ...user, email: 'new@adoptame.com.ar', active: false });
         const response = await request()
           .post('/sign_in')
-          .send({ email: 'new@zerf.com.ar', password: '' });
+          .send({ email: 'new@adoptame.com.ar', password: '' });
         expect(response.statusCode).toBe(204);
         expect(sendMailMock).toHaveBeenCalled();
       });
