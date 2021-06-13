@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import i18next from 'i18next';
 
 // Replace for project logo and/or banner
-import PageLogo from '~assets/zerflogo.png';
 import LoginBanner from '~assets/zerf-banner.jpg';
 import { isValidEmail } from '~utils/validations';
 import Input from '~app/components/Input';
@@ -33,7 +32,6 @@ function Login() {
   return (
     <div className="row full-width space-between">
       <div className={`column full-width center middle ${styles.loginContainer}`}>
-        <img className={styles.loginIconTitle} src={PageLogo} alt="zerf-icon" />
         <h1 className={styles.loginWelcome}>{i18next.t('Login:welcome')}</h1>
         <form className={`column ${styles.loginFormContainer}`} onSubmit={handleSubmit}>
           <Input
