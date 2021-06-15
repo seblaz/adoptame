@@ -13,7 +13,7 @@
     "start-front": "yarn --cwd packages/front start",
     "install-back": "yarn --cwd packages/back install",
     "start-back": "yarn --cwd packages/back start"
-  }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/seblaz/adoptame.git"
