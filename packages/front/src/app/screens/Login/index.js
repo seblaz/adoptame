@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import i18next from 'i18next';
 
 // Replace for project logo and/or banner
-import LoginBanner from '~assets/zerf-banner.jpg';
+import LoginBanner from '~assets/adoptame-banner.jpg';
 import { isValidEmail } from '~utils/validations';
 import Input from '~app/components/Input';
 import actionCreators from '~redux/Auth/actions';

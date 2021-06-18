@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "apisauce": "^2.0.1",
-    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.8.0",
     "enzyme": "^3.11.0",
@@ -34,7 +34,7 @@
     "rollbar": "^2.19.4"
   },
   "scripts": {
-    "start": "node ./scripts/start.js development",
+    "start": "node ./scripts/start.js",
     "build": "node ./scripts/build.js",
     "test": "jest --runInBand",
     "eject": "react-scripts eject",
@@ -56,10 +56,10 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-proposal-optional-chaining": "^7.11.0",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-react": "^7.10.4",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-optional-chaining": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
     "@rescripts/cli": "^0.0.14",
     "@rescripts/rescript-env": "^0.0.12",
     "babel": "^6.23.0",
