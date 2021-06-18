@@ -29,7 +29,9 @@ const AuthenticatedRoute = ({ title, description, path, authenticated, isPublic,
 AuthenticatedRoute.propTypes = {
   path: string.isRequired,
   description: string,
-  title: string
+  title: string,
+  description: string,
+  isPublic: boolean
 };
 
 export default withRouter(AuthenticatedRoute);
