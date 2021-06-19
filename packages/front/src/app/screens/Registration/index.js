@@ -12,28 +12,33 @@ const Registration = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
+  const handleSubmit = event => {
+    event.preventDefault();
     dispatch(actionCreators.register({ email, password }));
   };
 
   return (
     <div className={`column center middle ${styles.container}`}>
       <h1 className="title bold">Registro</h1>
-      <Input
-        name="email"
-        label="Email"
-        type="email"
-        value={email}
-        onChange={event => setEmail(event.target.value)}
-      />
-      <Input
-        name="password"
-        label="Password"
-        type="password"
-        value={password}
-        onChange={event => setPassword(event.target.value)}
-      />
-      <Button label="Enviar" onClick={handleSubmit} />
+      <form onSubmit={handleSubmit}>
+        <Input
+          name="email"
+          label="Email"
+          type="email"
+          value={email}
+          onChange={event => setEmail(event.target.value)}
+          required
+        />
+        <Input
+          name="password"
+          label="Password"
+          type="password"
+          value={password}
+          onChange={event => setPassword(event.target.value)}
+          required
+        />
+        <Button label="Enviar" type="submit" />
+      </form>
     </div>
   );
 };
