@@ -1,0 +1,24 @@
+{
+  "name": "web-bootstrap",
+  "private": "true",
+  "version": "1.0.0",
+  "description": "Web bootstrap with front and back unified",
+  "scripts": {
+    "audit-back": "npm audit --prefix packages/back",
+    "audit-front": "npm audit --prefix packages/front",
+    "audit-all": "npm run audit-front && npm run audit-back",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "npm run install-front && npm run install-back",
+    "install-front": "yarn --cwd packages/front install",
+    "start-front": "yarn --cwd packages/front start",
+    "install-back": "yarn --cwd packages/back install",
+    "start-back": "yarn --cwd packages/back start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seblaz/adoptame.git"
+  },
+  "author": "Adoptame SRL ?",
+  "license": "ISC",
+  "homepage": "https://github.com/seblaz/adoptame#readme"
+}
