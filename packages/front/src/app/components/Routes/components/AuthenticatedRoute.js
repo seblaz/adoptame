@@ -1,8 +1,8 @@
 import React from 'react';
 import cn from 'classnames';
-import { string } from 'prop-types';
+import { bool, string } from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
 import { ROUTES } from '~constants/routes';
@@ -28,10 +28,10 @@ const AuthenticatedRoute = ({ title, description, path, authenticated, isPublic,
 
 AuthenticatedRoute.propTypes = {
   path: string.isRequired,
+  authenticated: bool,
   description: string,
-  title: string,
-  description: string,
-  isPublic: boolean
+  isPublic: bool,
+  title: string
 };
 
 export default withRouter(AuthenticatedRoute);
