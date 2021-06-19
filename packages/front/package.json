@@ -84,10 +84,5 @@
     "prop-types": "^15.7.2",
     "qs": "^6.9.4",
     "seamless-immutable": "^7.1.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
   }
 }
