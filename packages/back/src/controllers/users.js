@@ -3,7 +3,7 @@ const { endRequest, catchRequest } = require('../helpers/request');
 const { encrypt, compare } = require('../helpers/passwords');
 const { includes } = require('../helpers/array');
 const { getModelFields } = require('../helpers/mongo');
-const { entityAlreadyExists, entityNotFound, invalidKeys } = require('../errors');
+const { entityNotFound, invalidKeys } = require('../errors');
 const { encodeLogin: encode, encodePasswordChange } = require('../services/session');
 const { forgotPasswordEmail } = require('../mailers/forgotPassword');
 const { buildQuery } = require('../helpers/mongo');
@@ -22,11 +22,10 @@ const passwordFlow = async (email, res) => {
     });
 };
 
-const saveUser = async (req, res) => {
+const createUser = async (req, res) => {
   const user = new User({ ...req.body, role: 'user' });
   const exists = await User.findOne({ email: user.email });
-  if (exists) return catchRequest({ err: entityAlreadyExists(`email ${user.email}`, 'user', '1031'), res });
-  user.active = false;
+  if (exists) return catchRequest({ err: { code: 400, message: 'Un usuario con ese email ya existe' }, res });
   return user.save()
     .then((response) => endRequest({
       response: {
@@ -36,7 +35,7 @@ const saveUser = async (req, res) => {
       res,
     }))
     .catch((err) => catchRequest({
-      err, res, message: 'Error saving User', internalCode: '1031',
+      err, res, message: 'Ha ocurrido un error creando el usuario',
     }));
 };
 
@@ -44,7 +43,6 @@ const signIn = async (req, res) => {
   const { email, password, admin } = req.body;
   const user = await User.findOne({ email, role: admin ? 'admin' : 'user' });
   if (!user) return catchRequest({ err: entityNotFound(`email ${email}`, 'user', '1032'), res });
-  if (!user.active) return passwordFlow(email, res);
   const valid = await compare(password, user.password);
   if (!valid) return catchRequest({ err: entityNotFound(`email ${email}`, 'user', '1032'), res });
   const payload = await encode(user.email);
@@ -93,7 +91,6 @@ const updatePassword = async (req, res) => {
   const { user } = req;
   const { password } = req.body;
   user.password = await encrypt(password);
-  user.active = true;
   logger.info(`${user.email} password recovery success`);
   return user.save()
     .then((response) => endRequest({
@@ -155,7 +152,7 @@ const deleteUser = (req, res) => User.findById(req.params.id)
   });
 
 module.exports = {
-  saveUser,
+  createUser,
   signIn,
   getUser,
   changePasswordFlow,

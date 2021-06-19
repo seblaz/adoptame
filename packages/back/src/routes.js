@@ -1,6 +1,6 @@
 const health = require('./controllers/health_check');
 const {
-  saveUser, signIn, getUser, changePasswordFlow,
+  createUser, signIn, getUser, changePasswordFlow,
   updatePassword, getUsers, updateUser, deleteUser, getUserById,
 } = require('./controllers/users');
 
@@ -18,8 +18,7 @@ const { createSignedUrl } = require('./controllers/files');
 module.exports = (app) => {
   // web app
   app.get('/health', health);
-
-  app.post('/users', [authenticate, isAdmin, validateSchemaAndFail(usersSchema)], saveUser);
+  app.post('/users', [validateSchemaAndFail(usersSchema)], createUser);
   app.post('/files/signed_url', [], createSignedUrl);
   app.post('/users/forgot_password', [validateSchemaAndFail(emailSchema)], changePasswordFlow);
   app.post('/users/password', [validateSchemaAndFail(passwordSchema), authenticatePasswordChange], updatePassword);

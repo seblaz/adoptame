@@ -15,7 +15,7 @@ const AppRoutesContainer = () => (
   <ConnectedRouter history={history}>
     <div className={`column center ${styles.container} ${styles.containerAlgo}`}>
       <Suspense>
-        <AuthenticatedRoute path={ROUTES.LOGIN} component={Login} public />
+        <AuthenticatedRoute path={ROUTES.LOGIN} component={Login} isPublic />
         <Route path={ROUTES.HOME} component={Home} exact />
         {process.env.NODE_ENV === 'development' && <Route path={ROUTES.PLAYGROUND} component={Playground} />}
       </Suspense>
