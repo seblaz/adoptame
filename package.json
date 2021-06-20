@@ -20,5 +20,8 @@
   },
   "author": "Adoptame SRL ?",
   "license": "ISC",
-  "homepage": "https://github.com/seblaz/adoptame#readme"
+  "homepage": "https://github.com/seblaz/adoptame#readme",
+  "dependencies": {
+    "yarn": "^1.22.10"
+  }
 }

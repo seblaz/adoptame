@@ -1,6 +1,5 @@
 /* eslint-disable implicit-arrow-linebreak */
 const AWS = require('aws-sdk');
-const { get } = require('../utils/request');
 const logger = require('../logger');
 const errors = require('../errors');
 const { DEFAULT_UPLOAD_EXPIRE_TIME, VALID_IMAGE_EXTENSIONS } = require('../constants');

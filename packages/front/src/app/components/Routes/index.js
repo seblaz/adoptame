@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 import Home from '~screens/Home';
 import Login from '~screens/Login';
 import Playground from '~screens/Playground';
+import Registration from '~screens/Registration';
 import { history } from '~redux/store';
 import { ROUTES } from '~constants/routes';
 
@@ -15,8 +16,9 @@ const AppRoutesContainer = () => (
   <ConnectedRouter history={history}>
     <div className={`column center ${styles.container} ${styles.containerAlgo}`}>
       <Suspense>
-        <AuthenticatedRoute path={ROUTES.LOGIN} component={Login} public />
         <Route path={ROUTES.HOME} component={Home} exact />
+        <AuthenticatedRoute path={ROUTES.REGISTRATION} component={Registration} isPublic exact />
+        <AuthenticatedRoute path={ROUTES.LOGIN} component={Login} isPublic exact />
         {process.env.NODE_ENV === 'development' && <Route path={ROUTES.PLAYGROUND} component={Playground} />}
       </Suspense>
     </div>

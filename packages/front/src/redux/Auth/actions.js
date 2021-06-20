@@ -20,6 +20,19 @@ export const actionCreators = {
         dispatch(push(ROUTES.HOME));
       })
     ]
+  }),
+
+  register: ({ email, password }) => ({
+    type: actions.LOGIN,
+    target: TARGETS.USER,
+    payload: { email, password },
+    service: UserService.register,
+    injections: [
+      withPostSuccess(dispatch => {
+        // TODO: Persist token into api header and save user into state.
+        dispatch(push(ROUTES.HOME));
+      })
+    ]
   })
 };
 

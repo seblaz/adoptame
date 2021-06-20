@@ -1,5 +1,5 @@
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./docs.js');
+const swaggerDocument = require('./docs');
 const { initDatabase } = require('./db');
 const app = require('./app_builder');
 require('./services/rollbar');
