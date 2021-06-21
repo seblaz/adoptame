@@ -12,8 +12,8 @@ export const actionCreators = {
     payload,
     service: AnimalService.createAnimal,
     injections: [
-      withPostSuccess(dispatch => {
-        dispatch(push(ROUTES.HOME));
+      withPostSuccess((dispatch, { data: { id } }) => {
+        dispatch(push(`${ROUTES.ANIMALS}/${id}`));
       })
     ]
   })
