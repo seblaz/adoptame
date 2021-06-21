@@ -46,8 +46,9 @@ const defineProperty = (prop, defaultKey = '', tag = '') => {
   module.exports[`set${capitalizedKey}`] = (val, key = defaultKey) =>
     setValue(`@@ADOPTAME:${prop}${tag}${key}`, val);
   module.exports[`get${capitalizedKey}`] = (key = defaultKey) => getValue(`@@ADOPTAME:${prop}${tag}${key}`);
-  module.exports[`remove${capitalizedKey}`] = (key = defaultKey) => removeValue(`@@ADOPTAME:${prop}${tag}${key}`);
+  module.exports[`remove${capitalizedKey}`] = (key = defaultKey) =>
+    removeValue(`@@ADOPTAME:${prop}${tag}${key}`);
 };
 
 // ------------------------------ LOCAL STORAGE PROPERTIES ------------------------------
-// defineProperty('sessionToken');
+defineProperty('sessionToken');
