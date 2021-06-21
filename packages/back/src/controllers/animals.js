@@ -3,7 +3,7 @@ const { endRequest, catchRequest } = require('../helpers/request');
 
 const createAnimal = async (req, res) => {
   console.log(req.body);
-  const animal = new Animal({ ...req.body });
+  const animal = new Animal(req.body);
   return animal.save()
     .then((response) => endRequest({
       response: response,
