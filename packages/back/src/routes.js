@@ -34,6 +34,7 @@ module.exports = (app) => {
   app.get('/users', [authenticate, isAdmin, mongoQueries], getUsers);
   // Animals
   app.post('/animals', [validateSchemaAndFail(animalSchema)], createAnimal);
+  app.get('/animal/:id', [validateId(id), getAnimalById])
 
   app.get('/me', [authenticate], getUser);
 };
