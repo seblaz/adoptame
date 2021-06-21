@@ -4,6 +4,10 @@ const {
   updatePassword, getUsers, updateUser, deleteUser, getUserById,
 } = require('./controllers/users');
 
+const {
+  createAnimal
+} = require('./controllers/animals');
+
 const { validateSchemaAndFail } = require('./middlewares/params');
 const mongoQueries = require('./middlewares/mongo_queries');
 
@@ -11,7 +15,8 @@ const { authenticateUser: authenticate, authenticatePasswordChange, isAdmin } = 
 
 const {
   usersSchema, signInSchema,
-  passwordSchema, emailSchema,
+  passwordSchema, emailSchema, 
+  animalSchema,
 } = require('./schemas');
 const { createSignedUrl } = require('./controllers/files');
 
@@ -27,6 +32,8 @@ module.exports = (app) => {
   app.put('/users/:id', [authenticate, isAdmin, mongoQueries], updateUser);
   app.delete('/users/:id', [authenticate, isAdmin, mongoQueries], deleteUser);
   app.get('/users', [authenticate, isAdmin, mongoQueries], getUsers);
+  // Animals
+  app.post('/animals', [validateSchemaAndFail(animalSchema)], createAnimal);
 
   app.get('/me', [authenticate], getUser);
 };
