@@ -5,7 +5,8 @@ const {
 } = require('./controllers/users');
 
 const {
-  createAnimal
+  createAnimal,
+  getAnimalById
 } = require('./controllers/animals');
 
 const { validateSchemaAndFail } = require('./middlewares/params');
@@ -34,6 +35,7 @@ module.exports = (app) => {
   app.get('/users', [authenticate, isAdmin, mongoQueries], getUsers);
   // Animals
   app.post('/animals', [validateSchemaAndFail(animalSchema)], createAnimal);
+  app.get('/animals/:id', mongoQueries, getAnimalById);
 
   app.get('/me', [authenticate], getUser);
 };
