@@ -6,6 +6,7 @@ import i18next from 'i18next';
 // import LoginBanner from '~assets/adoptame-banner.jpg';
 import { isValidEmail } from '~utils/validations';
 import Input from '~app/components/Input';
+import Button from '~app/components/Button';
 import actionCreators from '~redux/Auth/actions';
 
 import styles from './styles.module.scss';
@@ -32,8 +33,8 @@ function Login() {
   return (
     <div className="row full-width space-between">
       <div className={`column full-width center middle ${styles.loginContainer}`}>
-        <h1 className={styles.loginWelcome}>{i18next.t('Login:welcome')}</h1>
         <form className={`column ${styles.loginFormContainer}`} onSubmit={handleSubmit}>
+          <h3 className={styles.loginWelcome}>{i18next.t('Login:welcome')}</h3>
           <Input
             name="email"
             label={i18next.t('Login:user')}
@@ -53,11 +54,8 @@ function Login() {
             value={password}
             onChange={handlePassChange}
           />
-          <button type="submit" className={`row middle center m-bottom-4 ${styles.loginButton}`}>
-            <span className={`${styles.loginButtonText} bold text-uppercase`}>
-              {i18next.t('Login:login')}
-            </span>
-          </button>
+
+          <Button type="submit" className={`${styles.loginButton}`} label={i18next.t('Login:login')} />
         </form>
         {/* <img src={LoginBanner} className={`full-width ${styles.loginBanner}`} /> */}
       </div>
