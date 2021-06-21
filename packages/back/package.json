@@ -41,7 +41,8 @@
     "pino-pretty": "^3.5.0",
     "query-string": "^6.11.1",
     "rollbar": "^2.19.4",
-    "swagger-ui-express": "^4.1.2"
+    "swagger-ui-express": "^4.1.2",
+    "yarn": "^1.22.10"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",

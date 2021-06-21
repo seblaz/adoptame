@@ -6,7 +6,8 @@ const {
 
 const {
   createAnimal,
-  getAnimalById
+  getAnimalById, 
+  getAnimals
 } = require('./controllers/animals');
 
 const { validateSchemaAndFail } = require('./middlewares/params');
@@ -34,7 +35,10 @@ module.exports = (app) => {
   app.delete('/users/:id', [authenticate, isAdmin, mongoQueries], deleteUser);
   app.get('/users', [authenticate, isAdmin, mongoQueries], getUsers);
   // Animals
+  // TODO: add authentication to this apis
+  
   app.post('/animals', [validateSchemaAndFail(animalSchema)], createAnimal);
+  app.get('/animals', getAnimals);
   app.get('/animals/:id', mongoQueries, getAnimalById);
 
   app.get('/me', [authenticate], getUser);
