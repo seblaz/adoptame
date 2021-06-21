@@ -23,7 +23,8 @@ const passwordFlow = async (email, res) => {
 };
 
 const createUser = async (req, res) => {
-  const user = new User({ ...req.body, role: 'user' });
+  const password = await encrypt(req.body.password);
+  const user = new User({ ...req.body, password, role: 'user' });
   const exists = await User.findOne({ email: user.email });
   if (exists) return catchRequest({ err: { code: 400, message: 'Un usuario con ese email ya existe' }, res });
   return user.save()
@@ -47,6 +48,7 @@ const signIn = async (req, res) => {
   const user = await User.findOne({ email, role: admin ? 'admin' : 'user' });
   if (!user) return catchRequest({ err: entityNotFound(`email ${email}`, 'user', '1032'), res });
   const valid = await compare(password, user.password);
+  //console.log(valid);
   if (!valid) return catchRequest({ err: entityNotFound(`email ${email}`, 'user', '1032'), res });
   const payload = await encode(user.email);
   res.set('authorization', payload);

@@ -58,7 +58,6 @@ function Login() {
               {i18next.t('Login:login')}
             </span>
           </button>
-          <span className={styles.forgotPassword}>{i18next.t('Login:forgotPassword')}</span>
         </form>
         <img src={LoginBanner} className={`full-width ${styles.loginBanner}`} />
       </div>
