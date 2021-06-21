@@ -1,5 +1,6 @@
 const Animal = require('../models/animals');
 const { endRequest, catchRequest } = require('../helpers/request');
+const { entityNotFound } = require('../errors');
 
 const createAnimal = async (req, res) => {
   console.log(req.body);
@@ -18,7 +19,21 @@ const createAnimal = async (req, res) => {
     });
 };
 
+const getAnimalById = async (req,res) => {
+  
+  const { id } = req.params
+  const animal = await Animal.findById(id);
+
+  if (!animal) return catchRequest({ err: entityNotFound(`id ${id}`, 'animal', '1032'), res });
+
+  return endRequest({
+    response: animal, 
+    code: 200, 
+    res
+  });
+}
 
 module.exports = {
-  createAnimal
+  createAnimal, 
+  getAnimalById
 };
