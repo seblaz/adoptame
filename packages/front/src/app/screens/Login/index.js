@@ -31,34 +31,36 @@ function Login() {
   };
 
   return (
-    <div className="row full-width space-between">
-      <div className={`column full-width center middle ${styles.loginContainer}`}>
-        <form className={`column ${styles.loginFormContainer}`} onSubmit={handleSubmit}>
-          <h3 className={styles.loginWelcome}>{i18next.t('Login:welcome')}</h3>
-          <Input
-            name="email"
-            label={i18next.t('Login:user')}
-            className="m-bottom-4"
-            type="email"
-            inputType="text"
-            onChange={handleUserChange}
-            value={email}
-            error={emailError}
-          />
-          <Input
-            name="password"
-            label={i18next.t('Login:password')}
-            className="m-bottom-4"
-            type="password"
-            inputType="text"
-            value={password}
-            onChange={handlePassChange}
-          />
+    <div className={`column center middle full-width ${styles.loginContainer}`}>
+      <form className={`column ${styles.loginFormContainer}`} onSubmit={handleSubmit}>
+        <h2 className="title bold m-bottom-4">{i18next.t('Login:welcome')}</h2>
+        <Input
+          name="email"
+          label={i18next.t('Login:user')}
+          className="m-bottom-4"
+          type="email"
+          inputType="text"
+          onChange={handleUserChange}
+          value={email}
+          error={emailError}
+        />
+        <Input
+          name="password"
+          label={i18next.t('Login:password')}
+          className="m-bottom-4"
+          type="password"
+          inputType="text"
+          value={password}
+          onChange={handlePassChange}
+        />
 
-          <Button type="submit" className={`${styles.loginButton}`} label={i18next.t('Login:login')} />
-        </form>
-        {/* <img src={LoginBanner} className={`full-width ${styles.loginBanner}`} /> */}
-      </div>
+        <Button
+          type="submit"
+          className={`row center middle ${styles.loginButton}`}
+          label={i18next.t('Login:login')}
+        />
+      </form>
+      {/* <img src={LoginBanner} className={`full-width ${styles.loginBanner}`} /> */}
     </div>
   );
 }
