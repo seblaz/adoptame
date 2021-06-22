@@ -1,5 +1,6 @@
 const Postulation = require('../models/postulations');
 const { endRequest, catchRequest } = require('../helpers/request');
+const { entityNotFound } = require('../errors');
 
 const createPostulation = async (req, res) => {
   const postulation = new Postulation(req.body);
@@ -36,6 +37,25 @@ const createPostulation = async (req, res) => {
     });
 };
 
+const getPostulationByAnimalId = async (req, res) => {
+  
+  const { params: { animalId } } = req;
+
+  console.log(animalId)
+
+  const postulations = await Postulation.find({ animalId });
+
+  if (!postulations || postulations.length === 0) return catchRequest(
+    { err: entityNotFound(`animalId ${animalId}`, 'postulation', '1032'), res });
+
+  return endRequest({
+    response: postulations, 
+    code: 200, 
+    res
+  });
+}
+
 module.exports = {
-  createPostulation
+  createPostulation,
+  getPostulationByAnimalId
 };

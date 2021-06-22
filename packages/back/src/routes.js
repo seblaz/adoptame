@@ -10,7 +10,8 @@ const {
 } = require('./controllers/animals');
 
 const {
-  createPostulation
+  createPostulation,
+  getPostulationByAnimalId
 } = require('./controllers/postulations');
 
 const { validateSchemaAndFail } = require('./middlewares/params');
@@ -41,7 +42,8 @@ module.exports = (app) => {
   app.post('/animals', [validateSchemaAndFail(animalSchema)], createAnimal);
   app.get('/animals/:id', mongoQueries, getAnimalById);
   //Postulations
-  app.post('/postulations', [validateSchemaAndFail(postulationSchema)], createPostulation)
+  app.post('/postulations', [validateSchemaAndFail(postulationSchema)], createPostulation);
+  app.get('/postulations/:animalId', getPostulationByAnimalId);
 
   app.get('/me', [authenticate], getUser);
 };
