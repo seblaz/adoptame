@@ -41,8 +41,6 @@ const getPostulationByAnimalId = async (req, res) => {
   
   const { params: { animalId } } = req;
 
-  console.log(animalId)
-
   const postulations = await Postulation.find({ animalId });
 
   if (!postulations || postulations.length === 0) return catchRequest(
