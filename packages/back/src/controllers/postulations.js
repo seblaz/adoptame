@@ -2,7 +2,7 @@ const Postulation = require('../models/postulations');
 const { endRequest, catchRequest } = require('../helpers/request');
 
 const createPostulation = async (req, res) => {
-  const postulation = new Postulation(req.body);
+  const postulation = new Postulation({ ...req.body, userId: req.user.id });
   return postulation.save()
     .then((response) => endRequest({
       response: response,

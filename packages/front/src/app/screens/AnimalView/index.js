@@ -16,10 +16,14 @@ const AnimalView = () => {
   const dispatch = useDispatch();
   const { animal, animalLoading } = useSelector(state => state.animals);
   const [description, setDescription] = useState('');
+
   const modalOpen = useSelector(state => state.modal[MODALS.APPLICATION_MODAL]);
   const openModal = () => dispatch(ModalActions.openModal(MODALS.APPLICATION_MODAL));
   const closeModal = () => dispatch(ModalActions.closeModal(MODALS.APPLICATION_MODAL));
+
   const handleDescriptionChange = e => setDescription(e.target.value);
+
+  const submitApplication = () => dispatch(AnimalActions.postulateForAdoption({ id, description }));
 
   useEffect(() => {
     dispatch(AnimalActions.getAnimal(id));
@@ -29,14 +33,42 @@ const AnimalView = () => {
     <LoadingWrapper loading={animalLoading}>
       {animal && (
         <>
-          <div className="column center middle">
-            <h1 className="title bold">Animal</h1>
-            <div>Nombre: {animal.nombre}</div>
-            <div>Especie: {animal.especie}</div>
-            <div>Sexo: {animal.sexo}</div>
-            <div>Edad: {animal.edad}</div>
-            <div>Tamaño: {animal.tamanio}</div>
-            <Button label="Postularse como adoptante" onClick={openModal} type="button" />
+          <div className={`column full-width ${styles.animalViewContainer}`}>
+            <h1 className="title bold">Adoptar Mascota</h1>
+            <div className="row middle">
+              <div className={`column half-width ${styles.infoContainer}`}>
+                <div className="row middle space-between">
+                  <span className="large-text bold">Nombre:</span>
+                  <span className="text"> {animal.nombre}</span>
+                </div>
+                <div className="row middle space-between">
+                  <span className="large-text bold">Especie:</span>
+                  <span className="text"> {animal.especie}</span>
+                </div>
+                <div className="row middle space-between">
+                  <span className="large-text bold">Sexo: </span>
+                  <span className="text">{animal.sexo}</span>
+                </div>
+                <div className="row middle space-between">
+                  <span className="large-text bold">Edad: </span>
+                  <span className="text">{animal.edad}</span>
+                </div>
+                <div className="row middle space-between">
+                  <span className="large-text bold">Tamaño: </span>
+                  <span className="text">{animal.tamanio}</span>
+                </div>
+              </div>
+              <img
+                src="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
+                className={styles.photo}
+              />
+            </div>
+            <Button
+              label="Postularse como adoptante"
+              onClick={openModal}
+              type="button"
+              className={styles.button}
+            />
           </div>
           <CustomModal
             className={styles.modalContainer}
@@ -58,9 +90,9 @@ const AnimalView = () => {
               <Button
                 disabled={description.length < 10}
                 label="Confirmar"
-                onClick={closeModal}
+                onClick={submitApplication}
                 type="button"
-                className={`full-width ${styles.submitButton}`}
+                className={`full-width ${styles.button}`}
               />
             </div>
           </CustomModal>
