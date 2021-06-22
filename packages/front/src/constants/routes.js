@@ -3,5 +3,7 @@ export const ROUTES = {
   LOGIN: '/login',
   REGISTRATION: '/registration',
   CREATE_ANIMAL: '/create-animal',
+  ANIMAL_VIEW: '/animals/:id',
+  ANIMALS: '/animals',
   PLAYGROUND: '/playground'
 };

@@ -5,8 +5,13 @@ const {
 } = require('./controllers/users');
 
 const {
-  createAnimal
+  createAnimal,
+  getAnimalById
 } = require('./controllers/animals');
+
+const {
+  createPostulation
+} = require('./controllers/postulations');
 
 const { validateSchemaAndFail } = require('./middlewares/params');
 const mongoQueries = require('./middlewares/mongo_queries');
@@ -16,7 +21,7 @@ const { authenticateUser: authenticate, authenticatePasswordChange, isAdmin } = 
 const {
   usersSchema, signInSchema,
   passwordSchema, emailSchema, 
-  animalSchema,
+  animalSchema, postulationSchema
 } = require('./schemas');
 const { createSignedUrl } = require('./controllers/files');
 
@@ -34,6 +39,9 @@ module.exports = (app) => {
   app.get('/users', [authenticate, isAdmin, mongoQueries], getUsers);
   // Animals
   app.post('/animals', [validateSchemaAndFail(animalSchema)], createAnimal);
+  app.get('/animals/:id', mongoQueries, getAnimalById);
+  //Postulations
+  app.post('/postulations', [validateSchemaAndFail(postulationSchema)], createPostulation)
 
   app.get('/me', [authenticate], getUser);
 };
