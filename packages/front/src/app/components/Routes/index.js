@@ -11,6 +11,7 @@ import AnimalView from '~screens/AnimalView';
 import { history } from '~redux/store';
 import { ROUTES } from '~constants/routes';
 import LocalStorageService from '~services/LocalStorageService';
+import { setAuthHeader } from '~config/api';
 
 import styles from './styles.module.scss';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
@@ -23,6 +24,9 @@ const AppRoutesContainer = () => {
     const t = LocalStorageService.getSessionToken();
     setToken(t);
     setFetched(true);
+    if (t) {
+      setAuthHeader(t);
+    }
   }, [setToken, setFetched]);
   const authorized = !fetched || token;
   return (

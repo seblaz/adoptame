@@ -29,11 +29,5 @@ api.addResponseTransform(response => {
   }
 });
 
-api.addRequestTransform(request => {
-  if (request.data) {
-    request.data = snakeSerializer.serialize(request.data);
-  }
-});
-
-export const setAuthHeaders = token => api.setHeader('authorization', `Bearer ${token}`);
+export const setAuthHeader = token => api.setHeader('authorization', `Bearer ${token}`);
 export default api;

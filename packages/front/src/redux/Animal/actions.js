@@ -31,14 +31,14 @@ export const actionCreators = {
       })
     ]
   }),
-  postulateForAdoption: (id, description) => ({
+  postulateForAdoption: ({ id, description }) => ({
     type: actions.ADOPT_ANIMAL,
     target: TARGETS.ANIMAL,
     payload: { id, description },
     service: AnimalService.postulateForAdoption,
     injections: [
       withPostSuccess(dispatch => {
-        dispatch(push(`${ROUTES.ANIMALS}/${id}`));
+        dispatch(push(ROUTES.CREATE_ANIMAL));
       })
     ]
   })
