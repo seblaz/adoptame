@@ -22,7 +22,7 @@ export const actionCreators = {
         const { token } = response.data;
         LocalStorageService.setSessionToken(token);
         setAuthHeaders(token);
-        dispatch(push(ROUTES.HOME));
+        dispatch(push(ROUTES.CREATE_ANIMAL));
       })
     ]
   }),

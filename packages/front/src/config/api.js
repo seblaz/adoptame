@@ -2,6 +2,7 @@ import { create } from 'apisauce';
 import { CamelcaseSerializer, SnakecaseSerializer } from 'cerealizr';
 
 import { NON_SERIALIZABLE_URLS } from '~constants/urls';
+import LocalStorageService from '~services/LocalStorageService';
 
 const camelSerializer = new CamelcaseSerializer();
 const snakeSerializer = new SnakecaseSerializer();
@@ -20,6 +21,9 @@ const api = create({
 });
 
 api.addResponseTransform(response => {
+  if (response.status === 401) {
+    LocalStorageService.removeSessionToken();
+  }
   if (response.data && !notSerializableUrl(response.config.url)) {
     response.data = camelSerializer.serialize(response.data);
   }
