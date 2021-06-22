@@ -31,4 +31,5 @@ api.addRequestTransform(request => {
   }
 });
 
+export const setAuthHeaders = token => api.setHeader('authorization', `Bearer ${token}`);
 export default api;

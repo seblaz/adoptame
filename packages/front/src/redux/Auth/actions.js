@@ -4,6 +4,7 @@ import { push } from 'connected-react-router';
 import * as UserService from '~services/AuthService';
 import LocalStorageService from '~services/LocalStorageService';
 import { ROUTES } from '~constants/routes';
+import { setAuthHeaders } from '~config/api';
 
 import { TARGETS } from './constants';
 
@@ -18,7 +19,9 @@ export const actionCreators = {
     injections: [
       withPostSuccess((dispatch, response) => {
         // TODO: Persist token into api header and save user into state.
-        LocalStorageService.setSessionToken(response.data.token);
+        const { token } = response.data;
+        LocalStorageService.setSessionToken(token);
+        setAuthHeaders(token);
         dispatch(push(ROUTES.HOME));
       })
     ]

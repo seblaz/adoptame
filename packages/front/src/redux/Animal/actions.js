@@ -4,12 +4,15 @@ import { push } from 'connected-react-router';
 import * as AnimalService from '~services/AnimalService';
 import { ROUTES } from '~constants/routes';
 
+import { TARGETS } from './constants';
+
 export const actions = createTypes(completeTypes(['CREATE_ANIMAL', 'GET_ANIMAL']), '@@ANIMAL');
 
 export const actionCreators = {
   createAnimal: payload => ({
     type: actions.CREATE_ANIMAL,
     payload,
+    target: TARGETS.ANIMAL,
     service: AnimalService.createAnimal,
     injections: [
       withPostSuccess((dispatch, { data: { id } }) => {
@@ -18,7 +21,8 @@ export const actionCreators = {
     ]
   }),
   getAnimal: id => ({
-    type: actions.CREATE_ANIMAL,
+    type: actions.GET_ANIMAL,
+    target: TARGETS.ANIMAL,
     payload: id,
     service: AnimalService.getAnimal,
     injections: [

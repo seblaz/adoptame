@@ -12,18 +12,20 @@ const AnimalView = () => {
 
   useEffect(() => {
     dispatch(actionCreators.getAnimal(id));
-  });
+  }, [dispatch, id]);
 
   return (
     <LoadingWrapper loading={animalLoading}>
-      <div className="column center middle">
-        <h1 className="title bold">Animal</h1>
-        <div>Nombre: {animal.nombre}</div>
-        <div>Especie: {animal.especie}</div>
-        <div>Sexo: {animal.sexo}</div>
-        <div>Edad: {animal.edad}</div>
-        <div>Tamaño: {animal.tamanio}</div>
-      </div>
+      {animal && (
+        <div className="column center middle">
+          <h1 className="title bold">Animal</h1>
+          <div>Nombre: {animal.nombre}</div>
+          <div>Especie: {animal.especie}</div>
+          <div>Sexo: {animal.sexo}</div>
+          <div>Edad: {animal.edad}</div>
+          <div>Tamaño: {animal.tamanio}</div>
+        </div>
+      )}
     </LoadingWrapper>
   );
 };
