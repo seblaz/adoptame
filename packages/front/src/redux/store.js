@@ -4,6 +4,8 @@ import { applyMiddleware, combineReducers as CR, compose, createStore } from 're
 import thunk from 'redux-thunk';
 import { fetchMiddleware, configureMergeState, wrapCombineReducers } from 'redux-recompose';
 
+import auth from './Auth/reducer';
+import animals from './Animal/reducer';
 import modal from './Modal/reducer';
 
 configureMergeState((state, diff) => state.merge(diff));
@@ -15,7 +17,9 @@ export const history = createBrowserHistory();
 // Add reducers here
 const reducers = combineReducers({
   router: connectRouter(history),
-  modal
+  modal,
+  animals,
+  auth
 });
 
 const middlewares = [thunk, fetchMiddleware, routerMiddleware(history)];
