@@ -23,7 +23,8 @@ const passwordFlow = async (email, res) => {
 };
 
 const createUser = async (req, res) => {
-  const user = new User({ ...req.body, role: 'user' });
+  const password = await encrypt(req.body.password);
+  const user = new User({ ...req.body, password, role: 'user' });
   const exists = await User.findOne({ email: user.email });
   if (exists) return catchRequest({ err: { code: 400, message: 'Un usuario con ese email ya existe' }, res });
   return user.save()

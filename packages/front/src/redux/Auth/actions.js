@@ -30,7 +30,7 @@ export const actionCreators = {
     injections: [
       withPostSuccess(dispatch => {
         // TODO: Persist token into api header and save user into state.
-        dispatch(push(ROUTES.HOME));
+        dispatch(push(ROUTES.LOGIN));
       })
     ]
   })
