@@ -10,6 +10,6 @@ module.exports = {
   signInSchema,
   passwordSchema,
   emailSchema,
-  animalSchema, 
-  postulationSchema
+  animalSchema,
+  postulationSchema,
 };

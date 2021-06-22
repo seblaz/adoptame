@@ -15,5 +15,5 @@ module.exports = {
     in: ['body'],
     isString: true,
     errorMessage: errors.POSTULATION.DESCRIPTION,
-  }
+  },
 };
