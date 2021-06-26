@@ -56,3 +56,4 @@ module.exports = {
   createPostulation,
   getPostulationByAnimalIds
 };
+
