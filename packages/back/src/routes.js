@@ -1,6 +1,6 @@
 const health = require('./controllers/health_check');
 const {
-  createUser, signIn, getUser, changePasswordFlow,
+  createUser, signIn, getUser, changePasswordFlow, updateMe,
   updatePassword, getUsers, updateUser, deleteUser, getUserById,
 } = require('./controllers/users');
 
@@ -44,4 +44,5 @@ module.exports = (app) => {
   app.post('/postulations', [authenticate, validateSchemaAndFail(postulationSchema)], createPostulation);
 
   app.get('/me', [authenticate], getUser);
+  app.put('/me', [authenticate, mongoQueries], updateMe);
 };

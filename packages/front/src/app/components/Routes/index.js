@@ -8,6 +8,8 @@ import Animal from '~screens/Animal';
 import Playground from '~screens/Playground';
 import Registration from '~screens/Registration';
 import AnimalView from '~screens/AnimalView';
+import PersonalData from '~screens/PersonalData';
+import PersonalDataEdit from '~screens/PersonalDataEdit';
 import { history } from '~redux/store';
 import { ROUTES } from '~constants/routes';
 
@@ -23,6 +25,8 @@ const AppRoutesContainer = () => (
         <AuthenticatedRoute path={ROUTES.CREATE_ANIMAL} component={Animal} exact />
         <AuthenticatedRoute path={ROUTES.ANIMAL_VIEW} component={AnimalView} exact />
         <AuthenticatedRoute path={ROUTES.HOME} component={Home} exact />
+        <AuthenticatedRoute path={ROUTES.PERSONAL_DATA} component={PersonalData} exact />
+        <AuthenticatedRoute path={ROUTES.PERSONAL_DATA_EDIT} component={PersonalDataEdit} exact />
         {process.env.NODE_ENV === 'development' && <Route path={ROUTES.PLAYGROUND} component={Playground} />}
       </Suspense>
     </div>

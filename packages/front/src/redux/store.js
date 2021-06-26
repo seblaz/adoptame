@@ -7,6 +7,7 @@ import { fetchMiddleware, configureMergeState, wrapCombineReducers } from 'redux
 import auth from './Auth/reducer';
 import animals from './Animal/reducer';
 import modal from './Modal/reducer';
+import me from './MyData/reducer';
 
 configureMergeState((state, diff) => state.merge(diff));
 
@@ -19,7 +20,8 @@ const reducers = combineReducers({
   router: connectRouter(history),
   modal,
   animals,
-  auth
+  auth,
+  me
 });
 
 const middlewares = [thunk, fetchMiddleware, routerMiddleware(history)];
