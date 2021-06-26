@@ -11,10 +11,7 @@ const {
 
 const {
   createPostulation,
-<<<<<<< HEAD
   getPostulationByAnimalId
-=======
->>>>>>> main
 } = require('./controllers/postulations');
 
 const { validateSchemaAndFail } = require('./middlewares/params');
