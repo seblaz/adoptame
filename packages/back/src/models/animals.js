@@ -5,7 +5,7 @@ const schema = new Schema({
   especie: { type: String, enum: ['perro', 'gato'], required: true },
   tamanio: { type: String, enum: ['chico', 'mediano', 'grande'] },
   edad: { type: Number },
-  sexo: { type: String, enum: ['femenino', 'masculino'], required:true },
+  sexo: { type: String, enum: ['femenino', 'masculino'], required: true },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Animal', schema);
