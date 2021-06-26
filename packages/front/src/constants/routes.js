@@ -6,5 +6,6 @@ export const ROUTES = {
   ANIMAL_VIEW: '/animals/:id',
   ANIMALS: '/animals',
   PERSONAL_DATA: '/me',
+  PERSONAL_DATA_EDIT: '/me/edit',
   PLAYGROUND: '/playground'
 };
