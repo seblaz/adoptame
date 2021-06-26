@@ -72,7 +72,7 @@ const PersonalDataEdit = () => {
             name="telefono"
             label="Teléfono"
             value={telefono}
-            type="text"
+            type="tel"
             onChange={event => setTelefono(event.target.value)}
             required
           />
@@ -80,9 +80,10 @@ const PersonalDataEdit = () => {
             name="anio_de_nacimiento"
             label="Año de nacimiento"
             value={anioDeNacimiento}
-            type="text"
+            type="number"
+            min={0}
+            max={150}
             onChange={event => setAnioDeNacimiento(event.target.value)}
-            required
           />
           <Input
             name="zona"
