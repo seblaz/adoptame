@@ -6,6 +6,8 @@ import Input from '~app/components/Input';
 import Button from '~app/components/Button';
 import Select from '~components/Select';
 
+import styles from './styles.module.scss';
+
 const Animal = () => {
   const especies = [
     {
@@ -46,9 +48,9 @@ const Animal = () => {
 
   const [nombre, setNombre] = useState('');
   const [edad, setEdad] = useState('');
-  const [especie, setEspecie] = useState(especies[0].value);
-  const [tamanio, setTamanio] = useState(tamanios[1].value);
-  const [sexo, setSexo] = useState(sexos[0].value);
+  const [especie, setEspecie] = useState();
+  const [tamanio, setTamanio] = useState();
+  const [sexo, setSexo] = useState();
   const dispatch = useDispatch();
 
   const handleSubmit = event => {
@@ -57,9 +59,9 @@ const Animal = () => {
   };
 
   return (
-    <div className="column center middle">
-      <h1 className="title bold">Crear publicación</h1>
-      <form onSubmit={handleSubmit}>
+    <div className={`column center middle ${styles.container}`}>
+      <form onSubmit={handleSubmit} className={`column middle ${styles.formContainer}`}>
+        <h1 className="title bold">Crear publicación</h1>
         <Input
           name="nombre"
           label="Nombre"
@@ -70,21 +72,25 @@ const Animal = () => {
         />
         <Select
           name="especie"
-          label="Especie"
+          placeholder="-- Seleccione una especie --"
+          label="Especie:"
           options={especies}
           value={especie}
           onChange={event => setEspecie(event.target.value)}
         />
         <Select
           name="tamanio"
-          label="Tamaño"
+          placeholder="-- Seleccione un tamaño --"
+          label="Tamaño:"
+          className={styles.selectAnimalCreate}
           options={tamanios}
           value={tamanio}
           onChange={event => setTamanio(event.target.value)}
         />
         <Select
           name="sexo"
-          label="Sexo"
+          placeholder="-- Seleccione el sexo --"
+          label="Sexo:"
           options={sexos}
           value={sexo}
           onChange={event => setSexo(event.target.value)}
@@ -100,7 +106,7 @@ const Animal = () => {
           step={1}
           required
         />
-        <Button label="Enviar" type="submit" />
+        <Button type="submit" className={`row center middle ${styles.submit}`} label="Enviar" />
       </form>
     </div>
   );

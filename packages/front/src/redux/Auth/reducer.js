@@ -1,12 +1,14 @@
 import Immutable from 'seamless-immutable';
 import { createReducer, completeState, completeReducer } from 'redux-recompose';
 
+import LocalStorageService from '~services/LocalStorageService';
+
 import { actions } from './actions';
 import { TARGETS } from './constants';
 
 const initialState = {
   onInitialLoad: true,
-  [TARGETS.USER]: null
+  [TARGETS.USER]: { token: LocalStorageService.getSessionToken() }
 };
 
 const completedState = completeState(initialState);

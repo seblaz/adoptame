@@ -350,7 +350,6 @@ module.exports = {
     "react/jsx-no-target-blank": "error",
     "react/jsx-pascal-case": "error",
     "react/jsx-props-no-multi-spaces": "error",
-    "react/jsx-sort-default-props": "error",
     "react/jsx-tag-spacing": ["error", { beforeClosing: "never" }],
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
@@ -387,15 +386,6 @@ module.exports = {
     "react/react-in-jsx-scope": "error",
     "react/require-render-return": "error",
     "react/self-closing-comp": "error",
-    "react/sort-prop-types": [
-      "error",
-      {
-        ignoreCase: true,
-        callbacksLast: true,
-        requiredFirst: true,
-        sortShapeProp: true
-      }
-    ],
     "react/style-prop-object": "error",
     "react/void-dom-elements-no-children": "error",
 

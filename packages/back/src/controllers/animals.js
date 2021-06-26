@@ -3,7 +3,6 @@ const { endRequest, catchRequest } = require('../helpers/request');
 const { entityNotFound } = require('../errors');
 
 const createAnimal = async (req, res) => {
-  console.log(req.body);
   const animal = new Animal(req.body);
   return animal.save()
     .then((response) => endRequest({
