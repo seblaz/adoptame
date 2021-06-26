@@ -19,7 +19,7 @@ function Login() {
 
   const handleUserChange = event => {
     const { value } = event?.currentTarget;
-    setEmailError(!isValidEmail(value) && i18next.t('Validations:invalidEmail'));
+    setEmailError(isValidEmail(value) ? '' : i18next.t('Validations:invalidEmail'));
     setEmail(value);
   };
 
