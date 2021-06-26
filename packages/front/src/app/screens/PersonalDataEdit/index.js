@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -33,7 +35,16 @@ const PersonalDataEdit = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(actionCreators.updateMyData({ nombre }));
+
+    dispatch(
+      actionCreators.updateMyData({
+        nombre,
+        email,
+        telefono,
+        anio_de_nacimiento: anioDeNacimiento,
+        zona
+      })
+    );
   };
 
   return (

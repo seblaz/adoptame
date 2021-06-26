@@ -146,6 +146,10 @@ const updateUser = (req, res) => User.findById(req.params.id)
     err, res, message: 'Error updating user', internalCode: '1035',
   }));
 
+const updateMe = (req, res) => {
+  return endRequest({response: req.body, code: 200, res});
+}
+
 const deleteUser = (req, res) => User.findById(req.params.id)
   .then((user) => {
     if (!user) return catchRequest({ err: entityNotFound(`id ${req.params.id}`, 'user', '1036'), res });
@@ -165,4 +169,5 @@ module.exports = {
   deleteUser,
   getUsers,
   getUserById,
+  updateMe,
 };
