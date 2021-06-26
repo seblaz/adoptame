@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 import { createReducer, completeState, completeReducer } from 'redux-recompose';
 
 import LocalStorageService from '~services/LocalStorageService';
-import { setAuthHeaders } from '~config/api';
+import { setAuthHeader } from '~config/api';
 
 import { actions } from './actions';
 import { TARGETS } from './constants';
@@ -15,7 +15,7 @@ const initialState = {
 };
 
 // There is probably a better place to do this
-setAuthHeaders(token);
+setAuthHeader(token);
 
 const completedState = completeState(initialState);
 
