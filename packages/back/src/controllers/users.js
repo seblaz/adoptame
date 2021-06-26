@@ -36,10 +36,10 @@ const createUser = async (req, res) => {
       res,
     }))
     .catch((err) => {
-      const code = err.name === 'ValidationError' ? 400 : undefined
+      const code = err.name === 'ValidationError' ? 400 : undefined;
       catchRequest({
-        err, res, message: 'Ha ocurrido un error creando el usuario', code
-      })
+        err, res, message: 'Ha ocurrido un error creando el usuario', code,
+      });
     });
 };
 

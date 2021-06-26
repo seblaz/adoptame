@@ -6,33 +6,32 @@ const createAnimal = async (req, res) => {
   const animal = new Animal(req.body);
   return animal.save()
     .then((response) => endRequest({
-      response: response,
+      response,
       code: 201,
       res,
     }))
     .catch((err) => {
-      const code = err.name === 'ValidationError' ? 400 : undefined
+      const code = err.name === 'ValidationError' ? 400 : undefined;
       catchRequest({
-        err, res, message: 'Ha ocurrido un error creando el animal', code
-      })
+        err, res, message: 'Ha ocurrido un error creando el animal', code,
+      });
     });
 };
 
-const getAnimalById = async (req,res) => {
-  
-  const { id } = req.params
+const getAnimalById = async (req, res) => {
+  const { id } = req.params;
   const animal = await Animal.findById(id);
 
   if (!animal) return catchRequest({ err: entityNotFound(`id ${id}`, 'animal', '1032'), res });
 
   return endRequest({
-    response: animal, 
-    code: 200, 
-    res
+    response: animal,
+    code: 200,
+    res,
   });
-}
+};
 
 module.exports = {
-  createAnimal, 
-  getAnimalById
+  createAnimal,
+  getAnimalById,
 };

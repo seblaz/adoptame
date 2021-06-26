@@ -1,10 +1,10 @@
 /* eslint-disable react/button-has-type */
-import { func, oneOf, string } from 'prop-types';
+import { bool, func, oneOf, string } from 'prop-types';
 import React from 'react';
 
-function Button({ label, onClick, type = 'button', className }) {
+function Button({ label, onClick, type = 'button', className, disabled }) {
   return (
-    <button type={type} className={className} onClick={onClick}>
+    <button type={type} className={className} onClick={onClick} disabled={disabled}>
       {label}
     </button>
   );
@@ -12,6 +12,7 @@ function Button({ label, onClick, type = 'button', className }) {
 
 Button.propTypes = {
   className: string,
+  disabled: bool,
   label: string,
   type: oneOf(['button', 'submit', 'reset']),
   onClick: func

@@ -6,7 +6,7 @@ const endRequest = ({ response = undefined, code, res }) => (response
   : res.status(code).end());
 
 const catchRequest = ({
-  err, res, message = 'Server Error', internalCode = '9999', code
+  err, res, message = 'Server Error', internalCode = '9999', code,
 }) => {
   logger.error(inspect(err, { showHidden: false, depth: null }));
   return res.status((code || (err && err.code)) || 503).json([{
