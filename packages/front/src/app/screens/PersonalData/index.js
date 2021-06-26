@@ -22,7 +22,7 @@ const PersonalDataEdit = () => {
           <div>Nombre: {me.user.nombre}</div>
           <div>Teléfono: {me.user.telefono}</div>
           <div>Email: {me.user.email}</div>
-          <div>Año de nacimiento: {me.user.anio_de_nacimiento}</div>
+          <div>Año de nacimiento: {me.user.anioDeNacimiento}</div>
           <div>Zona: {me.user.zona}</div>
           <div>
             <Link to={ROUTES.PERSONAL_DATA_EDIT}>Editar</Link>

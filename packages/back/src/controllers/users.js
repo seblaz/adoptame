@@ -146,8 +146,16 @@ const updateUser = (req, res) => User.findById(req.params.id)
     err, res, message: 'Error updating user', internalCode: '1035',
   }));
 
-const updateMe = (req, res) => {
-  return endRequest({response: req.body, code: 200, res});
+const updateMe = async (req, res) => {
+  Object.keys(req.body).forEach((field) => {
+    // eslint-disable-next-line no-param-reassign
+    req.user[field] = req.body[field];
+  });
+  return req.user.save().then((response) => endRequest({
+    response,
+    code: 200,
+    res,
+  }));
 }
 
 const deleteUser = (req, res) => User.findById(req.params.id)

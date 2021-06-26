@@ -28,7 +28,7 @@ const PersonalDataEdit = () => {
       setNombre(me.user.nombre || '');
       setEmail(me.user.email || '');
       setTelefono(me.user.telefono || '');
-      setAnioDeNacimiento(me.user.anio_de_nacimiento || '');
+      setAnioDeNacimiento(me.user.anioDeNacimiento || '');
       setZona(me.user.zona || '');
     }
   }, [me]);
@@ -41,7 +41,7 @@ const PersonalDataEdit = () => {
         nombre,
         email,
         telefono,
-        anio_de_nacimiento: anioDeNacimiento,
+        anioDeNacimiento,
         zona
       })
     );
