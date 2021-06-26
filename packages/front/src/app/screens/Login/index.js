@@ -39,7 +39,6 @@ function Login() {
           label={i18next.t('Login:user')}
           className="m-bottom-4"
           type="email"
-          inputType="text"
           onChange={handleUserChange}
           value={email}
           error={emailError}
@@ -49,7 +48,6 @@ function Login() {
           label={i18next.t('Login:password')}
           className="m-bottom-4"
           type="password"
-          inputType="text"
           value={password}
           onChange={handlePassChange}
         />
