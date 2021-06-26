@@ -1,6 +1,5 @@
 const express = require('express');
 const pino = require('express-pino-logger')();
-const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const initRoutes = require('./routes');
@@ -13,7 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 /* eslint-enable */
 
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(express.json({ limit: '50mb' }));
 app.use(cors());
 if (process.env.NODE_ENV !== 'testing') {
   app.use(pino);
