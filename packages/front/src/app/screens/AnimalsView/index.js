@@ -4,14 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Material UI components
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 import AnimalActions from '~redux/Animal/actions';
 import LoadingWrapper from '~app/components/LoadingWrapper';
+import { ROUTES } from '~constants/routes';
 
 import styles from './styles.module.scss';
 
@@ -59,7 +57,10 @@ const AnimalsView = () => {
       <div className="row wrap">
         {animals &&
           animals.map(animal => (
-            <div key={animal.id} className={styles.container}>
+            <Link
+              key={animal.id}
+              className={styles.container}
+              to={ROUTES.ANIMAL_VIEW.replace(':id', animal.id)}>
               <Card className={classes.root}>
                 <CardActionArea>
                   <CardMedia
@@ -83,7 +84,7 @@ const AnimalsView = () => {
                   </CardContent>
                 </CardActionArea>
               </Card>
-            </div>
+            </Link>
           ))}
       </div>
     </LoadingWrapper>

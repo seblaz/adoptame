@@ -39,9 +39,7 @@ module.exports = (app) => {
   app.delete('/users/:id', [authenticate, isAdmin, mongoQueries], deleteUser);
   app.get('/users', [authenticate, isAdmin, mongoQueries], getUsers);
   // Animals
-  // TODO: add authentication to this apis
-  
-  app.get('/animals', getAnimals);
+  app.get('/animals', [authenticate], getAnimals);
   app.post('/animals', [authenticate, validateSchemaAndFail(animalSchema)], createAnimal);
   app.get('/animals/:id', [authenticate, mongoQueries], getAnimalById);
   // Postulations
