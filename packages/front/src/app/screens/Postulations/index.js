@@ -5,6 +5,8 @@ import { useParams } from 'react-router';
 import LoadingWrapper from '~app/components/LoadingWrapper';
 import AnimalActions from '~redux/Animal/actions';
 
+import styles from './styles.module.scss';
+
 const Postulations = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -16,12 +18,12 @@ const Postulations = () => {
 
   return (
     <LoadingWrapper loading={postulationsLoading}>
+      <h1 className="title bold">Postulaciones de la mascota</h1>
       {postulations &&
         postulations.map(postulation => (
-          <div key={postulation.userId}>
-            <div className="column full-width">
-              <h1 className="title bold">${postulation.userId}Postulaciones de la mascota</h1>
-            </div>
+          <div className={styles.container} key={postulation.userId}>
+            <h2>User name:</h2>
+            <span className="column full-width">{postulation.description}</span>
           </div>
         ))}
     </LoadingWrapper>
