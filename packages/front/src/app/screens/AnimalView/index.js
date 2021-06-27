@@ -9,7 +9,6 @@ import LoadingWrapper from '~app/components/LoadingWrapper';
 import AnimalActions from '~redux/Animal/actions';
 import ModalActions from '~redux/Modal/actions';
 import { MODALS } from '~redux/Modal/constants';
-// import { ROUTES } from '~constants/routes';
 
 import styles from './styles.module.scss';
 
