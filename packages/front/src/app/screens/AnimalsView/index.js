@@ -53,7 +53,9 @@ const AnimalsView = () => {
 
   return (
     <LoadingWrapper loading={animalsLoading}>
-      <h1 className="title bold">Ver Mascotas</h1>
+      <Typography variant="h4" component="h4">
+        Mascotas en adopción
+      </Typography>
       <div className="row wrap">
         {animals &&
           animals.map(animal => (
@@ -75,7 +77,7 @@ const AnimalsView = () => {
                     <Typography variant="body1" color="textSecondary" component="p">
                       <b>Sexo:</b> {capitalize(animal.sexo)}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="body1" color="textSecondary" component="p">
                       <b>Edad:</b> {animal.edad} años
                     </Typography>
                   </CardContent>
