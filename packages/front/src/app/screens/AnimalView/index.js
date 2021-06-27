@@ -11,7 +11,7 @@ import { MODALS } from '~redux/Modal/constants';
 import MyDataActions from '~redux/MyData/actions';
 
 import InfoItem from './components/InfoItem';
-import { INFO_FIELDS } from './contants';
+import { INFO_FIELDS } from './constants';
 import styles from './styles.module.scss';
 
 const AnimalView = () => {
