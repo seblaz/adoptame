@@ -24,12 +24,7 @@ export const actionCreators = {
     type: actions.GET_ANIMAL,
     target: TARGETS.ANIMAL,
     payload: id,
-    service: AnimalService.getAnimal,
-    injections: [
-      withPostSuccess((dispatch, { data: animal }) => {
-        dispatch(push(`${ROUTES.ANIMALS}/${animal.id}`));
-      })
-    ]
+    service: AnimalService.getAnimal
   }),
   postulateForAdoption: ({ id, description }) => ({
     type: actions.ADOPT_ANIMAL,
