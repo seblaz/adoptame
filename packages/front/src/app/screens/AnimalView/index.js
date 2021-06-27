@@ -72,11 +72,23 @@ const AnimalView = () => {
                     {postulations.map(postulation => (
                       <div key={postulation.id} className={`row full-width middle ${styles.postulation}`}>
                         <div className="column half-width">
-                          <span>{postulation.user.email}</span>
-                          <span>{postulation.user.createdAt}</span>
+                          <InfoItem
+                            value={postulation.user.email}
+                            label="Email"
+                            className="column m-bottom-4"
+                          />
+                          <InfoItem
+                            value={postulation.user.createdAt}
+                            label="Miembro desde:"
+                            className="column"
+                          />
                         </div>
                         <div className="column half-width">
-                          <span>{postulation.description}</span>
+                          <InfoItem
+                            value={postulation.description}
+                            label="Descripcion del adoptante:"
+                            className="column"
+                          />
                         </div>
                       </div>
                     ))}
