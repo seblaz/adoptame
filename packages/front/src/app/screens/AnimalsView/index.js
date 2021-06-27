@@ -10,8 +10,10 @@ import { Link } from 'react-router-dom';
 import AnimalActions from '~redux/Animal/actions';
 import LoadingWrapper from '~app/components/LoadingWrapper';
 import { ROUTES } from '~constants/routes';
+import { capitalize } from '~utils/string';
 
 import styles from './styles.module.scss';
+import { ESPECIES } from './constants';
 
 const useStyles = makeStyles({
   root: {
@@ -23,17 +25,6 @@ const useStyles = makeStyles({
   }
 });
 
-const especies = {
-  perro: {
-    masculino: 'Perro',
-    femenino: 'Perra'
-  },
-  gato: {
-    masculino: 'Gato',
-    femenino: 'Gata'
-  }
-};
-
 const AnimalsView = () => {
   const dispatch = useDispatch();
   const { animals, animalsLoading } = useSelector(state => state.animals);
@@ -43,11 +34,6 @@ const AnimalsView = () => {
   }, [dispatch]);
 
   const classes = useStyles();
-
-  const capitalize = str => {
-    const lower = str.toLowerCase();
-    return str.charAt(0).toUpperCase() + lower.slice(1);
-  };
 
   return (
     <LoadingWrapper loading={animalsLoading}>
@@ -73,7 +59,7 @@ const AnimalsView = () => {
                       {animal.nombre}
                     </Typography>
                     <Typography variant="body1" color="textSecondary" component="p">
-                      <b>Especie:</b> {especies[animal.especie][animal.sexo]}
+                      <b>Especie:</b> {ESPECIES[animal.especie][animal.sexo]}
                     </Typography>
                     <Typography variant="body1" color="textSecondary" component="p">
                       <b>Sexo:</b> {capitalize(animal.sexo)}

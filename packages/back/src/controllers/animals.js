@@ -35,7 +35,7 @@ const getAnimals = async (req,res) => {
 
   return Animal.find()
     .then(response => endRequest ({
-      response: response, 
+      response, 
       code: 200, 
       res
     }))
