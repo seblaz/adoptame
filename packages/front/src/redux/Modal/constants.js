@@ -1,3 +1,3 @@
 export const MODALS = {
-  EXAMPLE: 'example'
+  APPLICATION_MODAL: 'application_modal'
 };

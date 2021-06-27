@@ -1,3 +1,3 @@
 export const TARGETS = {
-  ANIMAL: 'animal'
+  ME: 'me'
 };

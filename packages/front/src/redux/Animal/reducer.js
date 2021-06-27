@@ -6,13 +6,13 @@ import { TARGETS } from './constants';
 
 const initialState = {
   onInitialLoad: true,
-  [TARGETS.USER]: null
+  [TARGETS.ANIMAL]: null
 };
 
 const completedState = completeState(initialState);
 
 const reducerDescription = {
-  primaryActions: [actions.SIGN_IN]
+  primaryActions: [actions.CREATE_ANIMAL, actions.GET_ANIMAL]
 };
 
 const reducer = createReducer(new Immutable(completedState), completeReducer(reducerDescription));

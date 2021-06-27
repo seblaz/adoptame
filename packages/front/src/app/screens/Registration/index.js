@@ -19,8 +19,8 @@ const Registration = () => {
 
   return (
     <div className={`column center middle ${styles.container}`}>
-      <h1 className="title bold">Registro</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={`column middle ${styles.formContainer}`}>
+        <h1 className="title bold m-bottom-4">Registro</h1>
         <Input
           name="email"
           label="Email"
@@ -37,7 +37,7 @@ const Registration = () => {
           onChange={event => setPassword(event.target.value)}
           required
         />
-        <Button label="Enviar" type="submit" />
+        <Button type="submit" className={`row center middle ${styles.submit}`} label="Enviar" />
       </form>
     </div>
   );

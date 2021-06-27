@@ -1,6 +1,6 @@
 const health = require('./controllers/health_check');
 const {
-  createUser, signIn, getUser, changePasswordFlow,
+  createUser, signIn, getUser, changePasswordFlow, updateMe,
   updatePassword, getUsers, updateUser, deleteUser, getUserById,
 } = require('./controllers/users');
 
@@ -10,6 +10,10 @@ const {
   getAnimals
 } = require('./controllers/animals');
 
+const {
+  createPostulation,
+} = require('./controllers/postulations');
+
 const { validateSchemaAndFail } = require('./middlewares/params');
 const mongoQueries = require('./middlewares/mongo_queries');
 
@@ -17,8 +21,8 @@ const { authenticateUser: authenticate, authenticatePasswordChange, isAdmin } = 
 
 const {
   usersSchema, signInSchema,
-  passwordSchema, emailSchema, 
-  animalSchema,
+  passwordSchema, emailSchema,
+  animalSchema, postulationSchema,
 } = require('./schemas');
 const { createSignedUrl } = require('./controllers/files');
 
@@ -37,9 +41,12 @@ module.exports = (app) => {
   // Animals
   // TODO: add authentication to this apis
   
-  app.post('/animals', [validateSchemaAndFail(animalSchema)], createAnimal);
   app.get('/animals', getAnimals);
-  app.get('/animals/:id', mongoQueries, getAnimalById);
+  app.post('/animals', [authenticate, validateSchemaAndFail(animalSchema)], createAnimal);
+  app.get('/animals/:id', [authenticate, mongoQueries], getAnimalById);
+  // Postulations
+  app.post('/postulations', [authenticate, validateSchemaAndFail(postulationSchema)], createPostulation);
 
   app.get('/me', [authenticate], getUser);
+  app.put('/me', [authenticate, mongoQueries], updateMe);
 };

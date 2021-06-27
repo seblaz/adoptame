@@ -36,10 +36,10 @@ const createUser = async (req, res) => {
       res,
     }))
     .catch((err) => {
-      const code = err.name === 'ValidationError' ? 400 : undefined
+      const code = err.name === 'ValidationError' ? 400 : undefined;
       catchRequest({
-        err, res, message: 'Ha ocurrido un error creando el usuario', code
-      })
+        err, res, message: 'Ha ocurrido un error creando el usuario', code,
+      });
     });
 };
 
@@ -146,6 +146,18 @@ const updateUser = (req, res) => User.findById(req.params.id)
     err, res, message: 'Error updating user', internalCode: '1035',
   }));
 
+const updateMe = async (req, res) => {
+  Object.keys(req.body).forEach((field) => {
+    // eslint-disable-next-line no-param-reassign
+    req.user[field] = req.body[field];
+  });
+  return req.user.save().then((response) => endRequest({
+    response,
+    code: 200,
+    res,
+  }));
+}
+
 const deleteUser = (req, res) => User.findById(req.params.id)
   .then((user) => {
     if (!user) return catchRequest({ err: entityNotFound(`id ${req.params.id}`, 'user', '1036'), res });
@@ -165,4 +177,5 @@ module.exports = {
   deleteUser,
   getUsers,
   getUserById,
+  updateMe,
 };

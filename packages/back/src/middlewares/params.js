@@ -15,7 +15,7 @@ const throwValidationErrors = (req, res, next) => {
   next();
 };
 
-const validateSchema = schema => checkSchema(schema);
+const validateSchema = (schema) => checkSchema(schema);
 
 const validateSchemaAndFail = (schema) => [validateSchema(schema), throwValidationErrors];
 

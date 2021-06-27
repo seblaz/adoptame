@@ -43,7 +43,9 @@ const initDatabase = () => {
     name,
   } = DB_PER_ENV[process.env.NODE_ENV];
   mongoose.connect(`${prefix}://${user ? `${user}:${password}@` : ''}${host}${port ? `:${port}` : ''}/${name}`,
-    { useNewUrlParser: true, useUnifiedTopology: true, authSource: 'admin' });
+    {
+      useNewUrlParser: true, useUnifiedTopology: true, authSource: 'admin', useCreateIndex: true, autoIndex: true,
+    });
   return mongoose;
 };
 

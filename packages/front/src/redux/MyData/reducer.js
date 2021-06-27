@@ -1,26 +1,18 @@
 import Immutable from 'seamless-immutable';
 import { createReducer, completeState, completeReducer } from 'redux-recompose';
 
-import LocalStorageService from '~services/LocalStorageService';
-import { setAuthHeader } from '~config/api';
-
 import { actions } from './actions';
 import { TARGETS } from './constants';
 
-const token = LocalStorageService.getSessionToken();
-
 const initialState = {
   onInitialLoad: true,
-  [TARGETS.USER]: { token }
+  [TARGETS.ME]: null
 };
-
-// There is probably a better place to do this
-setAuthHeader(token);
 
 const completedState = completeState(initialState);
 
 const reducerDescription = {
-  primaryActions: [actions.SIGN_IN]
+  primaryActions: [actions.GET_MY_DATA]
 };
 
 const reducer = createReducer(new Immutable(completedState), completeReducer(reducerDescription));
