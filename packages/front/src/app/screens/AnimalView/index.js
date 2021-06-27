@@ -50,8 +50,8 @@ const AnimalView = () => {
             <h1 className="title bold">Adoptar Mascota</h1>
             <div className={`row middle full-width ${styles.animalInfo}`}>
               <div className={`column half-width ${styles.infoContainer}`}>
-                {INFO_FIELDS.map(({ label, value }) => (
-                  <InfoItem key={label} value={value} label={label} />
+                {INFO_FIELDS.map(({ label, key }) => (
+                  <InfoItem key={label} value={animal[key]} label={label} />
                 ))}
               </div>
               <img
