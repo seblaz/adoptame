@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 
 import Home from '~screens/Home';
 import Login from '~screens/Login';
-import Animal from '~screens/Animal';
+import CreateAnimal from '~screens/CreateAnimal';
 import Playground from '~screens/Playground';
 import Registration from '~screens/Registration';
 import AnimalView from '~screens/AnimalView';
@@ -22,7 +22,7 @@ const AppRoutesContainer = () => (
       <Suspense>
         <AuthenticatedRoute path={ROUTES.REGISTRATION} component={Registration} isPublic exact />
         <AuthenticatedRoute path={ROUTES.LOGIN} component={Login} isPublic exact />
-        <AuthenticatedRoute path={ROUTES.CREATE_ANIMAL} component={Animal} exact />
+        <AuthenticatedRoute path={ROUTES.CREATE_ANIMAL} component={CreateAnimal} exact />
         <AuthenticatedRoute path={ROUTES.ANIMAL_VIEW} component={AnimalView} exact />
         <AuthenticatedRoute path={ROUTES.HOME} component={Home} exact />
         <AuthenticatedRoute path={ROUTES.PERSONAL_DATA} component={PersonalData} exact />
