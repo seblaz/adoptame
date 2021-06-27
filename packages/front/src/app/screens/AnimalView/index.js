@@ -9,6 +9,7 @@ import LoadingWrapper from '~app/components/LoadingWrapper';
 import AnimalActions from '~redux/Animal/actions';
 import ModalActions from '~redux/Modal/actions';
 import { MODALS } from '~redux/Modal/constants';
+import MyDataActions from '~redux/MyData/actions';
 
 import styles from './styles.module.scss';
 
@@ -16,6 +17,8 @@ const AnimalView = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { animal, animalLoading } = useSelector(state => state.animals);
+  const { me, meLoading } = useSelector(state => state.me);
+  const { user: currentUser } = me || {};
   const [description, setDescription] = useState('');
 
   const modalOpen = useSelector(state => state.modal[MODALS.APPLICATION_MODAL]);
@@ -28,11 +31,12 @@ const AnimalView = () => {
 
   useEffect(() => {
     dispatch(AnimalActions.getAnimal(id));
+    dispatch(MyDataActions.getMyData());
   }, [dispatch, id]);
 
   return (
-    <LoadingWrapper loading={animalLoading}>
-      {animal && (
+    <LoadingWrapper loading={animalLoading || meLoading}>
+      {animal && me && (
         <>
           <div className={`column full-width ${styles.animalViewContainer}`}>
             <h1 className="title bold">Adoptar Mascota</h1>
@@ -64,18 +68,21 @@ const AnimalView = () => {
                 className={styles.photo}
               />
             </div>
-            <Button
-              label="Postularse como adoptante"
-              onClick={openModal}
-              type="button"
-              className={styles.button}
-            />
-            <Link
-              to={location => `${location.pathname}/postulations`}
-              type="button"
-              className={styles.button}>
-              Ver Postulaciones
-            </Link>
+            {currentUser.id === animal.userId ? (
+              <Link
+                to={location => `${location.pathname}/postulations`}
+                type="button"
+                className={`row center middle ${styles.button}`}>
+                Ver Postulaciones
+              </Link>
+            ) : (
+              <Button
+                label="Postularse como adoptante"
+                onClick={openModal}
+                type="button"
+                className={styles.button}
+              />
+            )}
           </div>
           <CustomModal
             className={styles.modalContainer}
