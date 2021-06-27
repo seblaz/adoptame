@@ -38,12 +38,19 @@ module.exports = (app) => {
   app.put('/users/:id', [authenticate, isAdmin, mongoQueries], updateUser);
   app.delete('/users/:id', [authenticate, isAdmin, mongoQueries], deleteUser);
   app.get('/users', [authenticate, isAdmin, mongoQueries], getUsers);
-  // Animals
-  app.post('/animals', [authenticate, validateSchemaAndFail(animalSchema)], createAnimal);
-  app.get('/animals/:id', [authenticate, mongoQueries], getAnimalById);
-  // Postulations
-  app.post('/postulations', [authenticate, validateSchemaAndFail(postulationSchema)], createPostulation);
-  app.get('/postulations/:animalId', [authenticate], getPostulationByAnimalId);
+  // // Animals
+  // app.post('/animals', [authenticate, validateSchemaAndFail(animalSchema)], createAnimal);
+  // app.get('/animals/:id', [authenticate, mongoQueries], getAnimalById);
+  // // Postulations
+  // app.post('/postulations', [authenticate, validateSchemaAndFail(postulationSchema)], createPostulation);
+  // app.get('/postulations/:animalId', [authenticate], getPostulationByAnimalId);
+
+    // Animals
+    app.post('/animals', [validateSchemaAndFail(animalSchema)], createAnimal);
+    app.get('/animals/:id', [mongoQueries], getAnimalById);
+    // Postulations
+    app.post('/postulations', [validateSchemaAndFail(postulationSchema)], createPostulation);
+    app.get('/postulations/:animalId', getPostulationByAnimalId);
 
   app.get('/me', [authenticate], getUser);
 };

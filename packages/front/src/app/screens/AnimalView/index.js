@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import Button from '~app/components/Button';
 import CustomModal from '~app/components/CustomModal';
@@ -8,6 +9,7 @@ import LoadingWrapper from '~app/components/LoadingWrapper';
 import AnimalActions from '~redux/Animal/actions';
 import ModalActions from '~redux/Modal/actions';
 import { MODALS } from '~redux/Modal/constants';
+// import { ROUTES } from '~constants/routes';
 
 import styles from './styles.module.scss';
 
@@ -69,6 +71,12 @@ const AnimalView = () => {
               type="button"
               className={styles.button}
             />
+            <Link
+              to={location => `${location.pathname}/postulations`}
+              type="button"
+              className={styles.button}>
+              Ver Postulaciones
+            </Link>
           </div>
           <CustomModal
             className={styles.modalContainer}

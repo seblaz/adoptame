@@ -3,7 +3,8 @@ const { endRequest, catchRequest } = require('../helpers/request');
 const { entityNotFound } = require('../errors');
 
 const createPostulation = async (req, res) => {
-  const postulation = new Postulation({ ...req.body, userId: req.user.id });
+  // TODO: REMOVE "60d7bc778a375adcc9f84126" WHEN ITS WORKING
+  const postulation = new Postulation({ ...req.body, userId: "60d7bc778a375adcc9f84126" });
   return postulation.save()
     .then((response) => endRequest({
       response,
@@ -54,6 +55,6 @@ const getPostulationByAnimalId = async (req, res) => {
 
 module.exports = {
   createPostulation,
-  getPostulationByAnimalIds
+  getPostulationByAnimalId
 };
 
