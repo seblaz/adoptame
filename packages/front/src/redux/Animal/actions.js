@@ -7,7 +7,7 @@ import { ROUTES } from '~constants/routes';
 import { TARGETS } from './constants';
 
 export const actions = createTypes(
-  completeTypes(['CREATE_ANIMAL', 'GET_ANIMAL', 'GET_POSTULATIONS']),
+  completeTypes(['CREATE_ANIMAL', 'GET_ANIMAL', 'GET_ANIMALS', 'GET_POSTULATIONS']),
   '@@ANIMAL'
 );
 
@@ -28,6 +28,11 @@ export const actionCreators = {
     target: TARGETS.ANIMAL,
     payload: id,
     service: AnimalService.getAnimal
+  }),
+  getAnimals: () => ({
+    type: actions.GET_ANIMALS,
+    target: TARGETS.ANIMALS,
+    service: AnimalService.getAnimals
   }),
   postulateForAdoption: ({ id, description }) => ({
     type: actions.ADOPT_ANIMAL,

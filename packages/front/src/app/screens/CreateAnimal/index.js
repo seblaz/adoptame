@@ -8,7 +8,7 @@ import Select from '~components/Select';
 
 import styles from './styles.module.scss';
 
-const Animal = () => {
+const CreateAnimal = () => {
   const especies = [
     {
       label: 'Perro',
@@ -112,4 +112,4 @@ const Animal = () => {
   );
 };
 
-export default Animal;
+export default CreateAnimal;
