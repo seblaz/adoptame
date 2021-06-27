@@ -5,3 +5,4 @@ export const getAnimal = id => api.get(`/animals/${id}`);
 export const getAnimals = () => api.get('/animals');
 export const postulateForAdoption = ({ id, description }) =>
   api.post('/postulations', { animalId: id, description });
+export const getPostulationsForAnimal = id => api.get(`/postulations/${id}`);

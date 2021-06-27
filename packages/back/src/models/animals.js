@@ -6,6 +6,7 @@ const schema = new Schema({
   tamanio: { type: String, enum: ['chico', 'mediano', 'grande'] },
   edad: { type: Number },
   sexo: { type: String, enum: ['femenino', 'masculino'], required: true },
+  userId: { type: Schema.Types.ObjectId, required: true },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Animal', schema);

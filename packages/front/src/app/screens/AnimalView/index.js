@@ -8,13 +8,24 @@ import LoadingWrapper from '~app/components/LoadingWrapper';
 import AnimalActions from '~redux/Animal/actions';
 import ModalActions from '~redux/Modal/actions';
 import { MODALS } from '~redux/Modal/constants';
+import MyDataActions from '~redux/MyData/actions';
 
+import InfoItem from './components/InfoItem';
+import { INFO_FIELDS } from './constants';
 import styles from './styles.module.scss';
 
 const AnimalView = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { animal, animalLoading } = useSelector(state => state.animals);
+  const { me, meLoading } = useSelector(state => state.me);
+  const { postulations, postulationsLoading } = useSelector(state => state.animals);
+
+  const [postulationsOpen, setPostulationsOpen] = useState(false);
+
+  const togglePostulations = () => setPostulationsOpen(!postulationsOpen);
+
+  const { user: currentUser } = me || {};
   const [description, setDescription] = useState('');
 
   const modalOpen = useSelector(state => state.modal[MODALS.APPLICATION_MODAL]);
@@ -27,48 +38,71 @@ const AnimalView = () => {
 
   useEffect(() => {
     dispatch(AnimalActions.getAnimal(id));
+    dispatch(AnimalActions.getPostulationsForAnimal(id));
+    dispatch(MyDataActions.getMyData());
   }, [dispatch, id]);
 
   return (
-    <LoadingWrapper loading={animalLoading}>
-      {animal && (
+    <LoadingWrapper loading={animalLoading || meLoading || postulationsLoading}>
+      {animal && me && (
         <>
-          <div className={`column full-width ${styles.animalViewContainer}`}>
+          <div className={`column center  full-width ${styles.animalViewContainer}`}>
             <h1 className="title bold">Adoptar Mascota</h1>
-            <div className="row middle">
+            <div className={`row middle full-width ${styles.animalInfo}`}>
               <div className={`column half-width ${styles.infoContainer}`}>
-                <div className="row middle space-between">
-                  <span className="large-text bold">Nombre:</span>
-                  <span className="text"> {animal.nombre}</span>
-                </div>
-                <div className="row middle space-between">
-                  <span className="large-text bold">Especie:</span>
-                  <span className="text"> {animal.especie}</span>
-                </div>
-                <div className="row middle space-between">
-                  <span className="large-text bold">Sexo: </span>
-                  <span className="text">{animal.sexo}</span>
-                </div>
-                <div className="row middle space-between">
-                  <span className="large-text bold">Edad: </span>
-                  <span className="text">{animal.edad}</span>
-                </div>
-                <div className="row middle space-between">
-                  <span className="large-text bold">Tamaño: </span>
-                  <span className="text">{animal.tamanio}</span>
-                </div>
+                {INFO_FIELDS.map(({ label, key }) => (
+                  <InfoItem key={label} value={animal[key]} label={label} />
+                ))}
               </div>
               <img
                 src="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
-                className={styles.photo}
+                className={`half-width ${styles.photo}`}
               />
             </div>
-            <Button
-              label="Postularse como adoptante"
-              onClick={openModal}
-              type="button"
-              className={styles.button}
-            />
+            {currentUser.id === animal.userId ? (
+              <div>
+                <Button
+                  type="button"
+                  className={`row center middle m-bottom-6 ${styles.button}`}
+                  label="Ver Postulaciones"
+                  onClick={togglePostulations}
+                />
+                {postulationsOpen && (
+                  <div className={styles.postulationsContainer}>
+                    {postulations.map(postulation => (
+                      <div key={postulation.id} className={`row full-width middle ${styles.postulation}`}>
+                        <div className="column half-width">
+                          <InfoItem
+                            value={postulation.user.email}
+                            label="Email"
+                            className="column m-bottom-4"
+                          />
+                          <InfoItem
+                            value={postulation.user.createdAt}
+                            label="Miembro desde:"
+                            className="column"
+                          />
+                        </div>
+                        <div className="column half-width">
+                          <InfoItem
+                            value={postulation.description}
+                            label="Descripcion del adoptante:"
+                            className="column"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Button
+                label="Postularse como adoptante"
+                onClick={openModal}
+                type="button"
+                className={styles.button}
+              />
+            )}
           </div>
           <CustomModal
             className={styles.modalContainer}

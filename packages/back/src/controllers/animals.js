@@ -3,7 +3,7 @@ const { endRequest, catchRequest } = require('../helpers/request');
 const { entityNotFound } = require('../errors');
 
 const createAnimal = async (req, res) => {
-  const animal = new Animal(req.body);
+  const animal = new Animal({ ...req.body, userId: req.user.id });
   return animal.save()
     .then((response) => endRequest({
       response,
@@ -23,7 +23,6 @@ const getAnimalById = async (req, res) => {
   const animal = await Animal.findById(id);
 
   if (!animal) return catchRequest({ err: entityNotFound(`id ${id}`, 'animal', '1032'), res });
-
   return endRequest({
     response: animal,
     code: 200,

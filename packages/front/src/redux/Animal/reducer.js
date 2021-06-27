@@ -7,13 +7,14 @@ import { TARGETS } from './constants';
 const initialState = {
   onInitialLoad: true,
   [TARGETS.ANIMAL]: null,
-  [TARGETS.ANIMALS]: null
+  [TARGETS.ANIMALS]: null,
+  [TARGETS.POSTULATIONS]: []
 };
 
 const completedState = completeState(initialState);
 
 const reducerDescription = {
-  primaryActions: [actions.CREATE_ANIMAL, actions.GET_ANIMAL, actions.GET_ANIMALS]
+  primaryActions: [actions.CREATE_ANIMAL, actions.GET_ANIMAL, actions.GET_ANIMALS, actions.GET_POSTULATIONS]
 };
 
 const reducer = createReducer(new Immutable(completedState), completeReducer(reducerDescription));

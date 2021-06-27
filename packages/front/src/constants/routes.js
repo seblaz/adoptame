@@ -5,7 +5,7 @@ export const ROUTES = {
   CREATE_ANIMAL: '/create-animal',
   ANIMAL_VIEW: '/animals/:id',
   ANIMALS: '/animals',
+  PLAYGROUND: '/playground',
   PERSONAL_DATA: '/me',
-  PERSONAL_DATA_EDIT: '/me/edit',
-  PLAYGROUND: '/playground'
+  PERSONAL_DATA_EDIT: '/me/edit'
 };
