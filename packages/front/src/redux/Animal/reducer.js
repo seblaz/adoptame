@@ -7,7 +7,7 @@ import { TARGETS } from './constants';
 const initialState = {
   onInitialLoad: true,
   [TARGETS.ANIMAL]: null,
-  [TARGETS.POSTULATIONS]: null
+  [TARGETS.POSTULATIONS]: []
 };
 
 const completedState = completeState(initialState);

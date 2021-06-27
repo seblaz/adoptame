@@ -11,7 +11,7 @@ import { MODALS } from '~redux/Modal/constants';
 import MyDataActions from '~redux/MyData/actions';
 
 import InfoItem from './components/InfoItem';
-import { INFO_FIELDS } from './contants';
+import { INFO_FIELDS } from './constants';
 import styles from './styles.module.scss';
 
 const AnimalView = () => {
@@ -51,7 +51,7 @@ const AnimalView = () => {
             <div className={`row middle full-width ${styles.animalInfo}`}>
               <div className={`column half-width ${styles.infoContainer}`}>
                 {INFO_FIELDS.map(({ label, value }) => (
-                  <InfoItem key={label} value={value} label={label} />
+                  <InfoItem key={label} value={animal[value]} label={label} />
                 ))}
               </div>
               <img
