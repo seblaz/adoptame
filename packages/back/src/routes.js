@@ -6,7 +6,8 @@ const {
 
 const {
   createAnimal,
-  getAnimalById,
+  getAnimalById, 
+  getAnimals
 } = require('./controllers/animals');
 
 const {
@@ -38,6 +39,7 @@ module.exports = (app) => {
   app.delete('/users/:id', [authenticate, isAdmin, mongoQueries], deleteUser);
   app.get('/users', [authenticate, isAdmin, mongoQueries], getUsers);
   // Animals
+  app.get('/animals', [authenticate], getAnimals);
   app.post('/animals', [authenticate, validateSchemaAndFail(animalSchema)], createAnimal);
   app.get('/animals/:id', [authenticate, mongoQueries], getAnimalById);
   // Postulations

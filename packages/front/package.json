@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
     "apisauce": "^2.0.1",
     "babel-plugin-module-resolver": "^4.1.0",
     "classnames": "^2.2.6",
