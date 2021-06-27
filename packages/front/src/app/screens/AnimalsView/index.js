@@ -25,6 +25,17 @@ const useStyles = makeStyles({
   }
 });
 
+const especies = {
+  perro: {
+    masculino: 'Perro',
+    femenino: 'Perra'
+  },
+  gato: {
+    masculino: 'Gato',
+    femenino: 'Gata'
+  }
+};
+
 const AnimalsView = () => {
   const dispatch = useDispatch();
   const { animals, animalsLoading } = useSelector(state => state.animals);
@@ -34,6 +45,11 @@ const AnimalsView = () => {
   }, [dispatch]);
 
   const classes = useStyles();
+
+  const capitalize = str => {
+    const lower = str.toLowerCase();
+    return str.charAt(0).toUpperCase() + lower.slice(1);
+  };
 
   return (
     <LoadingWrapper loading={animalsLoading}>
@@ -47,17 +63,17 @@ const AnimalsView = () => {
                   <CardMedia
                     className={classes.media}
                     image="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
-                    title="Contemplative Reptile"
+                    title="{animal.nombre}"
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
                       {animal.nombre}
                     </Typography>
                     <Typography variant="body1" color="textSecondary" component="p">
-                      <b>Especie:</b> {animal.especie}
+                      <b>Especie:</b> {especies[animal.especie][animal.sexo]}
                     </Typography>
                     <Typography variant="body1" color="textSecondary" component="p">
-                      <b>Sexo:</b> {animal.sexo}
+                      <b>Sexo:</b> {capitalize(animal.sexo)}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                       <b>Edad:</b> {animal.edad} años
