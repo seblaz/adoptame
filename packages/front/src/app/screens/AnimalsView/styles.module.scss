@@ -1,3 +1,17 @@
+.animals-container {
+  background: linear-gradient( 0deg, rgba(255, 26, 5, 0.391194) 0%, #f55a03 16%, #ff8f00 100%);
+    color: white;
+    padding: 50px;
+}
+
+.dark-box {
+  background-color: #0cbaba;
+  background-image: linear-gradient(315deg, #380036 0%, darkred 74%);
+  padding: 20px;
+  border-radius: 20px;
+  min-height: 500px;
+}
+
 .container {
   margin: 20px
 }

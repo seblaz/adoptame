@@ -37,41 +37,45 @@ const AnimalsView = () => {
 
   return (
     <LoadingWrapper loading={animalsLoading}>
-      <Typography variant="h4" component="h4">
-        Mascotas en adopción
-      </Typography>
-      <div className="row wrap">
-        {animals &&
-          animals.map(animal => (
-            <Link
-              key={animal.id}
-              className={styles.container}
-              to={ROUTES.ANIMAL_VIEW.replace(':id', animal.id)}>
-              <Card className={classes.root}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
-                    title="{animal.nombre}"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {animal.nombre}
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary" component="p">
-                      <b>Especie:</b> {ESPECIES[animal.especie][animal.sexo]}
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary" component="p">
-                      <b>Sexo:</b> {capitalize(animal.sexo)}
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary" component="p">
-                      <b>Edad:</b> {animal.edad} años
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Link>
-          ))}
+      <div className={`full-width full-height ${styles.animalsContainer}`}>
+        <Typography variant="h3" component="h3" className="m-bottom-4">
+          Mascotas en adopción
+        </Typography>
+        <div className={styles.darkBox}>
+          <div className="row wrap">
+            {animals &&
+              animals.map(animal => (
+                <Link
+                  key={animal.id}
+                  className={styles.container}
+                  to={ROUTES.ANIMAL_VIEW.replace(':id', animal.id)}>
+                  <Card className={classes.root}>
+                    <CardActionArea>
+                      <CardMedia
+                        className={classes.media}
+                        image="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
+                        title="{animal.nombre}"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {animal.nombre}
+                        </Typography>
+                        <Typography variant="body1" color="textSecondary" component="p">
+                          <b>Especie:</b> {ESPECIES[animal.especie][animal.sexo]}
+                        </Typography>
+                        <Typography variant="body1" color="textSecondary" component="p">
+                          <b>Sexo:</b> {capitalize(animal.sexo)}
+                        </Typography>
+                        <Typography variant="body1" color="textSecondary" component="p">
+                          <b>Edad:</b> {animal.edad} años
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                </Link>
+              ))}
+          </div>
+        </div>
       </div>
     </LoadingWrapper>
   );
