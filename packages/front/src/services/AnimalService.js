@@ -4,3 +4,4 @@ export const createAnimal = payload => api.post('/animals', payload);
 export const getAnimal = id => api.get(`/animals/${id}`);
 export const postulateForAdoption = ({ id, description }) =>
   api.post('/postulations', { animalId: id, description });
+export const getPostulationsForAnimal = id => api.get(`/postulations/${id}`);

@@ -6,7 +6,10 @@ import { ROUTES } from '~constants/routes';
 
 import { TARGETS } from './constants';
 
-export const actions = createTypes(completeTypes(['CREATE_ANIMAL', 'GET_ANIMAL']), '@@ANIMAL');
+export const actions = createTypes(
+  completeTypes(['CREATE_ANIMAL', 'GET_ANIMAL', 'GET_POSTULATIONS']),
+  '@@ANIMAL'
+);
 
 export const actionCreators = {
   createAnimal: payload => ({
@@ -36,6 +39,12 @@ export const actionCreators = {
         dispatch(push(ROUTES.CREATE_ANIMAL));
       })
     ]
+  }),
+  getPostulationsForAnimal: id => ({
+    type: actions.GET_POSTULATIONS,
+    target: TARGETS.POSTULATIONS,
+    payload: id,
+    service: AnimalService.getPostulationsForAnimal
   })
 };
 

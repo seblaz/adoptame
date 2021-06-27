@@ -8,21 +8,22 @@ import AnimalActions from '~redux/Animal/actions';
 const Postulations = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { animal, animalLoading } = useSelector(state => state.animals);
+  const { postulations, postulationsLoading } = useSelector(state => state.animals);
 
   useEffect(() => {
-    dispatch(AnimalActions.getAnimal(id));
+    dispatch(AnimalActions.getPostulationsForAnimal(id));
   }, [dispatch, id]);
 
   return (
-    <LoadingWrapper loading={animalLoading}>
-      {animal && (
-        <>
-          <div className="column full-width">
-            <h1 className="title bold">Postulaciones de la mascota</h1>
+    <LoadingWrapper loading={postulationsLoading}>
+      {postulations &&
+        postulations.map(postulation => (
+          <div key={postulation.userId}>
+            <div className="column full-width">
+              <h1 className="title bold">${postulation.userId}Postulaciones de la mascota</h1>
+            </div>
           </div>
-        </>
-      )}
+        ))}
     </LoadingWrapper>
   );
 };
