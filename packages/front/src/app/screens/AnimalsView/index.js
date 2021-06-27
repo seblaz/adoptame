@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import AnimalActions from '~redux/Animal/actions';
 import LoadingWrapper from '~app/components/LoadingWrapper';
 
+import styles from './styles.module.scss';
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -36,34 +38,36 @@ const AnimalsView = () => {
   return (
     <LoadingWrapper loading={animalsLoading}>
       <h1 className="title bold">Ver Mascotas</h1>
-      {animals &&
-        animals.map(animal => (
-          <div key={animal.id}>
-            <Card className={classes.root}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
-                  title="Contemplative Reptile"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {animal.nombre}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    {animal.especie}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    {animal.sexo}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    {animal.edad} años
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </div>
-        ))}
+      <div className="row wrap">
+        {animals &&
+          animals.map(animal => (
+            <div key={animal.id} className={styles.container}>
+              <Card className={classes.root}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
+                    title="Contemplative Reptile"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {animal.nombre}
+                    </Typography>
+                    <Typography variant="body1" color="textSecondary" component="p">
+                      <b>Especie:</b> {animal.especie}
+                    </Typography>
+                    <Typography variant="body1" color="textSecondary" component="p">
+                      <b>Sexo:</b> {animal.sexo}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      <b>Edad:</b> {animal.edad} años
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </div>
+          ))}
+      </div>
     </LoadingWrapper>
   );
 };
