@@ -75,10 +75,11 @@ const getUser = async (req, res) => {
 const getUserById = async (req, res) => User.findById(req.params.id)
   .then((user) => {
     if (!user) return catchRequest({ err: entityNotFound(`id ${req.params.id}`, 'user', '1040'), res });
+    const userForResponse = mapUser(user)
+    console.log(delete userForResponse.password)
+    console.log(userForResponse)
     return endRequest({
-      response: {
-        user: mapUser(user),
-      },
+      response: userForResponse,
       code: 200,
       res,
     });
