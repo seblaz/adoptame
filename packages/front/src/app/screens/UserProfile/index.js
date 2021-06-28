@@ -28,8 +28,8 @@ const UserProfile = () => {
           {userProfile &&
             INFO_FIELDS.map(field => (
               <>
-                <Typography variant="body1" color="textSecondary" component="p" key={field.key}>
-                  <b>{field.label}:</b> {userProfile[field.key]}
+                <Typography variant={field.variant} color="textSecondary" component="p" key={field.key}>
+                  <b>{field.label === 'Nombre' ? '' : field.label}</b> {userProfile[field.key]}
                 </Typography>
               </>
             ))}
