@@ -12,10 +12,7 @@ import styles from './styles.module.scss';
 const UserProfile = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { userProfile, userProfileLoading } = useSelector(state => {
-    console.log(state.user.userProfile);
-    return state.user;
-  });
+  const { userProfile, userProfileLoading } = useSelector(state => state.user);
 
   useEffect(() => {
     dispatch(actionCreators.getUser(id));
@@ -29,7 +26,7 @@ const UserProfile = () => {
             INFO_FIELDS.map(field => (
               <>
                 <Typography variant={field.variant} color="textSecondary" component="p" key={field.key}>
-                  <b>{field.label === 'Nombre' ? '' : field.label}</b> {userProfile[field.key]}
+                  <b>{field.label ? field.label : '-'}</b> {userProfile[field.key]}
                 </Typography>
               </>
             ))}

@@ -20,7 +20,7 @@ const AnimalView = () => {
   const { animal, animalLoading } = useSelector(state => state.animals);
   const { me, meLoading } = useSelector(state => state.user);
   const { postulations, postulationsLoading } = useSelector(state => {
-    console.log(state);
+    console.log(state.animals);
     return state.animals;
   });
 
@@ -91,6 +91,7 @@ const AnimalView = () => {
                             label="Descripcion del adoptante:"
                             className="column"
                           />
+                          <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
                         </div>
                       </div>
                     ))}
