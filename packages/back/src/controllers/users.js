@@ -64,10 +64,9 @@ const signIn = async (req, res) => {
 
 const getUser = async (req, res) => {
   const { user } = req;
+  console.log(req, 'request')
   return endRequest({
-    response: {
-      user: mapUser(user),
-    },
+    response: mapUser(user),
     code: 200,
     res,
   });
