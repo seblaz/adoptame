@@ -4,6 +4,7 @@ export const ROUTES = {
   REGISTRATION: '/registration',
   CREATE_ANIMAL: '/create-animal',
   ANIMAL_VIEW: '/animals/:id',
+  USER_PROFILE: '/users/:id',
   ANIMALS: '/animals',
   PLAYGROUND: '/playground',
   PERSONAL_DATA: '/me',

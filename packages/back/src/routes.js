@@ -30,15 +30,17 @@ const { createSignedUrl } = require('./controllers/files');
 module.exports = (app) => {
   // web app
   app.get('/health', health);
-  app.post('/users', [validateSchemaAndFail(usersSchema)], createUser);
   app.post('/files/signed_url', [], createSignedUrl);
-  app.post('/users/forgot_password', [validateSchemaAndFail(emailSchema)], changePasswordFlow);
-  app.post('/users/password', [validateSchemaAndFail(passwordSchema), authenticatePasswordChange], updatePassword);
   app.post('/sign_in', [validateSchemaAndFail(signInSchema)], signIn);
-  app.get('/users/:id', [authenticate, isAdmin, mongoQueries], getUserById);
+
+  // Users:
+  app.post('/users', [validateSchemaAndFail(usersSchema)], createUser);
+  app.get('/users/:id', [authenticate, mongoQueries], getUserById);
   app.put('/users/:id', [authenticate, isAdmin, mongoQueries], updateUser);
   app.delete('/users/:id', [authenticate, isAdmin, mongoQueries], deleteUser);
   app.get('/users', [authenticate, isAdmin, mongoQueries], getUsers);
+  app.post('/users/forgot_password', [validateSchemaAndFail(emailSchema)], changePasswordFlow);
+  app.post('/users/password', [validateSchemaAndFail(passwordSchema), authenticatePasswordChange], updatePassword);
   // Animals
   app.get('/animals', [authenticate], getAnimals);
   app.post('/animals', [authenticate, validateSchemaAndFail(animalSchema)], createAnimal);

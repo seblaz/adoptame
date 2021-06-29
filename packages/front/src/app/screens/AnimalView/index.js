@@ -8,7 +8,7 @@ import LoadingWrapper from '~app/components/LoadingWrapper';
 import AnimalActions from '~redux/Animal/actions';
 import ModalActions from '~redux/Modal/actions';
 import { MODALS } from '~redux/Modal/constants';
-import MyDataActions from '~redux/MyData/actions';
+import MyDataActions from '~redux/User/actions';
 
 import InfoItem from './components/InfoItem';
 import { INFO_FIELDS } from './constants';
@@ -18,14 +18,13 @@ const AnimalView = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { animal, animalLoading } = useSelector(state => state.animals);
-  const { me, meLoading } = useSelector(state => state.me);
+  const { me, meLoading } = useSelector(state => state.user);
   const { postulations, postulationsLoading } = useSelector(state => state.animals);
 
   const [postulationsOpen, setPostulationsOpen] = useState(false);
 
   const togglePostulations = () => setPostulationsOpen(!postulationsOpen);
 
-  const { user: currentUser } = me || {};
   const [description, setDescription] = useState('');
 
   const modalOpen = useSelector(state => state.modal[MODALS.APPLICATION_MODAL]);
@@ -59,7 +58,7 @@ const AnimalView = () => {
                 className={`half-width ${styles.photo}`}
               />
             </div>
-            {currentUser.id === animal.userId ? (
+            {me.id === animal.userId ? (
               <div>
                 <Button
                   type="button"
@@ -89,6 +88,7 @@ const AnimalView = () => {
                             label="Descripcion del adoptante:"
                             className="column"
                           />
+                          <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
                         </div>
                       </div>
                     ))}
