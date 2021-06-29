@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import actionCreators from '~redux/MyData/actions';
+import actionCreators from '~redux/User/actions';
 import LoadingWrapper from '~app/components/LoadingWrapper';
 import Input from '~components/Input';
 import Button from '~components/Button';

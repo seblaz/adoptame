@@ -13,6 +13,7 @@ import PersonalData from '~screens/PersonalData';
 import PersonalDataEdit from '~screens/PersonalDataEdit';
 import { history } from '~redux/store';
 import { ROUTES } from '~constants/routes';
+import UserProfile from '~app/screens/UserProfile';
 
 import styles from './styles.module.scss';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
@@ -27,6 +28,7 @@ const AppRoutesContainer = () => (
         <AuthenticatedRoute path={ROUTES.ANIMAL_VIEW} component={AnimalView} exact />
         <AuthenticatedRoute path={ROUTES.HOME} component={Home} exact />
         <AuthenticatedRoute path={ROUTES.PERSONAL_DATA} component={PersonalData} exact />
+        <AuthenticatedRoute path={ROUTES.USER_PROFILE} component={UserProfile} exact />
         <AuthenticatedRoute path={ROUTES.ANIMALS} component={AnimalsView} exact />
         <AuthenticatedRoute path={ROUTES.PERSONAL_DATA_EDIT} component={PersonalDataEdit} exact />
         {process.env.NODE_ENV === 'development' && <Route path={ROUTES.PLAYGROUND} component={Playground} />}
