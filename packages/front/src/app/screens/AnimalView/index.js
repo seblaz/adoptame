@@ -19,10 +19,7 @@ const AnimalView = () => {
   const dispatch = useDispatch();
   const { animal, animalLoading } = useSelector(state => state.animals);
   const { me, meLoading } = useSelector(state => state.user);
-  const { postulations, postulationsLoading } = useSelector(state => {
-    console.log(state.animals);
-    return state.animals;
-  });
+  const { postulations, postulationsLoading } = useSelector(state => state.animals);
 
   const [postulationsOpen, setPostulationsOpen] = useState(false);
 

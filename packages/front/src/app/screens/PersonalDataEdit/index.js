@@ -11,7 +11,7 @@ import Button from '~components/Button';
 import styles from './styles.module.scss';
 
 const PersonalDataEdit = () => {
-  const { me, meLoading } = useSelector(state => state.me);
+  const { me, meLoading } = useSelector(state => state.user);
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
@@ -25,11 +25,11 @@ const PersonalDataEdit = () => {
 
   useEffect(() => {
     if (me) {
-      setNombre(me.user.nombre || '');
-      setEmail(me.user.email || '');
-      setTelefono(me.user.telefono || '');
-      setAnioDeNacimiento(me.user.anioDeNacimiento || '');
-      setZona(me.user.zona || '');
+      setNombre(me.nombre || '');
+      setEmail(me.email || '');
+      setTelefono(me.telefono || '');
+      setAnioDeNacimiento(me.anioDeNacimiento || '');
+      setZona(me.zona || '');
     }
   }, [me]);
 
