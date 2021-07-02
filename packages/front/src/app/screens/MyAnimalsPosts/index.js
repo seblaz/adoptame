@@ -3,24 +3,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Typography } from '@material-ui/core';
 
 import AnimalActions from '~redux/Animal/actions';
-import LoadingWrapper from '~app/components/LoadingWrapper';
-import AnimalCard from '~app/components/Animals/AnimalCard';
+import LoadingWrapper from '~components/LoadingWrapper';
+import AnimalCard from '~components/Animals/AnimalCard';
 
 const AnimalsView = () => {
   const dispatch = useDispatch();
-  const { animals, animalsLoading } = useSelector(state => state.animals);
+  const { myAnimals, myAnimalsLoading } = useSelector(state => state.animals);
 
   useEffect(() => {
-    dispatch(AnimalActions.getAnimals());
+    dispatch(AnimalActions.getMyAnimalsPosts());
   }, [dispatch]);
 
   return (
-    <LoadingWrapper loading={animalsLoading}>
+    <LoadingWrapper loading={myAnimalsLoading}>
       <Typography variant="h4" component="h4">
-        Mascotas en adopción
+        Mis mascotas en adopción
       </Typography>
       <div className="row wrap">
-        {animals && animals.map(animal => <AnimalCard key={animal.id} animal={animal} />)}
+        {myAnimals && myAnimals.map(animal => <AnimalCard key={animal.id} animal={animal} />)}
       </div>
     </LoadingWrapper>
   );
