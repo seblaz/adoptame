@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Grid, Typography } from '@material-ui/core';
+import { Container, Grid, Slider, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import AnimalActions from '~redux/Animal/actions';
@@ -17,6 +17,7 @@ const AnimalsView = () => {
   const [especie, setEspecie] = useState();
   const [sexo, setSexo] = useState();
   const [tamanio, setTamanio] = useState();
+  const [edad, setEdad] = useState([0, 20]);
 
   const especies = [{ value: undefined, label: 'Todas' }, ...ESPECIES];
   const sexos = [{ value: undefined, label: 'Todos' }, ...SEXOS];
@@ -27,7 +28,7 @@ const AnimalsView = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    let filtered = allAnimals;
+    let filtered = allAnimals.filter(animal => animal.edad > edad[0] && animal.edad < edad[1]);
     if (especie) {
       filtered = allAnimals.filter(animal => animal.especie === especie);
     }
@@ -38,7 +39,7 @@ const AnimalsView = () => {
       filtered = allAnimals.filter(animal => animal.tamanio === tamanio);
     }
     setSelectedAnimals(filtered);
-  }, [allAnimals, sexo, especie, tamanio]);
+  }, [allAnimals, sexo, especie, tamanio, edad]);
 
   const classes = makeStyles(theme => ({
     root: {
@@ -85,6 +86,20 @@ const AnimalsView = () => {
                 Tamanio:&nbsp;
               </Typography>
               <ButtonGroup opciones={tamanios} onChange={({ value }) => setTamanio(value)} />
+            </div>
+            {/* Edad */}
+            <div className={classes.filtro}>
+              <Typography variant="body1" className={classes.centerVertically}>
+                Edad:&nbsp;
+              </Typography>
+              <Slider
+                marks
+                min={0}
+                max={20}
+                valueLabelDisplay="auto"
+                value={edad}
+                onChange={(event, newValue) => setEdad(newValue)}
+              />
             </div>
           </Grid>
           <Grid item xs={8}>
