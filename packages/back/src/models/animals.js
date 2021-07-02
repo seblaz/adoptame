@@ -7,7 +7,7 @@ const schema = new Schema({
   edad: { type: Number },
   sexo: { type: String, enum: ['femenino', 'masculino'], required: true },
   userId: { type: Schema.Types.ObjectId, required: true },
-  adopted: { type: Boolean, default: false}
+  adopted: { type: Boolean, default: false }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Animal', schema);
