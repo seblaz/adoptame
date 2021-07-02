@@ -1,79 +1,104 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// eslint-disable-next-line import/order
+import { Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-// Material UI components
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 
 import AnimalActions from '~redux/Animal/actions';
 import LoadingWrapper from '~app/components/LoadingWrapper';
-import { ROUTES } from '~constants/routes';
-import { capitalize } from '~utils/string';
-
-import styles from './styles.module.scss';
-import { ESPECIES } from './constants';
-
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-    minWidth: 200
-  },
-  media: {
-    height: 140
-  }
-});
+import AnimalCard from '~app/components/Animals/AnimalCard';
+import ButtonGroup from '~app/components/ButtonGroup';
+import { ESPECIES, SEXOS, TAMANIOS } from '~components/Animals/constants';
 
 const AnimalsView = () => {
   const dispatch = useDispatch();
-  const { animals, animalsLoading } = useSelector(state => state.animals);
+  const { animals: allAnimals, animalsLoading } = useSelector(state => state.animals);
+  const [selectedAnimals, setSelectedAnimals] = useState(allAnimals);
+
+  const [especie, setEspecie] = useState();
+  const [sexo, setSexo] = useState();
+  const [tamanio, setTamanio] = useState();
+
+  const especies = [{ value: undefined, label: 'Todas' }, ...ESPECIES];
+  const sexos = [{ value: undefined, label: 'Todos' }, ...SEXOS];
+  const tamanios = [{ value: undefined, label: 'Todos' }, ...TAMANIOS];
 
   useEffect(() => {
     dispatch(AnimalActions.getAnimals());
   }, [dispatch]);
 
-  const classes = useStyles();
+  useEffect(() => {
+    let filtered = allAnimals;
+    if (especie) {
+      filtered = allAnimals.filter(animal => animal.especie === especie);
+    }
+    if (sexo) {
+      filtered = allAnimals.filter(animal => animal.sexo === sexo);
+    }
+    if (tamanio) {
+      filtered = allAnimals.filter(animal => animal.tamanio === tamanio);
+    }
+    setSelectedAnimals(filtered);
+  }, [allAnimals, sexo, especie, tamanio]);
+
+  const classes = makeStyles(theme => ({
+    root: {
+      marginTop: theme.spacing(2)
+    },
+    centerItems: {
+      display: 'flex',
+      justifyContent: 'center'
+    },
+    centerVertically: {
+      display: 'flex',
+      alignItems: 'center'
+    },
+    filtro: {
+      marginTop: theme.spacing(4)
+    }
+  }))();
 
   return (
-    <LoadingWrapper loading={animalsLoading}>
-      <Typography variant="h4" component="h4">
-        Mascotas en adopción
-      </Typography>
-      <div className="row wrap">
-        {animals &&
-          animals.map(animal => (
-            <Link
-              key={animal.id}
-              className={styles.container}
-              to={ROUTES.ANIMAL_VIEW.replace(':id', animal.id)}>
-              <Card className={classes.root}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
-                    title="{animal.nombre}"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {animal.nombre}
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary" component="p">
-                      <b>Especie:</b> {ESPECIES[animal.especie][animal.sexo]}
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary" component="p">
-                      <b>Sexo:</b> {capitalize(animal.sexo)}
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary" component="p">
-                      <b>Edad:</b> {animal.edad} años
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Link>
-          ))}
-      </div>
-    </LoadingWrapper>
+    <Container className={classes.root}>
+      <LoadingWrapper loading={animalsLoading}>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <Typography variant="h5" className={classes.centerItems}>
+              Filtros
+            </Typography>
+            {/* Especie */}
+            <div className={classes.filtro}>
+              <Typography variant="body1" className={classes.centerVertically}>
+                Especie:&nbsp;
+              </Typography>
+              <ButtonGroup opciones={especies} onChange={({ value }) => setEspecie(value)} />
+            </div>
+            {/* Sexo */}
+            <div className={classes.filtro}>
+              <Typography variant="body1" className={classes.centerVertically}>
+                Sexo:&nbsp;
+              </Typography>
+              <ButtonGroup opciones={sexos} onChange={({ value }) => setSexo(value)} />
+            </div>
+            {/* Tamanio */}
+            <div className={classes.filtro}>
+              <Typography variant="body1" className={classes.centerVertically}>
+                Tamanio:&nbsp;
+              </Typography>
+              <ButtonGroup opciones={tamanios} onChange={({ value }) => setTamanio(value)} />
+            </div>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography variant="h4" className={classes.centerItems}>
+              Mascotas en adopción
+            </Typography>
+            <div className="row wrap">
+              {selectedAnimals &&
+                selectedAnimals.map(animal => <AnimalCard key={animal.id} animal={animal} />)}
+            </div>
+          </Grid>
+        </Grid>
+      </LoadingWrapper>
+    </Container>
   );
 };
 

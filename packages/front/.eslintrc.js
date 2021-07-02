@@ -381,7 +381,6 @@ module.exports = {
     "react/no-will-update-set-state": "error",
     "react/prefer-es6-class": "error",
     "react/prefer-stateless-function": "error",
-    "react/prop-types": [2, { ignore: ["style", "children", "dispatch"] }],
     "react/require-default-props": "off",
     "react/react-in-jsx-scope": "error",
     "react/require-render-return": "error",
