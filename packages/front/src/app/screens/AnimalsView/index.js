@@ -28,17 +28,19 @@ const AnimalsView = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    let filtered = allAnimals.filter(animal => animal.edad > edad[0] && animal.edad < edad[1]);
-    if (especie) {
-      filtered = allAnimals.filter(animal => animal.especie === especie);
+    if (allAnimals) {
+      let filtered = allAnimals.filter(animal => animal.edad > edad[0] && animal.edad < edad[1]);
+      if (especie) {
+        filtered = filtered.filter(animal => animal.especie === especie);
+      }
+      if (sexo) {
+        filtered = filtered.filter(animal => animal.sexo === sexo);
+      }
+      if (tamanio) {
+        filtered = filtered.filter(animal => animal.tamanio === tamanio);
+      }
+      setSelectedAnimals(filtered);
     }
-    if (sexo) {
-      filtered = allAnimals.filter(animal => animal.sexo === sexo);
-    }
-    if (tamanio) {
-      filtered = allAnimals.filter(animal => animal.tamanio === tamanio);
-    }
-    setSelectedAnimals(filtered);
   }, [allAnimals, sexo, especie, tamanio, edad]);
 
   const classes = makeStyles(theme => ({
