@@ -5,47 +5,11 @@ import actionCreators from '~redux/Animal/actions';
 import Input from '~app/components/Input';
 import Button from '~app/components/Button';
 import Select from '~components/Select';
+import { ESPECIES, SEXOS, TAMANIOS } from '~components/Animals/constants';
 
 import styles from './styles.module.scss';
 
 const CreateAnimal = () => {
-  const especies = [
-    {
-      label: 'Perro',
-      value: 'perro'
-    },
-    {
-      label: 'Gato',
-      value: 'gato'
-    }
-  ];
-
-  const tamanios = [
-    {
-      label: 'Chico',
-      value: 'chico'
-    },
-    {
-      label: 'Mediano',
-      value: 'mediano'
-    },
-    {
-      label: 'Grande',
-      value: 'grande'
-    }
-  ];
-
-  const sexos = [
-    {
-      label: 'Femenino',
-      value: 'femenino'
-    },
-    {
-      label: 'Masculino',
-      value: 'masculino'
-    }
-  ];
-
   const [nombre, setNombre] = useState('');
   const [edad, setEdad] = useState('');
   const [especie, setEspecie] = useState();
@@ -74,7 +38,7 @@ const CreateAnimal = () => {
           name="especie"
           placeholder="-- Seleccione una especie --"
           label="Especie:"
-          options={especies}
+          options={ESPECIES}
           value={especie}
           onChange={event => setEspecie(event.target.value)}
         />
@@ -83,7 +47,7 @@ const CreateAnimal = () => {
           placeholder="-- Seleccione un tamaño --"
           label="Tamaño:"
           className={styles.selectAnimalCreate}
-          options={tamanios}
+          options={TAMANIOS}
           value={tamanio}
           onChange={event => setTamanio(event.target.value)}
         />
@@ -91,7 +55,7 @@ const CreateAnimal = () => {
           name="sexo"
           placeholder="-- Seleccione el sexo --"
           label="Sexo:"
-          options={sexos}
+          options={SEXOS}
           value={sexo}
           onChange={event => setSexo(event.target.value)}
         />

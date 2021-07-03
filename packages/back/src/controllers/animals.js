@@ -30,7 +30,7 @@ const getAnimalById = async (req, res) => {
   });
 };
 
-const getAnimals = async (req, res) => Animal.find()
+const getAnimals = async (req, res) => Animal.find().sort('createdAt').exec()
   .then((response) => endRequest({
     response,
     code: 200,

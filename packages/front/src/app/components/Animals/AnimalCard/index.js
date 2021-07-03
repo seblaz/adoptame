@@ -10,8 +10,9 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '~constants/routes';
 import { capitalize } from '~utils/string';
 
+import { ESPECIES_POR_GENERO } from '../constants';
+
 import styles from './styles.module.scss';
-import { ESPECIES } from './constants';
 
 const useStyles = makeStyles({
   root: {
@@ -40,7 +41,7 @@ const AnimalsView = ({ animal }) => {
               {animal.nombre}
             </Typography>
             <Typography variant="body1" color="textSecondary" component="p">
-              <b>Especie:</b> {ESPECIES[animal.especie][animal.sexo]}
+              <b>Especie:</b> {ESPECIES_POR_GENERO[animal.especie][animal.sexo]}
             </Typography>
             <Typography variant="body1" color="textSecondary" component="p">
               <b>Sexo:</b> {capitalize(animal.sexo)}
