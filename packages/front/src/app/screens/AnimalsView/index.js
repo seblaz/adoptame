@@ -38,9 +38,7 @@ const AnimalsView = () => {
   return (
     <LoadingWrapper loading={animalsLoading}>
       <div className={`full-width full-height ${styles.animalsContainer}`}>
-        <Typography variant="h3" component="h3" className="m-bottom-4">
-          Mascotas en adopción
-        </Typography>
+        <h1 className="title bold m-bottom-4">Mascotas en adopción</h1>
         <div className={styles.box}>
           <div className="row wrap">
             {animals &&
