@@ -4,11 +4,14 @@ import { Provider } from 'react-redux';
 
 import store from '~redux/store';
 
+import MuiTheme from './components/MuiTheme';
 import Routes from './components/Routes';
 
 const App = () => (
   <Provider store={store}>
-    <Routes />
+    <MuiTheme>
+      <Routes />
+    </MuiTheme>
   </Provider>
 );
 

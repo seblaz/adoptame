@@ -32,7 +32,7 @@ const getAnimalById = async (req, res) => {
 
 const getAnimals = async (req,res) => {
 
-  return Animal.find()
+  return Animal.find().sort('createdAt').exec()
     .then(response => endRequest ({
       response, 
       code: 200, 
