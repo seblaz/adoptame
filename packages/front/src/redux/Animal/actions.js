@@ -7,7 +7,7 @@ import { ROUTES } from '~constants/routes';
 import { TARGETS } from './constants';
 
 export const actions = createTypes(
-  completeTypes(['CREATE_ANIMAL', 'GET_ANIMAL', 'GET_ANIMALS', 'GET_POSTULATIONS']),
+  completeTypes(['CREATE_ANIMAL', 'GET_ANIMAL', 'GET_ANIMALS', 'GET_MY_ANIMALS', 'GET_POSTULATIONS']),
   '@@ANIMAL'
 );
 
@@ -34,6 +34,11 @@ export const actionCreators = {
     target: TARGETS.ANIMALS,
     service: AnimalService.getAnimals
   }),
+  getMyAnimalsPosts: () => ({
+    type: actions.GET_ANIMALS,
+    target: TARGETS.MY_ANIMALS,
+    service: AnimalService.getMyAnimals
+  }),
   postulateForAdoption: ({ id, description }) => ({
     type: actions.ADOPT_ANIMAL,
     target: TARGETS.ANIMAL,
@@ -41,7 +46,7 @@ export const actionCreators = {
     service: AnimalService.postulateForAdoption,
     injections: [
       withPostSuccess(dispatch => {
-        dispatch(push(ROUTES.CREATE_ANIMAL));
+        dispatch(push(ROUTES.ANIMALS));
       })
     ]
   }),

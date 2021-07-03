@@ -8,7 +8,8 @@ const initialState = {
   onInitialLoad: true,
   [TARGETS.ANIMAL]: null,
   [TARGETS.ANIMALS]: null,
-  [TARGETS.POSTULATIONS]: []
+  [TARGETS.POSTULATIONS]: [],
+  [TARGETS.MY_ANIMALS]: null
 };
 
 const completedState = completeState(initialState);

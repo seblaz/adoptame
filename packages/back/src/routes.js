@@ -7,7 +7,8 @@ const {
 const {
   createAnimal,
   getAnimalById, 
-  getAnimals
+  getAnimals,
+  getMyPostedAnimals
 } = require('./controllers/animals');
 
 const {
@@ -52,4 +53,5 @@ module.exports = (app) => {
   
   app.get('/me', [authenticate], getUser);
   app.put('/me', [authenticate, mongoQueries], updateMe);
+  app.get('/me/animals', [authenticate], getMyPostedAnimals);
 };
