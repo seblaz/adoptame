@@ -41,7 +41,7 @@ const AnimalsView = () => {
         <Typography variant="h3" component="h3" className="m-bottom-4">
           Mascotas en adopción
         </Typography>
-        <div className={styles.darkBox}>
+        <div className={styles.box}>
           <div className="row wrap">
             {animals &&
               animals.map(animal => (

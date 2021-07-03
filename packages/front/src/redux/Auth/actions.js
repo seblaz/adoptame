@@ -1,5 +1,6 @@
-import { completeTypes, createTypes, withPostSuccess } from 'redux-recompose';
+import { completeTypes, createTypes, withPostSuccess, withPostFailure } from 'redux-recompose';
 import { push } from 'connected-react-router';
+import { toast } from 'react-toastify';
 
 import * as UserService from '~services/AuthService';
 import LocalStorageService from '~services/LocalStorageService';
@@ -23,6 +24,9 @@ export const actionCreators = {
         LocalStorageService.setSessionToken(token);
         setAuthHeader(token);
         dispatch(push(ROUTES.ANIMALS));
+      }),
+      withPostFailure(() => {
+        toast.error('Credenciales inválidas');
       })
     ]
   }),

@@ -25,6 +25,7 @@ const Registration = () => {
         <div className={styles.fieldsContainer}>
           <h1 className="title bold m-bottom-4">Registro</h1>
           <Input
+            inputClassName={styles.blackText}
             name="email"
             label="Email"
             type="email"
@@ -33,6 +34,7 @@ const Registration = () => {
             required
           />
           <Input
+            inputClassName={styles.blackText}
             name="password"
             label="Password"
             type="password"

@@ -21,6 +21,7 @@
 
   &.input-error {
    border-color: $valencia;
+   border-width: 3px;
   }
 }
 
@@ -45,8 +46,9 @@
 }
 
 .error {
-  color: $valencia;
+  color: $white;
   font-size: 16px;
   padding-left: 15px;
+  font-weight: bold;
 }
 

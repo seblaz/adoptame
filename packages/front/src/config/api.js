@@ -22,6 +22,7 @@ const api = create({
 
 api.addResponseTransform(response => {
   if (response.status === 401) {
+    console.log('unauth');
     LocalStorageService.removeSessionToken();
   }
   if (response.data && !notSerializableUrl(response.config.url)) {
