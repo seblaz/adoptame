@@ -41,7 +41,7 @@ const PersonalDataEdit = () => {
         nombre,
         email,
         telefono,
-        anioDeNacimiento,
+        anio_de_nacimiento: anioDeNacimiento,
         zona
       })
     );
