@@ -59,7 +59,8 @@ const AnimalsView = () => {
       alignItems: 'center'
     },
     filtro: {
-      marginTop: theme.spacing(4)
+      paddingTop: theme.spacing(4),
+      width: '100%'
     }
   }))();
 
@@ -70,48 +71,44 @@ const AnimalsView = () => {
           <h1 className="title bold m-bottom-4">Mascotas en adopción</h1>
           <div className="row">
             <div className={styles.box}>
-              <Grid container spacing={2}>
-                <Grid item xs={4}>
-                  <Typography variant="h5" className={classes.centerItems}>
-                    Filtros
-                  </Typography>
-                  {/* Especie */}
-                  <div className={classes.filtro}>
-                    <Typography variant="body1" className={classes.centerVertically}>
-                      Especie:&nbsp;
-                    </Typography>
-                    <ButtonGroup opciones={especies} onChange={({ value }) => setEspecie(value)} />
-                  </div>
-                  {/* Sexo */}
-                  <div className={classes.filtro}>
-                    <Typography variant="body1" className={classes.centerVertically}>
-                      Sexo:&nbsp;
-                    </Typography>
-                    <ButtonGroup opciones={sexos} onChange={({ value }) => setSexo(value)} />
-                  </div>
-                  {/* Tamanio */}
-                  <div className={classes.filtro}>
-                    <Typography variant="body1" className={classes.centerVertically}>
-                      Tamanio:&nbsp;
-                    </Typography>
-                    <ButtonGroup opciones={tamanios} onChange={({ value }) => setTamanio(value)} />
-                  </div>
-                  {/* Edad */}
-                  <div className={classes.filtro}>
-                    <Typography variant="body1" className={classes.centerVertically}>
-                      Edad:&nbsp;
-                    </Typography>
-                    <Slider
-                      marks
-                      min={0}
-                      max={20}
-                      valueLabelDisplay="auto"
-                      value={edad}
-                      onChange={(event, newValue) => setEdad(newValue)}
-                    />
-                  </div>
-                </Grid>
-              </Grid>
+              <Typography variant="h5" className={classes.centerItems}>
+                Filtros
+              </Typography>
+              {/* Especie */}
+              <div className={classes.filtro}>
+                <Typography variant="body1" className={classes.centerVertically}>
+                  Especie:&nbsp;
+                </Typography>
+                <ButtonGroup opciones={especies} onChange={({ value }) => setEspecie(value)} />
+              </div>
+              {/* Sexo */}
+              <div className={classes.filtro}>
+                <Typography variant="body1" className={classes.centerVertically}>
+                  Sexo:&nbsp;
+                </Typography>
+                <ButtonGroup opciones={sexos} onChange={({ value }) => setSexo(value)} />
+              </div>
+              {/* Tamanio */}
+              <div className={classes.filtro}>
+                <Typography variant="body1" className={classes.centerVertically}>
+                  Tamanio:&nbsp;
+                </Typography>
+                <ButtonGroup opciones={tamanios} onChange={({ value }) => setTamanio(value)} />
+              </div>
+              {/* Edad */}
+              <div className={classes.filtro}>
+                <Typography variant="body1" className={classes.centerVertically}>
+                  Edad:&nbsp;
+                </Typography>
+                <Slider
+                  marks
+                  min={0}
+                  max={20}
+                  valueLabelDisplay="auto"
+                  value={edad}
+                  onChange={(event, newValue) => setEdad(newValue)}
+                />
+              </div>
             </div>
             <Grid item xs={8}>
               <div className="row wrap">
