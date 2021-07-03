@@ -31,13 +31,13 @@ const getAnimalById = async (req, res) => {
 };
 
 const getAnimals = async (req,res) => {
-
   return Animal.find()
-    .then(response => endRequest ({
-      response, 
-      code: 200, 
-      res
-    }))
+    .then(response => {
+      if (req.query.onlyNotAdopted) {
+        response = response.filter(animal => animal.adopted === false);
+      }
+      endRequest ({response, code: 200, res});
+    })
     .catch(err => {
       catchRequest(err, res, 'An error occurs when getting animals from DB', code);
     });
