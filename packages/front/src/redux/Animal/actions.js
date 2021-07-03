@@ -2,12 +2,13 @@ import { completeTypes, createTypes, withPostSuccess } from 'redux-recompose';
 import { push } from 'connected-react-router';
 
 import * as AnimalService from '~services/AnimalService';
+import * as PostulationService from '~services/PostulationService';
 import { ROUTES } from '~constants/routes';
 
 import { TARGETS } from './constants';
 
 export const actions = createTypes(
-  completeTypes(['CREATE_ANIMAL', 'GET_ANIMAL', 'GET_ANIMALS', 'GET_POSTULATIONS']),
+  completeTypes(['CREATE_ANIMAL', 'GET_ANIMAL', 'GET_ANIMALS', 'GET_POSTULATIONS', 'ACCEPT_POSTULATION']),
   '@@ANIMAL'
 );
 
@@ -23,17 +24,20 @@ export const actionCreators = {
       })
     ]
   }),
+
   getAnimal: id => ({
     type: actions.GET_ANIMAL,
     target: TARGETS.ANIMAL,
     payload: id,
     service: AnimalService.getAnimal
   }),
+
   getAnimals: () => ({
     type: actions.GET_ANIMALS,
     target: TARGETS.ANIMALS,
     service: AnimalService.getAnimals
   }),
+
   postulateForAdoption: ({ id, description }) => ({
     type: actions.ADOPT_ANIMAL,
     target: TARGETS.ANIMAL,
@@ -45,11 +49,19 @@ export const actionCreators = {
       })
     ]
   }),
+
   getPostulationsForAnimal: id => ({
     type: actions.GET_POSTULATIONS,
     target: TARGETS.POSTULATIONS,
     payload: id,
     service: AnimalService.getPostulationsForAnimal
+  }),
+
+  acceptPostulation: id => ({
+    type: actions.ACCEPT_POSTULATION,
+    target: TARGETS.POSTULATIONS,
+    payload: id,
+    service: PostulationService.acceptPostulation
   })
 };
 

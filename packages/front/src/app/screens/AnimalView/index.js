@@ -90,6 +90,12 @@ const AnimalView = () => {
                           />
                           <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
                         </div>
+                        <Button
+                          type="button"
+                          label="Aceptar"
+                          className={styles.button}
+                          onClick={() => dispatch(AnimalActions.acceptPostulation(postulation.id))}
+                        />
                       </div>
                     ))}
                   </div>
