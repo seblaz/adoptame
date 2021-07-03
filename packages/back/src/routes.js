@@ -1,4 +1,20 @@
 const health = require('./controllers/health_check');
+
+var multer  = require('multer');
+
+var storage = multer.diskStorage(
+  {
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+      cb(null, req.params.id + ".png")
+    }
+  }
+);
+
+var upload = multer({ storage: storage });
+
 const {
   createUser, signIn, getUser, changePasswordFlow, updateMe,
   updatePassword, getUsers, updateUser, deleteUser, getUserById,
@@ -7,7 +23,8 @@ const {
 const {
   createAnimal,
   getAnimalById, 
-  getAnimals
+  getAnimals,
+  uploadAnimalPhoto
 } = require('./controllers/animals');
 
 const {
@@ -41,10 +58,13 @@ module.exports = (app) => {
   app.get('/users', [authenticate, isAdmin, mongoQueries], getUsers);
   app.post('/users/forgot_password', [validateSchemaAndFail(emailSchema)], changePasswordFlow);
   app.post('/users/password', [validateSchemaAndFail(passwordSchema), authenticatePasswordChange], updatePassword);
+  
   // Animals
   app.get('/animals', [authenticate], getAnimals);
   app.post('/animals', [authenticate, validateSchemaAndFail(animalSchema)], createAnimal);
   app.get('/animals/:id', [authenticate, mongoQueries], getAnimalById);
+  app.post('/animals/:id/photos', upload.single('photo'), uploadAnimalPhoto);
+
   // Postulations
   app.post('/postulations', [authenticate, validateSchemaAndFail(postulationSchema)], createPostulation);
   app.get('/postulations/:animalId', [authenticate], getPostulationByAnimalId);
