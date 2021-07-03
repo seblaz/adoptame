@@ -12,7 +12,8 @@ const {
 
 const {
   createPostulation,
-  getPostulationByAnimalId
+  getPostulationByAnimalId,
+  acceptPostulation
 } = require('./controllers/postulations');
 
 const { validateSchemaAndFail } = require('./middlewares/params');
@@ -41,14 +42,16 @@ module.exports = (app) => {
   app.get('/users', [authenticate, isAdmin, mongoQueries], getUsers);
   app.post('/users/forgot_password', [validateSchemaAndFail(emailSchema)], changePasswordFlow);
   app.post('/users/password', [validateSchemaAndFail(passwordSchema), authenticatePasswordChange], updatePassword);
+
   // Animals
   app.get('/animals', [authenticate], getAnimals);
   app.post('/animals', [authenticate, validateSchemaAndFail(animalSchema)], createAnimal);
   app.get('/animals/:id', [authenticate, mongoQueries], getAnimalById);
+
   // Postulations
   app.post('/postulations', [authenticate, validateSchemaAndFail(postulationSchema)], createPostulation);
   app.get('/postulations/:animalId', [authenticate], getPostulationByAnimalId);
-  app.get('/postulations/:animalId', [authenticate], getPostulationByAnimalId);
+  app.patch('/postulations/:id', [authenticate, mongoQueries], acceptPostulation);
   
   app.get('/me', [authenticate], getUser);
   app.put('/me', [authenticate, mongoQueries], updateMe);

@@ -1,5 +1,6 @@
 const Postulation = require('../models/postulations');
 const User = require('../models/users');
+const Animal = require('../models/animals');
 const { endRequest, catchRequest } = require('../helpers/request');
 const { entityNotFound } = require('../errors');
 
@@ -70,8 +71,30 @@ const getPostulationByAnimalId = async (req, res) => {
   });
 }
 
+const acceptPostulation = async (req,res) => {
+  const { id } = req.params;
+  const postulation = await Postulation.findById(id);
+
+  if (!postulation) return catchRequest({ err: entityNotFound(`id ${id}`, 'postulation', '1032'), res });
+  
+  const animal = await Animal.findById(postulation.animalId);
+  if (!animal) return catchRequest({ err: entityNotFound(`id ${id}`, 'animal', '1032'), res });
+
+  animal.adopted = true;
+  postulation.accepted = true;
+  
+  const savedAnimal = await animal.save();
+
+  return postulation.save().then((response) => endRequest({
+    response,
+    code: 200,
+    res,
+  }));
+}
+
 module.exports = {
   createPostulation,
-  getPostulationByAnimalId
+  getPostulationByAnimalId,
+  acceptPostulation
 };
 
