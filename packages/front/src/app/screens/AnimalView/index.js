@@ -35,6 +35,16 @@ const AnimalView = () => {
 
   const submitApplication = () => dispatch(AnimalActions.postulateForAdoption({ id, description }));
 
+  // eslint-disable-next-line react/no-multi-comp
+  const AcceptApplicationButton = postulation => (
+    <Button
+      type="button"
+      label="Aceptar"
+      className={styles.button}
+      onClick={() => dispatch(AnimalActions.acceptPostulation(postulation.id))}
+    />
+  );
+
   useEffect(() => {
     dispatch(AnimalActions.getAnimal(id));
     dispatch(AnimalActions.getPostulationsForAnimal(id));
@@ -90,12 +100,7 @@ const AnimalView = () => {
                           />
                           <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
                         </div>
-                        <Button
-                          type="button"
-                          label="Aceptar"
-                          className={styles.button}
-                          onClick={() => dispatch(AnimalActions.acceptPostulation(postulation.id))}
-                        />
+                        {animal.adopted ? null : <AcceptApplicationButton />}
                       </div>
                     ))}
                   </div>
