@@ -44,12 +44,7 @@ const getAnimals = async (req,res) => {
 }
 
 const uploadAnimalPhoto = async (req, res) => {
-  console.log(req.file ? 'llego' : 'no hay foto');
-  return endRequest ({
-      res, 
-      code: 200, 
-      res
-    });
+  return endRequest ({ res, code: 200, res });
 }
 
 module.exports = {

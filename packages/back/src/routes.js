@@ -1,12 +1,11 @@
+const express = require('express');
 const health = require('./controllers/health_check');
 
 var multer  = require('multer');
 
 var storage = multer.diskStorage(
   {
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/')
-    },
+    destination: 'uploads/',
     filename: function (req, file, cb) {
       cb(null, req.params.id + ".png")
     }
@@ -64,6 +63,7 @@ module.exports = (app) => {
   app.post('/animals', [authenticate, validateSchemaAndFail(animalSchema)], createAnimal);
   app.get('/animals/:id', [authenticate, mongoQueries], getAnimalById);
   app.post('/animals/:id/photos', upload.single('photo'), uploadAnimalPhoto);
+  app.use("/uploads", express.static(__dirname + '/uploads'));
 
   // Postulations
   app.post('/postulations', [authenticate, validateSchemaAndFail(postulationSchema)], createPostulation);
