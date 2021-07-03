@@ -30,35 +30,29 @@ const getAnimalById = async (req, res) => {
   });
 };
 
-const getAnimals = async (req,res) => {
+const getAnimals = async (req, res) => Animal.find().sort('createdAt').exec()
+  .then((response) => endRequest({
+    response,
+    code: 200,
+    res,
+  }))
+  .catch((err) => {
+    catchRequest(err, res, 'An error occurs when getting animals from DB', err);
+  });
 
-  return Animal.find().sort('createdAt').exec()
-    .then(response => endRequest ({
-      response, 
-      code: 200, 
-      res
-    }))
-    .catch(err => {
-      catchRequest(err, res, 'An error occurs when getting animals from DB', code);
-    });
-}
-
-const getMyPostedAnimals = async (req, res) => {
-
-  return Animal.find().byUserId(req.user.id)
-    .then(response => endRequest ({
-      response,
-      code: 200,
-      res
-    }))
-    .catch(err => {
-      catchRequest(err, res, 'An error occurs when getting animals from DB', code);
-    });
-}
+const getMyPostedAnimals = async (req, res) => Animal.find().byUserId(req.user.id)
+  .then((response) => endRequest({
+    response,
+    code: 200,
+    res,
+  }))
+  .catch((err) => {
+    catchRequest(err, res, 'An error occurs when getting animals from DB', err);
+  });
 
 module.exports = {
-  createAnimal, 
-  getAnimalById, 
+  createAnimal,
+  getAnimalById,
   getAnimals,
-  getMyPostedAnimals
+  getMyPostedAnimals,
 };

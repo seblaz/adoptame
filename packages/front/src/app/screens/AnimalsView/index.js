@@ -9,6 +9,8 @@ import AnimalCard from '~app/components/Animals/AnimalCard';
 import ButtonGroup from '~app/components/ButtonGroup';
 import { ESPECIES, SEXOS, TAMANIOS } from '~components/Animals/constants';
 
+import styles from './styles.module.scss';
+
 const AnimalsView = () => {
   const dispatch = useDispatch();
   const { animals: allAnimals, animalsLoading } = useSelector(state => state.animals);
@@ -45,7 +47,8 @@ const AnimalsView = () => {
 
   const classes = makeStyles(theme => ({
     root: {
-      marginTop: theme.spacing(2)
+      marginTop: theme.spacing(2),
+      color: '#FFFFF'
     },
     centerItems: {
       display: 'flex',
@@ -61,61 +64,65 @@ const AnimalsView = () => {
   }))();
 
   return (
-    <Container className={classes.root}>
-      <LoadingWrapper loading={animalsLoading}>
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
-            <Typography variant="h5" className={classes.centerItems}>
-              Filtros
-            </Typography>
-            {/* Especie */}
-            <div className={classes.filtro}>
-              <Typography variant="body1" className={classes.centerVertically}>
-                Especie:&nbsp;
-              </Typography>
-              <ButtonGroup opciones={especies} onChange={({ value }) => setEspecie(value)} />
+    <div className={`full-width full-height ${styles.animalsContainer}`}>
+      <Container className={classes.root}>
+        <LoadingWrapper loading={animalsLoading}>
+          <h1 className="title bold m-bottom-4">Mascotas en adopción</h1>
+          <div className="row">
+            <div className={styles.box}>
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
+                  <Typography variant="h5" className={classes.centerItems}>
+                    Filtros
+                  </Typography>
+                  {/* Especie */}
+                  <div className={classes.filtro}>
+                    <Typography variant="body1" className={classes.centerVertically}>
+                      Especie:&nbsp;
+                    </Typography>
+                    <ButtonGroup opciones={especies} onChange={({ value }) => setEspecie(value)} />
+                  </div>
+                  {/* Sexo */}
+                  <div className={classes.filtro}>
+                    <Typography variant="body1" className={classes.centerVertically}>
+                      Sexo:&nbsp;
+                    </Typography>
+                    <ButtonGroup opciones={sexos} onChange={({ value }) => setSexo(value)} />
+                  </div>
+                  {/* Tamanio */}
+                  <div className={classes.filtro}>
+                    <Typography variant="body1" className={classes.centerVertically}>
+                      Tamanio:&nbsp;
+                    </Typography>
+                    <ButtonGroup opciones={tamanios} onChange={({ value }) => setTamanio(value)} />
+                  </div>
+                  {/* Edad */}
+                  <div className={classes.filtro}>
+                    <Typography variant="body1" className={classes.centerVertically}>
+                      Edad:&nbsp;
+                    </Typography>
+                    <Slider
+                      marks
+                      min={0}
+                      max={20}
+                      valueLabelDisplay="auto"
+                      value={edad}
+                      onChange={(event, newValue) => setEdad(newValue)}
+                    />
+                  </div>
+                </Grid>
+              </Grid>
             </div>
-            {/* Sexo */}
-            <div className={classes.filtro}>
-              <Typography variant="body1" className={classes.centerVertically}>
-                Sexo:&nbsp;
-              </Typography>
-              <ButtonGroup opciones={sexos} onChange={({ value }) => setSexo(value)} />
-            </div>
-            {/* Tamanio */}
-            <div className={classes.filtro}>
-              <Typography variant="body1" className={classes.centerVertically}>
-                Tamanio:&nbsp;
-              </Typography>
-              <ButtonGroup opciones={tamanios} onChange={({ value }) => setTamanio(value)} />
-            </div>
-            {/* Edad */}
-            <div className={classes.filtro}>
-              <Typography variant="body1" className={classes.centerVertically}>
-                Edad:&nbsp;
-              </Typography>
-              <Slider
-                marks
-                min={0}
-                max={20}
-                valueLabelDisplay="auto"
-                value={edad}
-                onChange={(event, newValue) => setEdad(newValue)}
-              />
-            </div>
-          </Grid>
-          <Grid item xs={8}>
-            <Typography variant="h4" className={classes.centerItems}>
-              Mascotas en adopción
-            </Typography>
-            <div className="row wrap">
-              {selectedAnimals &&
-                selectedAnimals.map(animal => <AnimalCard key={animal.id} animal={animal} />)}
-            </div>
-          </Grid>
-        </Grid>
-      </LoadingWrapper>
-    </Container>
+            <Grid item xs={8}>
+              <div className="row wrap">
+                {selectedAnimals &&
+                  selectedAnimals.map(animal => <AnimalCard key={animal.id} animal={animal} />)}
+              </div>
+            </Grid>
+          </div>
+        </LoadingWrapper>
+      </Container>
+    </div>
   );
 };
 

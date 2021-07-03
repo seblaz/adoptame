@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
     "apisauce": "^2.0.1",
     "babel-plugin-module-resolver": "^4.1.0",
     "classnames": "^2.2.6",
@@ -28,6 +29,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.1",
+    "react-toastify": "^7.0.4",
     "redux": "^4.0.5",
     "redux-recompose": "^2.2.0",
     "redux-thunk": "^2.3.0",

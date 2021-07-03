@@ -1,8 +1,9 @@
 .modal-container {
   max-width: 500px;
   height: 400px;
-  background-color: white;
-  padding: 50px;
+  background: linear-gradient( 0deg, rgba(255, 26, 5, 0.391194) 0%, #f55a03 16%, #ff8f00 100%);
+  color: white;
+  padding: 30px;
 }
 
 .button {
@@ -11,18 +12,21 @@
   padding: 5px 20px;
   border: 1px solid silver;
   border-radius: 5px;
+  background-color: steelblue;
+
   &:disabled {
+    cursor: default;
     background-color: silver;
   }
-  &:hover {
+  &:hover:enabled{
     background-color: steelblue;
     color: white;
   }
 }
 
 .photo {
-  height: 250px;
-  width: 260px;
+  height: 350px;
+  width: 360px;
   border-radius: 50%;
 }
 
@@ -32,6 +36,8 @@
 }
 
 .animal-view-container {
+  background: linear-gradient( 0deg, rgba(255, 26, 5, 0.391194) 0%, #f55a03 16%, #ff8f00 100%);
+  color: white;
   padding: 50px;
 }
 
@@ -40,15 +46,45 @@
   max-width: 100%;
   min-height:150px;
   max-height: 200px;
+  padding: 20px;
+  border: 1px solid silver;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  color: black;
 }
 
 .animal-info {
-  max-width: 600px;
-  margin: 0 auto;
+  background-color: whitesmoke;
+  border-radius: 15px;
+  padding: 30px;
+  justify-content: space-between;
+  color: black;
+  width: 100%;
+  height: 580px;
 }
 
 .postulation {
   padding: 20px;
   border: 1px solid silver;
   border-radius: 5px;
+}
+
+.animal-name {
+  color: rgb(99,102,106);
+  border-bottom: 1px solid silver;
+  padding: 0 0 20px;
+}
+
+.row-container {
+  padding: 0 10px;
+}
+
+.animal-info-title {
+  margin-bottom: 20px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
 }

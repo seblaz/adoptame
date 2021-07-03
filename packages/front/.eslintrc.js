@@ -178,8 +178,6 @@ module.exports = {
     "line-comment-position": "error",
     "linebreak-style": "error",
     "lines-between-class-members": "error",
-    "max-depth": "error",
-    "max-lines": "error",
     "max-nested-callbacks": ["error", { max: 3 }],
     "max-params": ["error", 4],
     "max-statements": ["error", { max: 30 }],
@@ -327,9 +325,7 @@ module.exports = {
     // React
     "react/boolean-prop-naming": "error",
     "react/button-has-type": "error",
-    "react/default-props-match-prop-types": "error",
     "react/forbid-dom-props": ["error", { forbid: ["style"] }],
-    "react/forbid-prop-types": "error",
     "react/jsx-boolean-value": ["error", "never"],
     "react/jsx-child-element-spacing": "error",
     "react/jsx-curly-brace-presence": [
@@ -343,7 +339,6 @@ module.exports = {
     "react/jsx-handler-names": "error",
     "react/jsx-indent": ["error", 2],
     "react/jsx-key": "error",
-    "react/jsx-max-depth": ["error", { max: 6 }],
     "react/jsx-no-bind": ["error", { allowArrowFunctions: true }],
     "react/jsx-no-comment-textnodes": "error",
     "react/jsx-no-duplicate-props": "error",
@@ -357,7 +352,6 @@ module.exports = {
       "error",
       { declaration: false, assignment: false }
     ],
-    "react/forbid-foreign-prop-types": "error",
     "react/no-access-state-in-setstate": "error",
     "react/no-array-index-key": "error",
     "react/no-children-prop": "error",
@@ -376,7 +370,6 @@ module.exports = {
     "react/no-unescaped-entities": "error",
     "react/no-unknown-property": "error",
     "react/no-unsafe": "error",
-    "react/no-unused-prop-types": "error",
     "react/no-unused-state": "error",
     "react/no-will-update-set-state": "error",
     "react/prefer-es6-class": "error",

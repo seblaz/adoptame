@@ -10,9 +10,9 @@ const schema = new Schema({
 }, { timestamps: true });
 
 schema.query.byUserId = function (id) {
-  return this.where({userId: id})
-}
+  return this.where({ userId: id });
+};
 
 const Animal = mongoose.model('Animal', schema);
 
-module.exports = Animal
+module.exports = Animal;
