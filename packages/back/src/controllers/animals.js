@@ -31,11 +31,8 @@ const getAnimalById = async (req, res) => {
 };
 
 const getAnimals = async (req,res) => {
-  return Animal.find()
+  return Animal.find({ adopted: false })
     .then(response => {
-      if (req.query.onlyNotAdopted) {
-        response = response.filter(animal => animal.adopted === false);
-      }
       endRequest ({response, code: 200, res});
     })
     .catch(err => {
