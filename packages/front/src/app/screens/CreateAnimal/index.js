@@ -10,6 +10,7 @@ import { ESPECIES, SEXOS, TAMANIOS } from '~components/Animals/constants';
 import styles from './styles.module.scss';
 
 const CreateAnimal = () => {
+  const [notas, setNotas] = useState('');
   const [nombre, setNombre] = useState('');
   const [edad, setEdad] = useState('');
   const [especie, setEspecie] = useState();
@@ -19,7 +20,7 @@ const CreateAnimal = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(actionCreators.createAnimal({ nombre, edad, especie, tamanio, sexo }));
+    dispatch(actionCreators.createAnimal({ nombre, edad, especie, tamanio, sexo, notas }));
   };
 
   const isDataComplete = nombre && edad && especie && tamanio && sexo;
@@ -42,32 +43,35 @@ const CreateAnimal = () => {
           <Select
             name="especie"
             placeholder="-- Seleccione una especie --"
-            label="Especie:"
+            label="Especie"
             options={ESPECIES}
             value={especie}
             onChange={event => setEspecie(event.target.value)}
             inputClassName={styles.input}
             labelClassName="subtitle bold"
+            required
           />
           <Select
             name="tamanio"
             placeholder="-- Seleccione un tamaño --"
-            label="Tamaño:"
+            label="Tamaño"
             options={TAMANIOS}
             value={tamanio}
             onChange={event => setTamanio(event.target.value)}
             inputClassName={styles.input}
             labelClassName="subtitle bold"
+            required
           />
           <Select
             name="sexo"
             placeholder="-- Seleccione el sexo --"
-            label="Sexo:"
+            label="Sexo"
             options={SEXOS}
             value={sexo}
             onChange={event => setSexo(event.target.value)}
             inputClassName={styles.input}
             labelClassName="subtitle bold"
+            required
           />
           <Input
             name="edad"
@@ -81,6 +85,14 @@ const CreateAnimal = () => {
             max={25}
             step={1}
             required
+          />
+          <Input
+            name="notas"
+            label="Notas adicionales"
+            value={notas}
+            onChange={event => setNotas(event.target.value)}
+            inputClassName={styles.input}
+            labelClassName="subtitle bold"
           />
           <Button
             type="submit"
