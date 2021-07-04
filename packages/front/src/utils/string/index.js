@@ -29,7 +29,7 @@ export const onlyNumbers = string => string.replace(LETTERS_REGEX, '');
 
 export const replaceSpacesWithDashes = string => string.replace(SPACES_REGEX, '-');
 
-export const capitalize = string => string?.[0].toUpperCase().concat(string.slice(1).toLowerCase());
+export const capitalize = string => string?.[0]?.toUpperCase()?.concat(string.slice(1)?.toLowerCase());
 
 export const decapitalize = string => string?.[0].toLowerCase().concat(string.slice(1));
 

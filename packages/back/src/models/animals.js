@@ -10,4 +10,10 @@ const schema = new Schema({
   adopted: { type: Boolean, default: false }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Animal', schema);
+schema.query.byUserId = function (id) {
+  return this.where({ userId: id });
+};
+
+const Animal = mongoose.model('Animal', schema);
+
+module.exports = Animal;

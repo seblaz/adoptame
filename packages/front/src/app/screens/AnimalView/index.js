@@ -59,18 +59,24 @@ const AnimalView = () => {
     <LoadingWrapper loading={animalLoading || meLoading || postulationsLoading}>
       {animal && me && (
         <>
-          <div className={`column center  full-width ${styles.animalViewContainer}`}>
-            <h1 className="title bold">Adoptar Mascota</h1>
-            <div className={`row middle full-width ${styles.animalInfo}`}>
-              <div className={`column half-width ${styles.infoContainer}`}>
-                {INFO_FIELDS.map(({ label, key }) => (
-                  <InfoItem key={label} value={animal[key]} label={label} />
-                ))}
+          <div className={`column full-width full-height ${styles.animalViewContainer}`}>
+            <h1 className="title bold m-bottom-4">Adoptar Mascota</h1>
+            <div className={`column m-bottom-4 ${styles.animalInfo}`}>
+              <h2 className={`subtitle bold undeline italic m-bottom-6 ${styles.animalName}`}>
+                {animal.nombre}
+              </h2>
+              <div className={`row space-between full-height ${styles.rowContainer}`}>
+                <div className={`column half-width ${styles.infoContainer}`}>
+                  <h3 className={`large-text bold ${styles.animalInfoTitle}`}>Datos del animal</h3>
+                  {INFO_FIELDS.map(({ label, key }) => (
+                    <InfoItem key={label} value={animal[key]} label={label} className={styles.infoItem} />
+                  ))}
+                </div>
+                <img
+                  src="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
+                  className={`half-width ${styles.photo}`}
+                />
               </div>
-              <img
-                src="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
-                className={`half-width ${styles.photo}`}
-              />
             </div>
             {me.id === animal.userId ? (
               <div>
@@ -126,7 +132,7 @@ const AnimalView = () => {
             isOpen={modalOpen}
             hideCloseButton>
             <div className="column center middle">
-              <p className="row center large-text m-top-4 m-bottom-6">
+              <p className="row center large-text m-bottom-6">
                 Ingrese una breve descripción suya para proceder con la adopción
               </p>
               <textarea

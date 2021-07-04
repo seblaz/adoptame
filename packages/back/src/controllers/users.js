@@ -64,7 +64,6 @@ const signIn = async (req, res) => {
 
 const getUser = async (req, res) => {
   const { user } = req;
-  console.log(req, 'request')
   return endRequest({
     response: mapUser(user),
     code: 200,
@@ -75,7 +74,7 @@ const getUser = async (req, res) => {
 const getUserById = async (req, res) => User.findById(req.params.id)
   .then((user) => {
     if (!user) return catchRequest({ err: entityNotFound(`id ${req.params.id}`, 'user', '1040'), res });
-    const userForResponse = mapUser(user)
+    const userForResponse = mapUser(user);
     return endRequest({
       response: userForResponse,
       code: 200,
@@ -154,7 +153,7 @@ const updateMe = async (req, res) => {
     code: 200,
     res,
   }));
-}
+};
 
 const deleteUser = (req, res) => User.findById(req.params.id)
   .then((user) => {
