@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import PropTypes from 'prop-types';
 
 import Button from '~app/components/Button';
 import CustomModal from '~app/components/CustomModal';
@@ -34,6 +35,19 @@ const AnimalView = () => {
   const handleDescriptionChange = e => setDescription(e.target.value);
 
   const submitApplication = () => dispatch(AnimalActions.postulateForAdoption({ id, description }));
+
+  // eslint-disable-next-line react/no-multi-comp
+  const AcceptApplicationButton = ({ postulation }) => (
+    <Button
+      type="button"
+      label="Aceptar"
+      className={styles.button}
+      onClick={() => dispatch(AnimalActions.acceptPostulation(postulation.id))}
+    />
+  );
+
+  // eslint-disable-next-line react/forbid-prop-types
+  AcceptApplicationButton.propTypes = { postulation: PropTypes.object };
 
   useEffect(() => {
     dispatch(AnimalActions.getAnimal(id));
@@ -98,6 +112,7 @@ const AnimalView = () => {
                           />
                           <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
                         </div>
+                        {!animal.adopted && <AcceptApplicationButton postulation={postulation} />}
                       </div>
                     ))}
                   </div>
