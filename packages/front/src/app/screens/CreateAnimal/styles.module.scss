@@ -1,26 +1,47 @@
 .container { 
   padding: 50px;
+  background: linear-gradient( 0deg, rgba(255, 26, 5, 0.391194) 0%, #f55a03 16%, #ff8f00 100%);
+  color: white;
+  padding: 50px;
+}
+
+.center-container {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .form-container {
-  width: 500px;
-  background-color: silver;
+  color: black;
+  width: 100%;
+  background-color: whitesmoke;
   border-style: groove;
   border-radius: 25px;
   padding: 20px;
-  box-shadow: 1px 1px 10px silver;
+  box-shadow: 1px 1px 10px whitesmoke;
 }
 
 
 .submit {
-  background-color: #4CAF50; /* Green */
-  border: 1px solid black;
-  background-color: green;
-  border-radius: 50px;
-  height: 30px;
-  color: white;
+  width: 300px;
+  margin: 0 auto;
+  height: 40px;
+  padding: 5px 20px;
+  border: 1px solid silver;
+  border-radius: 5px;
+  background-color: steelblue;
+
+  &:disabled {
+    cursor: default;
+    background-color: silver;
+  }
+  &:hover:enabled{
+    background-color: steelblue;
+    color: white;
+  }
 }
 
-.select-animal-create {
-
+.input {
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 20px;
 }

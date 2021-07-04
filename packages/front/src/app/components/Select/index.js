@@ -14,17 +14,22 @@ const Select = ({
   defaultValue,
   error,
   className,
-  selectClassName,
+  inputClassName,
   errorClassName,
   optionClassName,
+  labelClassName,
   ...selectProps
 }) => (
   <div className={className}>
-    {!hideLabel && <span className={`${styles.inputLabel}`}>{label}</span>}
+    {!hideLabel && (
+      <span className={`${styles.inputLabel} ${labelClassName}`}>
+        {`${label}${selectProps.required ? '*' : ''}`}
+      </span>
+    )}
     <select
       onChange={handleChange}
       name={name}
-      className={`${selectClassName} ${styles.select} `}
+      className={`${styles.select} ${inputClassName}`}
       defaultValue={defaultValue}
       {...selectProps}>
       <Placeholder label={placeholder} optionClassName={optionClassName} />
@@ -49,8 +54,9 @@ Select.propTypes = {
   name: string,
   optionClassName: string,
   placeholder: string,
-  selectClassName: string,
-  label: string
+  inputClassName: string,
+  label: string,
+  labelClassName: string
 };
 
 Select.defaultProps = {
@@ -60,7 +66,8 @@ Select.defaultProps = {
   name: '',
   optionClassName: '',
   placeholder: '',
-  selectClassName: ''
+  inputClassName: '',
+  labelClassName: ''
 };
 
 export default Select;

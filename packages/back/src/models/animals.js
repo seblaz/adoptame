@@ -7,7 +7,8 @@ const schema = new Schema({
   edad: { type: Number },
   sexo: { type: String, enum: ['femenino', 'masculino'], required: true },
   userId: { type: Schema.Types.ObjectId, required: true },
-  adopted: { type: Boolean, default: false }
+  adopted: { type: Boolean, default: false },
+  notas: { type: String },
 }, { timestamps: true });
 
 schema.query.byUserId = function (id) {

@@ -1,7 +1,7 @@
 .animals-container {
   background: linear-gradient( 0deg, rgba(255, 26, 5, 0.391194) 0%, #f55a03 16%, #ff8f00 100%);
-    color: white;
-    padding: 50px;
+  color: white;
+  padding: 50px;
 }
 
 .box {
@@ -18,4 +18,9 @@
   &:hover {
     box-shadow: 1px 1px 10px 5px silver;
   }
+}
+
+.scroll {
+  overflow: auto;
+  max-height: 700px;
 }
