@@ -40,7 +40,7 @@ const AnimalView = () => {
     dispatch(AnimalActions.getPostulationsForAnimal(id));
     dispatch(MyDataActions.getMyData());
   }, [dispatch, id]);
-  console.log(animal);
+
   return (
     <LoadingWrapper loading={animalLoading || meLoading || postulationsLoading}>
       {animal && me && (
@@ -57,6 +57,12 @@ const AnimalView = () => {
                   {INFO_FIELDS.map(({ label, key }) => (
                     <InfoItem key={label} value={animal[key]} label={label} className={styles.infoItem} />
                   ))}
+                  {animal?.notas && (
+                    <div className="column full-width">
+                      <span className="large-text bold">Notas adicionales:</span>
+                      <span className="text">{animal.notas}</span>
+                    </div>
+                  )}
                 </div>
                 <img
                   src="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
@@ -75,19 +81,15 @@ const AnimalView = () => {
                 {postulationsOpen && (
                   <div className={styles.postulationsContainer}>
                     {postulations.map(postulation => (
-                      <div key={postulation.id} className={`row full-width middle ${styles.postulation}`}>
-                        <div className="column half-width">
-                          <InfoItem
-                            value={postulation.user.email}
-                            label="Email"
-                            className="column m-bottom-4"
-                          />
-                          <InfoItem
-                            value={postulation.user.createdAt}
-                            label="Miembro desde:"
-                            className="column"
-                          />
-                        </div>
+                      <div
+                        key={postulation.id}
+                        className={`row full-width space-between ${styles.postulation}`}>
+                        <InfoItem value={postulation.user.email} label="Email" className="column" />
+                        <InfoItem
+                          value={postulation.user.createdAt}
+                          label="Miembro desde:"
+                          className="column"
+                        />
                         <div className="column half-width">
                           <InfoItem
                             value={postulation.description}

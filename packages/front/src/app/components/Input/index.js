@@ -21,7 +21,7 @@ function Input({
     <div className={className}>
       {!hideLabel && (
         <label htmlFor={name} className={`${styles.inputLabel} ${labelClassName}`}>
-          {label}
+          {`${label}${inputProps.required ? '*' : ''}`}
         </label>
       )}
       <input

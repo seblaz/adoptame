@@ -111,7 +111,7 @@ const AnimalsView = () => {
               </div>
             </div>
             <Grid item xs={8}>
-              <div className="row wrap">
+              <div className={`row wrap ${styles.scroll}`}>
                 {selectedAnimals &&
                   selectedAnimals.map(animal => <AnimalCard key={animal.id} animal={animal} />)}
               </div>

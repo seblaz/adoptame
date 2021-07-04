@@ -21,7 +21,11 @@ const Select = ({
   ...selectProps
 }) => (
   <div className={className}>
-    {!hideLabel && <span className={`${styles.inputLabel} ${labelClassName}`}>{label}</span>}
+    {!hideLabel && (
+      <span className={`${styles.inputLabel} ${labelClassName}`}>
+        {`${label}${selectProps.required ? '*' : ''}`}
+      </span>
+    )}
     <select
       onChange={handleChange}
       name={name}
