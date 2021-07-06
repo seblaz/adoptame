@@ -93,6 +93,17 @@ const CreateAnimal = () => {
             onChange={event => setNotas(event.target.value)}
             inputClassName={styles.input}
             labelClassName="subtitle bold"
+            required
+          />
+          <Input
+            name="photo"
+            label="Foto"
+            value="Foto"
+            onChange={event => setNotas(event.target.value)}
+            inputClassName={styles.input}
+            labelClassName="subtitle bold"
+            disabled
+            required
           />
           <Button
             type="submit"
