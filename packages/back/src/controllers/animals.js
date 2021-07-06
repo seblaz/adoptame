@@ -3,6 +3,9 @@ const { endRequest, catchRequest } = require('../helpers/request');
 const { entityNotFound } = require('../errors');
 
 const createAnimal = async (req, res) => {
+  if(!req.file){
+    res.status(400).send(`No file sent, body sent: ${JSON.stringify(req.body)}`)
+  }
   const animal = new Animal({ ...req.body, userId: req.user.id , imagePath: req.file.path.replace('public','')})
   return animal.save()
     .then((response) => endRequest({

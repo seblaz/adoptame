@@ -45,6 +45,7 @@ const {
 } = require('./schemas');
 const { createSignedUrl } = require('./controllers/files');
 
+
 module.exports = (app) => {
   // web app
   app.get('/health', health);
@@ -63,7 +64,7 @@ module.exports = (app) => {
   app.get('/animals', [authenticate], getAnimals);
   app.post('/animals', [authenticate, upload.single('photo')], createAnimal);
   app.get('/animals/:id', [authenticate, mongoQueries], getAnimalById);
-  app.post('/animals/:id/photos', upload.single('photo'), uploadAnimalPhoto);
+  app.post('/animals/:id/photos', [upload.single('photo')], uploadAnimalPhoto);
   app.use(express.static('public'));
   // Postulations
   app.post('/postulations', [authenticate, validateSchemaAndFail(postulationSchema)], createPostulation);
