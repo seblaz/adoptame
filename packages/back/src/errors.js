@@ -49,10 +49,10 @@ const JWT_ERRORS = {
   'invalid signature': (res) => ({ err: invalidSignature('2007'), res }),
 };
 
-const animalAlreadyAdopted = (animalId, internalCode) => ({ 
-  code: 400, 
+const animalAlreadyAdopted = (animalId, internalCode) => ({
+  code: 400,
   message: `El animal ${animalId} ya fue adoptado`,
-  internalCode
+  internalCode,
 });
 
 module.exports = {

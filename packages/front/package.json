@@ -41,7 +41,7 @@
     "build": "node ./scripts/build.js",
     "test": "jest --runInBand",
     "eject": "react-scripts eject",
-    "lint": "eslint src --fix"
+    "lint": "eslint src"
   },
   "eslintConfig": {
     "extends": "react-app"
