@@ -43,6 +43,10 @@ const AppRoutesContainer = () => {
             <Route path={ROUTES.PLAYGROUND} component={Playground} />
           )}
         </Suspense>
+        <div className={`full-width column center middle ${styles.footer}`}>
+          <span className="large-text">Apoyá a Adoptame y a sus refugios donando a esta cuenta:</span>
+          <span className="large-text bold">CBU: 285-05909-4009041813520-1</span>
+        </div>
       </div>
     </ConnectedRouter>
   );
