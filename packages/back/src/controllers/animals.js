@@ -3,7 +3,7 @@ const { endRequest, catchRequest } = require('../helpers/request');
 const { entityNotFound } = require('../errors');
 
 const createAnimal = async (req, res) => {
-  const animal = new Animal({ ...req.body, userId: req.user.id });
+  const animal = new Animal({ ...req.body, userId: req.user.id , imagePath: req.file.path.replace('public','')})
   return animal.save()
     .then((response) => endRequest({
       response,

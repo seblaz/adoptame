@@ -6,6 +6,7 @@ const schema = new Schema({
   tamanio: { type: String, enum: ['chico', 'mediano', 'grande'], required: true },
   edad: { type: Number, required: true },
   sexo: { type: String, enum: ['femenino', 'masculino'], required: true },
+  imagePath: { type: String, required: true },
   userId: { type: Schema.Types.ObjectId, required: true },
   adopted: { type: Boolean, default: false },
   notas: { type: String, required: true },

@@ -7,7 +7,7 @@ var storage = multer.diskStorage(
   {
     destination: 'public/uploads/',
     filename: function (req, file, cb) {
-      cb(null, req.params.id + ".png")
+      cb(null, Date.now() + file.originalname)
     }
   }
 );
@@ -61,7 +61,7 @@ module.exports = (app) => {
   app.post('/users/password', [validateSchemaAndFail(passwordSchema), authenticatePasswordChange], updatePassword);
   // Animals
   app.get('/animals', [authenticate], getAnimals);
-  app.post('/animals', [authenticate, validateSchemaAndFail(animalSchema)], createAnimal);
+  app.post('/animals', [authenticate, upload.single('photo')], createAnimal);
   app.get('/animals/:id', [authenticate, mongoQueries], getAnimalById);
   app.post('/animals/:id/photos', upload.single('photo'), uploadAnimalPhoto);
   app.use(express.static('public'));
