@@ -49,6 +49,12 @@ const JWT_ERRORS = {
   'invalid signature': (res) => ({ err: invalidSignature('2007'), res }),
 };
 
+const animalAlreadyAdopted = (animalId, internalCode) => ({
+  code: 400,
+  message: `El animal ${animalId} ya fue adoptado`,
+  internalCode,
+});
+
 module.exports = {
   unauthorizedUser,
   entityAlreadyExists,
@@ -59,5 +65,6 @@ module.exports = {
   invalidKeys,
   invalidMongoIdError,
   invalidApiKey,
+  animalAlreadyAdopted,
   JWT_ERRORS,
 };

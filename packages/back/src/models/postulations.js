@@ -4,6 +4,7 @@ const schema = new Schema({
   userId: { type: Schema.Types.ObjectId, required: true },
   animalId: { type: Schema.Types.ObjectId, required: true },
   description: { type: String, required: true },
+  accepted: { type: Boolean, default: false },
 }, { timestamps: true });
 
 // to set unique index

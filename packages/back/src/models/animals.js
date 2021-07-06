@@ -7,6 +7,14 @@ const schema = new Schema({
   edad: { type: Number },
   sexo: { type: String, enum: ['femenino', 'masculino'], required: true },
   userId: { type: Schema.Types.ObjectId, required: true },
+  adopted: { type: Boolean, default: false },
+  notas: { type: String },
 }, { timestamps: true });
 
-module.exports = mongoose.model('Animal', schema);
+schema.query.byUserId = function (id) {
+  return this.where({ userId: id });
+};
+
+const Animal = mongoose.model('Animal', schema);
+
+module.exports = Animal;

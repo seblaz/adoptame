@@ -30,26 +30,30 @@ const getAnimalById = async (req, res) => {
   });
 };
 
-const getAnimals = async (req,res) => {
+const getAnimals = async (_, res) => Animal.find({ adopted: false })
+  .then((response) => {
+    endRequest({ response, code: 200, res });
+  })
+  .catch((err) => {
+    catchRequest(err, res, 'An error occurs when getting animals from DB', err);
+  });
 
-  return Animal.find()
-    .then(response => endRequest ({
-      response, 
-      code: 200, 
-      res
-    }))
-    .catch(err => {
-      catchRequest(err, res, 'An error occurs when getting animals from DB', code);
-    });
-}
+const getMyPostedAnimals = async (req, res) => Animal.find().byUserId(req.user.id)
+  .then((response) => endRequest({
+    response,
+    code: 200,
+    res,
+  }))
+  .catch((err) => {
+    catchRequest(err, res, 'An error occurs when getting animals from DB', err);
+  });
 
-const uploadAnimalPhoto = async (req, res) => {
-  return endRequest ({ res, code: 200, res });
-}
+const uploadAnimalPhoto = async (req, res) => endRequest({ response: res, res, code: 200 });
 
 module.exports = {
-  createAnimal, 
-  getAnimalById, 
+  createAnimal,
+  getAnimalById,
   getAnimals,
-  uploadAnimalPhoto
+  getMyPostedAnimals,
+  uploadAnimalPhoto,
 };

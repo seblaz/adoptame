@@ -17,11 +17,6 @@
   },
   "author": "Adoptame dev",
   "license": "MIT",
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
-  },
   "dependencies": {
     "aws-sdk": "^2.821.0",
     "aws-sdk-mock": "^5.1.0",
