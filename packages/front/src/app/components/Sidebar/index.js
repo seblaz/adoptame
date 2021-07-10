@@ -1,6 +1,7 @@
 import React from 'react';
-import { Drawer, Link, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import { Link } from 'react-router-dom';
 
 import { ROUTES } from '~constants/routes';
 
@@ -25,16 +26,19 @@ const Sidebar = ({ open, onClose }) => (
   <Drawer elevation={10} open={open} onClose={onClose}>
     <div className={styles.sidebarContainer}>
       <List>
-        {MENU_ITEMS.map(({ label, path }) => (
-          <ListItem key={path} button>
-            <Link to={path}>
-              <ListItemIcon>
-                <InboxIcon style={{ fill: 'white' }} />
-              </ListItemIcon>
-              <ListItemText primary={label} />
+        {MENU_ITEMS.map(({ label, path }) => {
+          console.log(label, path);
+          return (
+            <Link to={path} className="row middle" key={path}>
+              <ListItem button>
+                <ListItemIcon>
+                  <InboxIcon style={{ fill: 'white' }} />
+                </ListItemIcon>
+                <ListItemText primary={label} style={{ color: 'white' }} />
+              </ListItem>
             </Link>
-          </ListItem>
-        ))}
+          );
+        })}
       </List>
     </div>
   </Drawer>
