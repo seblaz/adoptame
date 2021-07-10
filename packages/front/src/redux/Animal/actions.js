@@ -40,9 +40,10 @@ export const actionCreators = {
     service: AnimalService.getAnimal
   }),
 
-  getAnimals: () => ({
+  getAnimals: onlyNotAdopted => ({
     type: actions.GET_ANIMALS,
     target: TARGETS.ANIMALS,
+    payload: onlyNotAdopted,
     service: AnimalService.getAnimals
   }),
   getMyAnimalsPosts: () => ({
