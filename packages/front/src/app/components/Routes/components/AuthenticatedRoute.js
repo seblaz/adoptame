@@ -8,9 +8,12 @@ import { useSelector } from 'react-redux';
 import NavBar from '~app/components/NavBar';
 import { ROUTES } from '~constants/routes';
 
+import styles from './styles.module.scss';
+
 const AuthenticatedRoute = ({ title, description, path, isPublic, component: Component, ...props }) => {
   const { user } = useSelector(state => state.auth);
   const isAuth = Boolean(user?.token);
+  const showNavbar = isAuth && path !== ROUTES.LOGIN;
   return (
     <>
       <Helmet>
@@ -18,8 +21,10 @@ const AuthenticatedRoute = ({ title, description, path, isPublic, component: Com
         <meta name="description" content={description} />
       </Helmet>
       <Route path={path} {...props}>
-        {isAuth && path !== ROUTES.LOGIN && <NavBar />}
-        {isPublic || isAuth ? <Component /> : <Redirect to={ROUTES.LOGIN} />}
+        {showNavbar && <NavBar />}
+        <div className={`${styles.mainContent} ${showNavbar ? styles.padded : ''}`}>
+          {isPublic || isAuth ? <Component /> : <Redirect to={ROUTES.LOGIN} />}
+        </div>
       </Route>
     </>
   );
