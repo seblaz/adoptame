@@ -11,6 +11,7 @@ import { MODALS } from '~redux/Modal/constants';
 import MyDataActions from '~redux/User/actions';
 
 import AcceptApplicationButton from './components/Buttons/AcceptApplicationButton';
+import RejectApplicationButton from './components/Buttons/RejectApplicationButton';
 import InfoItem from './components/InfoItem';
 import { INFO_FIELDS } from './constants';
 import styles from './styles.module.scss';
@@ -38,6 +39,11 @@ const AnimalView = () => {
 
   const handleAcceptPostulation = postulation => {
     dispatch(AnimalActions.acceptPostulation(postulation.id));
+  };
+
+  const handleRejectPostulation = postulation => {
+    // eslint-disable-next-line no-console
+    console.log(postulation);
   };
 
   useEffect(() => {
@@ -105,6 +111,9 @@ const AnimalView = () => {
                         </div>
                         {!animal.adopted && (
                           <AcceptApplicationButton onClick={() => handleAcceptPostulation(postulation)} />
+                        )}
+                        {postulation.accepted && (
+                          <RejectApplicationButton onClick={() => handleRejectPostulation(postulation)} />
                         )}
                       </div>
                     ))}
