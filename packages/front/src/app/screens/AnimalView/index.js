@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import PropTypes from 'prop-types';
 
 import Button from '~app/components/Button';
 import CustomModal from '~app/components/CustomModal';
@@ -11,6 +10,7 @@ import ModalActions from '~redux/Modal/actions';
 import { MODALS } from '~redux/Modal/constants';
 import MyDataActions from '~redux/User/actions';
 
+import AcceptApplicationButton from './components/Buttons/AcceptApplicationButton';
 import InfoItem from './components/InfoItem';
 import { INFO_FIELDS } from './constants';
 import styles from './styles.module.scss';
@@ -36,18 +36,9 @@ const AnimalView = () => {
 
   const submitApplication = () => dispatch(AnimalActions.postulateForAdoption({ id, description }));
 
-  // eslint-disable-next-line react/no-multi-comp
-  const AcceptApplicationButton = ({ postulation }) => (
-    <Button
-      type="button"
-      label="Aceptar"
-      className={styles.button}
-      onClick={() => dispatch(AnimalActions.acceptPostulation(postulation.id))}
-    />
-  );
-
-  // eslint-disable-next-line react/forbid-prop-types
-  AcceptApplicationButton.propTypes = { postulation: PropTypes.object };
+  const handleAcceptPostulation = postulation => {
+    dispatch(AnimalActions.acceptPostulation(postulation.id));
+  };
 
   useEffect(() => {
     dispatch(AnimalActions.getAnimal(id));
@@ -112,7 +103,9 @@ const AnimalView = () => {
                           />
                           <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
                         </div>
-                        {!animal.adopted && <AcceptApplicationButton postulation={postulation} />}
+                        {!animal.adopted && (
+                          <AcceptApplicationButton onClick={() => handleAcceptPostulation(postulation)} />
+                        )}
                       </div>
                     ))}
                   </div>
