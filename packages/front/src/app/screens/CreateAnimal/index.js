@@ -35,7 +35,7 @@ const CreateAnimal = () => {
 
   const onFileChange = e => {
     console.log(file);
-    file = { file: e.target.files[0] };
+    file = e.target.files[0];
   };
 
   const isDataComplete = nombre && edad && especie && tamanio && sexo;
