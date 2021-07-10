@@ -10,6 +10,7 @@ import AnimalActions from '~redux/Animal/actions';
 import ModalActions from '~redux/Modal/actions';
 import { MODALS } from '~redux/Modal/constants';
 import MyDataActions from '~redux/User/actions';
+import { getAnimalImage } from '~utils/animal';
 
 import InfoItem from './components/InfoItem';
 import { INFO_FIELDS } from './constants';
@@ -78,10 +79,7 @@ const AnimalView = () => {
                     </div>
                   )}
                 </div>
-                <img
-                  src={`http://localhost:8080${animal.imagePath}`}
-                  className={`half-width ${styles.photo}`}
-                />
+                <img src={getAnimalImage(animal.imagePath)} className={`half-width ${styles.photo}`} />
               </div>
             </div>
             {me.id === animal.userId ? (
