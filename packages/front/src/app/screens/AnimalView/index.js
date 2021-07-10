@@ -75,7 +75,7 @@ const AnimalView = () => {
                   )}
                 </div>
                 <img
-                  src="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
+                  src={`http://localhost:8080${animal.imagePath}`}
                   className={`half-width ${styles.photo}`}
                 />
               </div>
