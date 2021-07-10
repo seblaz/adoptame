@@ -9,6 +9,7 @@ import AnimalActions from '~redux/Animal/actions';
 import ModalActions from '~redux/Modal/actions';
 import { MODALS } from '~redux/Modal/constants';
 import MyDataActions from '~redux/User/actions';
+import { getAnimalImage } from '~utils/animal';
 
 import AcceptApplicationButton from './components/Buttons/AcceptApplicationButton';
 import RejectApplicationButton from './components/Buttons/RejectApplicationButton';
@@ -74,10 +75,7 @@ const AnimalView = () => {
                     </div>
                   )}
                 </div>
-                <img
-                  src={`http://localhost:8080${animal.imagePath}`}
-                  className={`half-width ${styles.photo}`}
-                />
+                <img src={getAnimalImage(animal.imagePath)} className={`half-width ${styles.photo}`} />
               </div>
             </div>
             {me.id === animal.userId ? (
@@ -145,7 +143,7 @@ const AnimalView = () => {
               <textarea
                 maxLength={400}
                 className={`small-text ${styles.textArea}`}
-                placeholder="Ingrese una breve descripción..."
+                placeholder="Por favor describí cómo sería la vida hogareña del animal y cómo va a poder adaptarse..."
                 value={description}
                 onChange={handleDescriptionChange}
               />
