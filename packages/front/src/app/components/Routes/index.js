@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import Home from '~screens/Home';
 import Login from '~screens/Login';
@@ -16,40 +15,32 @@ import MyAnimalPosts from '~screens/MyAnimalsPosts';
 import { history } from '~redux/store';
 import { ROUTES } from '~constants/routes';
 import UserProfile from '~app/screens/UserProfile';
-import NavBar from '~app/components/NavBar';
 
 import styles from './styles.module.scss';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 
-const AppRoutesContainer = () => {
-  const { user } = useSelector(state => state.auth);
-  const isAuth = Boolean(user?.token);
-  return (
-    <ConnectedRouter history={history}>
-      <div className={`column center ${styles.container} ${styles.containerAlgo}`}>
-        {isAuth && <NavBar />}
-        <Suspense>
-          <AuthenticatedRoute path={ROUTES.REGISTRATION} component={Registration} isPublic exact />
-          <AuthenticatedRoute path={ROUTES.LOGIN} component={Login} isPublic exact />
-          <AuthenticatedRoute path={ROUTES.CREATE_ANIMAL} component={CreateAnimal} exact />
-          <AuthenticatedRoute path={ROUTES.ANIMAL_VIEW} component={AnimalView} exact />
-          <AuthenticatedRoute path={ROUTES.HOME} component={Home} exact />
-          <AuthenticatedRoute path={ROUTES.PERSONAL_DATA} component={PersonalData} exact />
-          <AuthenticatedRoute path={ROUTES.USER_PROFILE} component={UserProfile} exact />
-          <AuthenticatedRoute path={ROUTES.ANIMALS} component={AnimalsView} exact />
-          <AuthenticatedRoute path={ROUTES.PERSONAL_DATA_EDIT} component={PersonalDataEdit} exact />
-          <AuthenticatedRoute path={ROUTES.MY_ANIMALS_POSTS} component={MyAnimalPosts} exact />
-          {process.env.NODE_ENV === 'development' && (
-            <Route path={ROUTES.PLAYGROUND} component={Playground} />
-          )}
-        </Suspense>
-        <div className={`full-width column center middle ${styles.footer}`}>
-          <span className="large-text">Apoyá a Adoptame y a sus refugios donando a esta cuenta:</span>
-          <span className="large-text bold">CBU: 285-05909-4009041813520-1</span>
-        </div>
+const AppRoutesContainer = () => (
+  <ConnectedRouter history={history}>
+    <div className={`column center ${styles.container} ${styles.containerAlgo}`}>
+      <Suspense>
+        <AuthenticatedRoute path={ROUTES.REGISTRATION} component={Registration} isPublic exact />
+        <AuthenticatedRoute path={ROUTES.LOGIN} component={Login} isPublic exact />
+        <AuthenticatedRoute path={ROUTES.CREATE_ANIMAL} component={CreateAnimal} exact />
+        <AuthenticatedRoute path={ROUTES.ANIMAL_VIEW} component={AnimalView} exact />
+        <AuthenticatedRoute path={ROUTES.HOME} component={Home} exact />
+        <AuthenticatedRoute path={ROUTES.PERSONAL_DATA} component={PersonalData} exact />
+        <AuthenticatedRoute path={ROUTES.USER_PROFILE} component={UserProfile} exact />
+        <AuthenticatedRoute path={ROUTES.ANIMALS} component={AnimalsView} exact />
+        <AuthenticatedRoute path={ROUTES.PERSONAL_DATA_EDIT} component={PersonalDataEdit} exact />
+        <AuthenticatedRoute path={ROUTES.MY_ANIMALS_POSTS} component={MyAnimalPosts} exact />
+        {process.env.NODE_ENV === 'development' && <Route path={ROUTES.PLAYGROUND} component={Playground} />}
+      </Suspense>
+      <div className={`full-width column center middle ${styles.footer}`}>
+        <span className="large-text">Apoyá a Adoptame y a sus refugios donando a esta cuenta:</span>
+        <span className="large-text bold">CBU: 285-05909-4009041813520-1</span>
       </div>
-    </ConnectedRouter>
-  );
-};
+    </div>
+  </ConnectedRouter>
+);
 
 export default AppRoutesContainer;

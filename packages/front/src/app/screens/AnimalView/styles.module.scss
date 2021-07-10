@@ -1,7 +1,7 @@
 .modal-container {
   max-width: 500px;
   height: 400px;
-  background: linear-gradient( 0deg, rgba(255, 26, 5, 0.391194) 0%, #f55a03 16%, #ff8f00 100%);
+  background: linear-gradient(0deg, rebeccapurple 0%, darkorange 100%);
   color: white;
   padding: 30px;
 }
@@ -12,14 +12,14 @@
   padding: 5px 20px;
   border: 1px solid silver;
   border-radius: 5px;
-  background-color: steelblue;
+  background-color: rebeccapurple;
 
   &:disabled {
     cursor: default;
     background-color: silver;
   }
   &:hover:enabled{
-    background-color: steelblue;
+    background-color: rebeccapurple;
     color: white;
   }
 }
@@ -36,7 +36,7 @@
 }
 
 .animal-view-container {
-  background: linear-gradient( 0deg, rgba(255, 26, 5, 0.391194) 0%, #f55a03 16%, #ff8f00 100%);
+  background: linear-gradient(0deg, rebeccapurple 0%, darkorange 100%);
   color: white;
   padding: 50px 100px;
 }
