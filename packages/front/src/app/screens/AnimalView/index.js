@@ -37,13 +37,12 @@ const AnimalView = () => {
 
   const submitApplication = () => dispatch(AnimalActions.postulateForAdoption({ id, description }));
 
-  const handleAcceptPostulation = postulation => {
-    dispatch(AnimalActions.acceptPostulation(postulation.id));
-  };
-
-  const handleRejectPostulation = postulation => {
-    // eslint-disable-next-line no-console
-    console.log(postulation);
+  const handleEditPostulation = (postulationId, accept) => {
+    const payload = {
+      postulationId,
+      accept
+    };
+    dispatch(AnimalActions.editPostulation(payload));
   };
 
   useEffect(() => {
@@ -110,10 +109,14 @@ const AnimalView = () => {
                           <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
                         </div>
                         {!animal.adopted && (
-                          <AcceptApplicationButton onClick={() => handleAcceptPostulation(postulation)} />
+                          <AcceptApplicationButton
+                            onClick={() => handleEditPostulation(postulation.id, true)}
+                          />
                         )}
                         {postulation.accepted && (
-                          <RejectApplicationButton onClick={() => handleRejectPostulation(postulation)} />
+                          <RejectApplicationButton
+                            onClick={() => handleEditPostulation(postulation.id, false)}
+                          />
                         )}
                       </div>
                     ))}
