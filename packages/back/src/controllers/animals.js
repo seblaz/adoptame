@@ -3,7 +3,10 @@ const { endRequest, catchRequest } = require('../helpers/request');
 const { entityNotFound } = require('../errors');
 
 const createAnimal = async (req, res) => {
-  const animal = new Animal({ ...req.body, userId: req.user.id });
+  if(!req.file){
+    res.status(400).send(`No file sent, body sent: ${JSON.stringify(req.body)}`)
+  }
+  const animal = new Animal({ ...req.body, userId: req.user.id , imagePath: req.file.path.replace('public','')})
   return animal.save()
     .then((response) => endRequest({
       response,
@@ -48,9 +51,12 @@ const getMyPostedAnimals = async (req, res) => Animal.find().byUserId(req.user.i
     catchRequest(err, res, 'An error occurs when getting animals from DB', err);
   });
 
+const uploadAnimalPhoto = async (req, res) => endRequest({ response: res, res, code: 200 });
+
 module.exports = {
   createAnimal,
   getAnimalById,
   getAnimals,
   getMyPostedAnimals,
+  uploadAnimalPhoto,
 };
