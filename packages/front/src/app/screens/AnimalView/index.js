@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import PropTypes from 'prop-types';
 
 import Button from '~app/components/Button';
 import CustomModal from '~app/components/CustomModal';
@@ -14,11 +15,6 @@ import InfoItem from './components/InfoItem';
 import { INFO_FIELDS } from './constants';
 import styles from './styles.module.scss';
 
-const AcceptApplicationButton = ({ onClick }) => (
-  <Button type="button" label="Aceptar" className={styles.button} onClick={onClick} />
-);
-
-// eslint-disable-next-line react/no-multi-comp
 const AnimalView = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -40,9 +36,18 @@ const AnimalView = () => {
 
   const submitApplication = () => dispatch(AnimalActions.postulateForAdoption({ id, description }));
 
-  const handleAcceptPostulation = postulation => {
-    dispatch(AnimalActions.acceptPostulation(postulation.id));
-  };
+  // eslint-disable-next-line react/no-multi-comp
+  const AcceptApplicationButton = ({ postulation }) => (
+    <Button
+      type="button"
+      label="Aceptar"
+      className={styles.button}
+      onClick={() => dispatch(AnimalActions.acceptPostulation(postulation.id))}
+    />
+  );
+
+  // eslint-disable-next-line react/forbid-prop-types
+  AcceptApplicationButton.propTypes = { postulation: PropTypes.object };
 
   useEffect(() => {
     dispatch(AnimalActions.getAnimal(id));
@@ -107,9 +112,7 @@ const AnimalView = () => {
                           />
                           <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
                         </div>
-                        {!animal.adopted && (
-                          <AcceptApplicationButton onClick={() => handleAcceptPostulation(postulation)} />
-                        )}
+                        {!animal.adopted && <AcceptApplicationButton postulation={postulation} />}
                       </div>
                     ))}
                   </div>
