@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { ROUTES } from '~constants/routes';
 import actionCreators from '~redux/Auth/actions';
+import AdoptameIcon from '~assets/adoptame.png';
 
 import styles from './styles.module.scss';
 
@@ -28,7 +29,8 @@ function NavBar() {
     dispatch(actionCreators.signOff());
   };
   return (
-    <div className={`row center middle full-width ${styles.navbarContainer}`}>
+    <div className={`row middle full-width ${styles.navbarContainer}`}>
+      <img className={styles.icon} src={AdoptameIcon} />
       <div className="row center middle full-width">
         {MENU_ITEMS.map(({ path, label }) => (
           <Link to={path} key={path} className={`bold m-right-6 m-left-6 ${styles.navbarItem}`}>
