@@ -1,41 +1,51 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton, makeStyles } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { ROUTES } from '~constants/routes';
+import actionCreators from '~redux/Auth/actions';
+import AdoptameIcon from '~assets/adoptame.png';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    width: '100%',
-    background: theme.background
+import styles from './styles.module.scss';
+
+const MENU_ITEMS = [
+  {
+    label: 'Crear publicación',
+    path: ROUTES.CREATE_ANIMAL
   },
-  menuButton: {
-    marginRight: theme.spacing(2)
+  {
+    label: 'Ver publicaciones',
+    path: ROUTES.ANIMALS
   },
-  title: {
-    flexGrow: 1
+  {
+    label: 'Perfil',
+    path: ROUTES.PERSONAL_DATA
   }
-}));
+];
 
 function NavBar() {
-  const classes = useStyles();
-
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch(actionCreators.signOff());
+  };
   return (
-    <AppBar position="static" className={classes.root}>
-      <Toolbar>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" className={classes.title}>
-          Adoptame
-        </Typography>
-        <Link to={ROUTES.LOGIN}>
-          <Button color="inherit">Logout</Button>
-        </Link>
-      </Toolbar>
-    </AppBar>
+    <div className={`row middle full-width ${styles.navbarContainer}`}>
+      <img className={styles.icon} src={AdoptameIcon} />
+      <div className="row center middle full-width">
+        {MENU_ITEMS.map(({ path, label }) => (
+          <Link to={path} key={path} className={`bold m-right-6 m-left-6 ${styles.navbarItem}`}>
+            <span variant="h6" className={styles.title}>
+              {label}
+            </span>
+          </Link>
+        ))}
+      </div>
+      <Link to={ROUTES.LOGIN} onClick={logout}>
+        <button type="button" color="inherit">
+          Logout
+        </button>
+      </Link>
+    </div>
   );
 }
 

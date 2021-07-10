@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 import { ROUTES } from '~constants/routes';
 import { capitalize } from '~utils/string';
+import { getAnimalImage } from '~utils/animal';
 
 import { ESPECIES_POR_GENERO } from '../constants';
 
@@ -33,7 +34,7 @@ const AnimalsView = ({ animal }) => {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="https://thumbs.dreamstime.com/b/happy-golden-retriever-puppy-week-old-runs-toward-camera-96711049.jpg"
+            image={getAnimalImage(animal?.imagePath)}
             title="{animal.nombre}"
           />
           <CardContent>

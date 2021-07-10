@@ -17,7 +17,7 @@ const CreateAnimal = () => {
   const [tamanio, setTamanio] = useState();
   const [sexo, setSexo] = useState();
   const dispatch = useDispatch();
-  let file = null;
+  const [file, setFile] = useState();
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -29,17 +29,15 @@ const CreateAnimal = () => {
     formData.append('tamanio', tamanio);
     formData.append('sexo', sexo);
     formData.append('notas', notas);
-    console.log(formData);
     dispatch(actionCreators.createAnimal(formData));
   };
 
   const onFileChange = e => {
-    console.log(file);
-    file = e.target.files[0];
+    setFile(e.target.files[0]);
   };
 
   const isDataComplete = nombre && edad && especie && tamanio && sexo;
-
+  console.log(file);
   return (
     <div className={`column center full-width full-height ${styles.container}`}>
       <div className={`column full-width ${styles.centerContainer}`}>
