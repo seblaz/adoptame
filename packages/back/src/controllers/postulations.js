@@ -80,6 +80,9 @@ const acceptPostulation = async (req, res) => {
   animal.adopted = true;
   postulation.accepted = true;
 
+  const { userId } = postulation;
+  animal.adopter = userId;
+
   await animal.save();
 
   return postulation.save().then((response) => endRequest({

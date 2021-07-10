@@ -48,9 +48,20 @@ const getMyPostedAnimals = async (req, res) => Animal.find().byUserId(req.user.i
     catchRequest(err, res, 'An error occurs when getting animals from DB', err);
   });
 
+const getMyAdoptedAnimals = async (req, res) => Animal.find({ adopter: req.user.id })
+  .then((response) => endRequest({
+    response,
+    code: 200,
+    res,
+  }))
+  .catch((err) => {
+    catchRequest(err, res, 'An error occurs when getting animals from DB', err);
+  });
+
 module.exports = {
   createAnimal,
   getAnimalById,
   getAnimals,
   getMyPostedAnimals,
+  getMyAdoptedAnimals,
 };

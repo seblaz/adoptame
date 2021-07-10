@@ -2,5 +2,6 @@ export const TARGETS = {
   ANIMAL: 'animal',
   ANIMALS: 'animals',
   MY_ANIMALS: 'myAnimals',
-  POSTULATIONS: 'postulations'
+  POSTULATIONS: 'postulations',
+  MY_ANIMALS_ADOPTED: 'myAnimalsAdopted'
 };

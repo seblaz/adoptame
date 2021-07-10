@@ -9,6 +9,7 @@ const schema = new Schema({
   userId: { type: Schema.Types.ObjectId, required: true },
   adopted: { type: Boolean, default: false },
   notas: { type: String },
+  adopter: { type: Schema.Types.ObjectId },
 }, { timestamps: true });
 
 schema.query.byUserId = function (id) {
