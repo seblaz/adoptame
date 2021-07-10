@@ -140,7 +140,7 @@ const AnimalView = () => {
               <textarea
                 maxLength={400}
                 className={`small-text ${styles.textArea}`}
-                placeholder="Ingrese una breve descripción..."
+                placeholder="Por favor describí cómo sería la vida hogareña del animal y cómo va a poder adaptarse..."
                 value={description}
                 onChange={handleDescriptionChange}
               />
