@@ -1,9 +1,8 @@
 .modal-container {
   max-width: 500px;
   height: 400px;
-  background: linear-gradient(0deg, rebeccapurple 0%, darkorange 100%);
-  color: white;
   padding: 30px;
+  background: white;
 }
 
 .button {
@@ -13,6 +12,7 @@
   border: 1px solid silver;
   border-radius: 5px;
   background-color: rebeccapurple;
+  color: white;
 
   &:disabled {
     cursor: default;
@@ -36,8 +36,6 @@
 }
 
 .animal-view-container {
-  background: linear-gradient(0deg, rebeccapurple 0%, darkorange 100%);
-  color: white;
   padding: 50px 100px;
 }
 
@@ -54,13 +52,14 @@
 }
 
 .animal-info {
-  background-color: whitesmoke;
   border-radius: 15px;
   padding: 30px;
   justify-content: space-between;
   color: black;
   width: 100%;
   height: 550px;
+  background: white;
+  box-shadow: 1px 1px 5px 0 silver;
 }
 
 .postulation {
