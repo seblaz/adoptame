@@ -30,7 +30,7 @@ const {
 const {
   createPostulation,
   getPostulationByAnimalId,
-  acceptPostulation,
+  editPostulation,
 } = require('./controllers/postulations');
 
 const { validateSchemaAndFail } = require('./middlewares/params');
@@ -69,8 +69,7 @@ module.exports = (app) => {
   // Postulations
   app.post('/postulations', [authenticate, validateSchemaAndFail(postulationSchema)], createPostulation);
   app.get('/postulations/:animalId', [authenticate], getPostulationByAnimalId);
-  app.patch('/postulations/:id', [authenticate, mongoQueries], acceptPostulation);
-  app.get('/postulations/:animalId', [authenticate], getPostulationByAnimalId);
+  app.patch('/postulations/:id', [authenticate, mongoQueries], editPostulation);
 
   app.get('/me', [authenticate], getUser);
   app.put('/me', [authenticate, mongoQueries], updateMe);

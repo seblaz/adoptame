@@ -13,7 +13,7 @@ export const actions = createTypes(
     'GET_ANIMAL',
     'GET_ANIMALS',
     'GET_POSTULATIONS',
-    'ACCEPT_POSTULATION',
+    'EDIT_POSTULATION',
     'GET_MY_ANIMALS',
     'GET_POSTULATIONS'
   ]),
@@ -40,9 +40,10 @@ export const actionCreators = {
     service: AnimalService.getAnimal
   }),
 
-  getAnimals: () => ({
+  getAnimals: onlyNotAdopted => ({
     type: actions.GET_ANIMALS,
     target: TARGETS.ANIMALS,
+    payload: onlyNotAdopted,
     service: AnimalService.getAnimals
   }),
   getMyAnimalsPosts: () => ({
@@ -69,11 +70,11 @@ export const actionCreators = {
     service: AnimalService.getPostulationsForAnimal
   }),
 
-  acceptPostulation: id => ({
-    type: actions.ACCEPT_POSTULATION,
+  editPostulation: payload => ({
+    type: actions.EDIT_POSTULATION,
     target: TARGETS.POSTULATIONS,
-    payload: id,
-    service: PostulationService.acceptPostulation
+    payload,
+    service: PostulationService.editPostulation
   })
 };
 

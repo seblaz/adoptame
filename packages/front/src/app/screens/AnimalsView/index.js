@@ -26,7 +26,7 @@ const AnimalsView = () => {
   const tamanios = [{ value: undefined, label: 'Todos' }, ...TAMANIOS];
 
   useEffect(() => {
-    dispatch(AnimalActions.getAnimals());
+    dispatch(AnimalActions.getAnimals(true));
   }, [dispatch]);
 
   useEffect(() => {

@@ -67,18 +67,19 @@ const getPostulationByAnimalId = async (req, res) => {
   });
 };
 
-const acceptPostulation = async (req, res) => {
-  const { id } = req.params;
+const editPostulation = async (req, res) => {
+  const { id} = req.params;
+  const { accept } = req.query;
+
   const postulation = await Postulation.findById(id);
 
   if (!postulation) return catchRequest({ err: entityNotFound(`id ${id}`, 'postulation', '1032'), res });
 
   const animal = await Animal.findById(postulation.animalId);
   if (!animal) return catchRequest({ err: entityNotFound(`id ${id}`, 'animal', '1032'), res });
-  if (animal.adopted) return catchRequest({ err: animalAlreadyAdopted(id, '1032'), res });
 
-  animal.adopted = true;
-  postulation.accepted = true;
+  animal.adopted = accept;
+  postulation.accepted = accept;
 
   await animal.save();
 
@@ -92,5 +93,5 @@ const acceptPostulation = async (req, res) => {
 module.exports = {
   createPostulation,
   getPostulationByAnimalId,
-  acceptPostulation,
+  editPostulation,
 };
