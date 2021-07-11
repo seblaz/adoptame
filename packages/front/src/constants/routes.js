@@ -9,5 +9,6 @@ export const ROUTES = {
   MY_ANIMALS_POSTS: '/me/animals',
   PLAYGROUND: '/playground',
   PERSONAL_DATA: '/me',
-  PERSONAL_DATA_EDIT: '/me/edit'
+  PERSONAL_DATA_EDIT: '/me/edit',
+  MY_ANIMALS_ADOPTED: '/me/animals/adopted'
 };

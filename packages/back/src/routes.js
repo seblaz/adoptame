@@ -24,7 +24,8 @@ const {
   getAnimalById,
   getAnimals,
   getMyPostedAnimals,
-  uploadAnimalPhoto
+  uploadAnimalPhoto,
+  getMyAdoptedAnimals
 } = require('./controllers/animals');
 
 const {
@@ -32,6 +33,10 @@ const {
   getPostulationByAnimalId,
   editPostulation,
 } = require('./controllers/postulations');
+
+const {
+  createDiagnoses, getDiagnoses,
+} = require('./controllers/diagnoses');
 
 const { validateSchemaAndFail } = require('./middlewares/params');
 const mongoQueries = require('./middlewares/mongo_queries');
@@ -74,4 +79,9 @@ module.exports = (app) => {
   app.get('/me', [authenticate], getUser);
   app.put('/me', [authenticate, mongoQueries], updateMe);
   app.get('/me/animals', [authenticate], getMyPostedAnimals);
+  app.get('/me/adoptedAnimals', [authenticate], getMyAdoptedAnimals);
+
+  // diagnoses
+  app.post('/diagnoses', [authenticate], createDiagnoses);
+  app.get('/diagnoses', [authenticate], getDiagnoses);
 };

@@ -30,7 +30,9 @@ function NavBar() {
   };
   return (
     <div className={`row middle full-width ${styles.navbarContainer}`}>
-      <img className={styles.icon} src={AdoptameIcon} />
+      <Link to={ROUTES.HOME}>
+        <img className={styles.icon} src={AdoptameIcon} />
+      </Link>
       <div className="row center middle full-width">
         {MENU_ITEMS.map(({ path, label }) => (
           <Link to={path} key={path} className={`bold m-right-6 m-left-6 ${styles.navbarItem}`}>

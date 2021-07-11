@@ -81,6 +81,9 @@ const editPostulation = async (req, res) => {
   animal.adopted = accept;
   postulation.accepted = accept;
 
+  const { userId } = postulation;
+  animal.adopter = userId;
+
   await animal.save();
 
   return postulation.save().then((response) => endRequest({

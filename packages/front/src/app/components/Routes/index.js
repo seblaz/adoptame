@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router-dom';
 
-import Home from '~screens/Home';
 import Login from '~screens/Login';
 import CreateAnimal from '~screens/CreateAnimal';
 import Playground from '~screens/Playground';
@@ -27,7 +26,7 @@ const AppRoutesContainer = () => (
         <AuthenticatedRoute path={ROUTES.LOGIN} component={Login} isPublic exact />
         <AuthenticatedRoute path={ROUTES.CREATE_ANIMAL} component={CreateAnimal} exact />
         <AuthenticatedRoute path={ROUTES.ANIMAL_VIEW} component={AnimalView} exact />
-        <AuthenticatedRoute path={ROUTES.HOME} component={Home} exact />
+        <AuthenticatedRoute path={ROUTES.HOME} component={AnimalsView} exact />
         <AuthenticatedRoute path={ROUTES.PERSONAL_DATA} component={PersonalData} exact />
         <AuthenticatedRoute path={ROUTES.USER_PROFILE} component={UserProfile} exact />
         <AuthenticatedRoute path={ROUTES.ANIMALS} component={AnimalsView} exact />

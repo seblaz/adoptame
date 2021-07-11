@@ -1,5 +1,6 @@
-import { completeTypes, createTypes, withPostSuccess } from 'redux-recompose';
+import { completeTypes, createTypes, withPostSuccess, withPostFailure } from 'redux-recompose';
 import { push } from 'connected-react-router';
+import { toast } from 'react-toastify';
 
 import * as MyDataService from '~services/MyDataService';
 import { ROUTES } from '~constants/routes';
@@ -28,6 +29,9 @@ export const actionCreators = {
     injections: [
       withPostSuccess(dispatch => {
         dispatch(push(ROUTES.PERSONAL_DATA));
+      }),
+      withPostFailure(() => {
+        toast.error('Ha ocurrido un error actualizando la información. Por favor vuelva a intentarlo.');
       })
     ]
   })

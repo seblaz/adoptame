@@ -47,6 +47,9 @@ export const actionCreators = {
       withPostSuccess(dispatch => {
         // TODO: Persist token into api header and save user into state.
         dispatch(push(ROUTES.LOGIN));
+      }),
+      withPostFailure((_, e) => {
+        toast.error(`Ocurrió un error creando la cuenta: ${e?.data?.[0]?.message}`);
       })
     ]
   })

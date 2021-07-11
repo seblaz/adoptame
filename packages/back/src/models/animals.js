@@ -9,7 +9,9 @@ const schema = new Schema({
   imagePath: { type: String, required: true },
   userId: { type: Schema.Types.ObjectId, required: true },
   adopted: { type: Boolean, default: false },
-  notas: { type: String, required: true },
+  notas: { type: String },
+  adopter: { type: Schema.Types.ObjectId },
+  notas: { type: String, required: true }
 }, { timestamps: true });
 
 schema.query.byUserId = function (id) {

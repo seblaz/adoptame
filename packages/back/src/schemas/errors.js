@@ -14,4 +14,9 @@ module.exports = {
     ANIMAL_ID: { internal_code: '0034', message: 'El animal_id debe estar presente y no estar vacio' },
     DESCRIPTION: { internal_code: '0034', message: 'La description debe estar presente y no estar vacio' },
   },
+  DIAGNOSES: {
+    USER_ID: { internal_code: '0034', message: 'El user_id debe estar presente y no estar vacio' },
+    ANIMAL_ID: { internal_code: '0034', message: 'El animal_id debe estar presente y no estar vacio' },
+    DATA: { internal_code: '0034', message: 'El campo data debe estar presente y no estar vacio' },
+  },
 };
