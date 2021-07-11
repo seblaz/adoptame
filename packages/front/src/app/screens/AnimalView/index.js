@@ -17,6 +17,7 @@ import InfoItem from './components/InfoItem';
 import { INFO_FIELDS } from './constants';
 import styles from './styles.module.scss';
 
+// eslint-disable-next-line complexity
 const AnimalView = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -24,19 +25,25 @@ const AnimalView = () => {
   const { me, meLoading } = useSelector(state => state.user);
   const { postulations, postulationsLoading } = useSelector(state => state.animals);
 
-  const [postulationsOpen, setPostulationsOpen] = useState(false);
-
-  const togglePostulations = () => setPostulationsOpen(!postulationsOpen);
+  // const [postulationsOpen] = useState(false);
 
   const [description, setDescription] = useState('');
   const [diagnosis, setDiagnosis] = useState('');
 
   const handleDiagnosisChange = e => setDiagnosis(e.target.value);
 
-  const modalOpen = useSelector(state => state.modal[MODALS.APPLICATION_MODAL]);
-  const openModal = () => dispatch(ModalActions.openModal(MODALS.APPLICATION_MODAL));
-  const closeModal = useCallback(
-    () => dispatch(ModalActions.closeModal(MODALS.APPLICATION_MODAL)),
+  // const modalOpen = useSelector(state => state.modal[MODALS.APPLICATION_MODAL]);
+  const modalOpenPostulate = useSelector(state => state.modal[MODALS.POSTULATE_MODAL]);
+  const openModalPostulate = () => dispatch(ModalActions.openModal(MODALS.POSTULATE_MODAL));
+  const closeModalPostulate = useCallback(
+    () => dispatch(ModalActions.closeModal(MODALS.POSTULATE_MODAL)),
+    [dispatch]
+  );
+
+  const modalOpenPostulations = useSelector(state => state.modal[MODALS.POSTULATIONS_MODAL]);
+  const openModalSeePostulations = () => dispatch(ModalActions.openModal(MODALS.POSTULATIONS_MODAL));
+  const closeModalSeePostulations = useCallback(
+    () => dispatch(ModalActions.closeModal(MODALS.POSTULATIONS_MODAL)),
     [dispatch]
   );
 
@@ -59,12 +66,36 @@ const AnimalView = () => {
     dispatch(AnimalActions.editPostulation(payload));
   };
 
+  const formatDate = date => {
+    // eslint-disable-next-line prefer-const
+    let d = new Date(date),
+      month = `${d.getMonth() + 1}`,
+      day = `${d.getDate()}`,
+      // eslint-disable-next-line prefer-const
+      year = d.getFullYear();
+
+    if (month.length < 2) {
+      month = `0${month}`;
+    }
+    if (day.length < 2) {
+      day = `0${day}`;
+    }
+
+    return [day, month, year].join('-');
+  };
+
+  const closeModals = useCallback(() => {
+    closeModalPostulate();
+    closeDiagnosisModal();
+    closeModalSeePostulations();
+  }, [closeModalSeePostulations, closeModalPostulate, closeDiagnosisModal]);
+
   useEffect(() => {
     dispatch(AnimalActions.getAnimal(id));
     dispatch(AnimalActions.getPostulationsForAnimal(id));
     dispatch(MyDataActions.getMyData());
-    return () => closeModal();
-  }, [dispatch, id, closeModal]);
+    return () => closeModals();
+  }, [dispatch, id, closeModals]);
 
   /**
    *  Adoptad?
@@ -79,7 +110,6 @@ const AnimalView = () => {
    *
    *
    */
-
   return (
     <LoadingWrapper loading={animalLoading || meLoading || postulationsLoading}>
       {animal && me && (
@@ -88,7 +118,7 @@ const AnimalView = () => {
             <h1 className="title bold m-bottom-4">Adoptar Mascota</h1>
             <div className={`column m-bottom-4 ${styles.animalInfo}`}>
               <h2 className={`subtitle bold undeline italic m-bottom-6 ${styles.animalName}`}>
-                {animal.nombre}
+                {`${animal.nombre} ${animal.adopted ? '(Adoptado)' : ''}`}
               </h2>
               <div className={`row space-between full-height ${styles.rowContainer}`}>
                 <div className={`column half-width ${styles.infoContainer}`}>
@@ -114,62 +144,59 @@ const AnimalView = () => {
                 className={styles.button}
               />
             ) : me.id === animal.userId ? (
-              <div>
-                <Button
-                  type="button"
-                  className={`row center middle m-bottom-6 ${styles.button}`}
-                  label="Ver Postulaciones"
-                  onClick={togglePostulations}
-                />
-                {postulationsOpen && (
-                  <div className={styles.postulationsContainer}>
-                    {postulations.map(postulation => (
-                      <div
-                        key={postulation.id}
-                        className={`row full-width space-between ${styles.postulation}`}>
-                        <InfoItem value={postulation.user.email} label="Email" className="column" />
-                        <InfoItem
-                          value={postulation.user.createdAt}
-                          label="Miembro desde:"
-                          className="column"
-                        />
-                        <div className="column half-width">
-                          <InfoItem
-                            value={postulation.description}
-                            label="Descripcion del adoptante:"
-                            className="column"
-                          />
-                          <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
-                        </div>
-                        {!animal.adopted && (
-                          <AcceptApplicationButton
-                            onClick={() => handleEditPostulation(postulation.id, true)}
-                          />
-                        )}
-                        {postulation.accepted && (
-                          <RejectApplicationButton
-                            onClick={() => handleEditPostulation(postulation.id, false)}
-                          />
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <Button
+                type="button"
+                className={`row center middle m-bottom-6 ${styles.button}`}
+                label="Ver Postulaciones"
+                onClick={openModalSeePostulations}
+              />
             ) : (
               <Button
                 label="Postularse como adoptante"
-                onClick={openModal}
+                onClick={openModalPostulate}
                 type="button"
                 className={styles.button}
               />
             )}
+            <CustomModal
+              className={styles.postulationsModalContainer}
+              modal={MODALS.POSTULATIONS_MODAL}
+              onClose={closeModalSeePostulations}
+              isOpen={modalOpenPostulations}
+              hideCloseButton>
+              <div className="column center middle">
+                {postulations.map(postulation => (
+                  <div key={postulation.id} className={`row full-width space-between ${styles.postulation}`}>
+                    <InfoItem value={postulation.user.email} label="Email" className="column" />
+                    <InfoItem
+                      value={formatDate(postulation.user.createdAt)}
+                      label="Miembro desde:"
+                      className="column"
+                    />
+                    <div className="column half-width">
+                      <InfoItem
+                        value={postulation.description}
+                        label="Descripcion del adoptante:"
+                        className="column"
+                      />
+                      <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
+                    </div>
+                    {!animal.adopted && (
+                      <AcceptApplicationButton onClick={() => handleEditPostulation(postulation.id, true)} />
+                    )}
+                    {postulation?.accepted && (
+                      <RejectApplicationButton onClick={() => handleEditPostulation(postulation.id, false)} />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </CustomModal>
           </div>
           <CustomModal
             className={styles.modalContainer}
-            modal={MODALS.APPLICATION_MODAL}
-            onClose={closeModal}
-            isOpen={modalOpen}
+            modal={MODALS.POSTULATE_MODAL}
+            onClose={closeModalPostulate}
+            isOpen={modalOpenPostulate}
             hideCloseButton>
             <div className="column center middle">
               <p className="row center large-text m-bottom-6">
