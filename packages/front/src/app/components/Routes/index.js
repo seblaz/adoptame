@@ -12,7 +12,6 @@ import AnimalsView from '~screens/AnimalsView';
 import PersonalData from '~screens/PersonalData';
 import PersonalDataEdit from '~screens/PersonalDataEdit';
 import MyAnimalPosts from '~screens/MyAnimalsPosts';
-import MyAnimalsAdopted from '~screens/MyAnimalsAdopted';
 import { history } from '~redux/store';
 import { ROUTES } from '~constants/routes';
 import UserProfile from '~app/screens/UserProfile';
@@ -34,7 +33,6 @@ const AppRoutesContainer = () => (
         <AuthenticatedRoute path={ROUTES.ANIMALS} component={AnimalsView} exact />
         <AuthenticatedRoute path={ROUTES.PERSONAL_DATA_EDIT} component={PersonalDataEdit} exact />
         <AuthenticatedRoute path={ROUTES.MY_ANIMALS_POSTS} component={MyAnimalPosts} exact />
-        <AuthenticatedRoute path={ROUTES.MY_ANIMALS_ADOPTED} component={MyAnimalsAdopted} exact />
         {process.env.NODE_ENV === 'development' && <Route path={ROUTES.PLAYGROUND} component={Playground} />}
       </Suspense>
       <div className={`full-width column center middle ${styles.footer}`}>

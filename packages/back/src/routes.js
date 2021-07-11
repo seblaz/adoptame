@@ -24,7 +24,8 @@ const {
   getAnimalById,
   getAnimals,
   getMyPostedAnimals,
-  uploadAnimalPhoto
+  uploadAnimalPhoto,
+  getMyAdoptedAnimals
 } = require('./controllers/animals');
 
 const {

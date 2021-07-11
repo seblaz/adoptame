@@ -13,10 +13,11 @@ import styles from './styles.module.scss';
 
 const UserProfile = ({ loading, user, me }) => {
   const dispatch = useDispatch();
-  const { animals, animalsLoading } = useSelector(state => state.animals);
+  const { animals, animalsLoading, myAnimalsAdopted } = useSelector(state => state.animals);
 
   useEffect(() => {
     dispatch(AnimalActions.getAnimals(false));
+    dispatch(AnimalActions.getMyAnimalsAdopted());
   }, [dispatch]);
 
   const classes = makeStyles(theme => ({
@@ -72,8 +73,24 @@ const UserProfile = ({ loading, user, me }) => {
               </Card>
             </div>
             <Grid item xs={8}>
-              <div className={`row wrap ${styles.scroll}`}>
+              {!!ownAnimals.length && (
+                <Typography variant="h4" component="h4">
+                  Mis mascotas rescatadas
+                </Typography>
+              )}
+              <div className={`row wrap full-width ${styles.scroll}`}>
                 {ownAnimals && ownAnimals.map(animal => <AnimalCard key={animal.id} animal={animal} />)}
+              </div>
+            </Grid>
+            <Grid item xs={8}>
+              {!!myAnimalsAdopted.length && (
+                <Typography variant="h4" component="h4">
+                  Mis mascotas adoptadas
+                </Typography>
+              )}
+              <div className={`row wrap full-width ${styles.scroll}`}>
+                {myAnimalsAdopted &&
+                  myAnimalsAdopted.map(animal => <AnimalCard key={animal.id} animal={animal} />)}
               </div>
             </Grid>
           </div>
