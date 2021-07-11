@@ -16,7 +16,7 @@ const UserProfile = ({ loading, user, me }) => {
   const { animals, animalsLoading } = useSelector(state => state.animals);
 
   useEffect(() => {
-    dispatch(AnimalActions.getAnimals(true));
+    dispatch(AnimalActions.getAnimals(false));
   }, [dispatch]);
 
   const classes = makeStyles(theme => ({
