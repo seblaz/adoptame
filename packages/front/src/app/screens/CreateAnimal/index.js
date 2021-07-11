@@ -37,7 +37,6 @@ const CreateAnimal = () => {
   };
 
   const isDataComplete = nombre && edad && especie && tamanio && sexo;
-  console.log(file);
   return (
     <div className={`column center full-width full-height ${styles.container}`}>
       <div className={`column full-width ${styles.centerContainer}`}>
