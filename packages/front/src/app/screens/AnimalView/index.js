@@ -29,11 +29,21 @@ const AnimalView = () => {
   const togglePostulations = () => setPostulationsOpen(!postulationsOpen);
 
   const [description, setDescription] = useState('');
+  const [diagnosis, setDiagnosis] = useState('');
+
+  const handleDiagnosisChange = e => setDiagnosis(e.target.value);
 
   const modalOpen = useSelector(state => state.modal[MODALS.APPLICATION_MODAL]);
   const openModal = () => dispatch(ModalActions.openModal(MODALS.APPLICATION_MODAL));
   const closeModal = useCallback(
     () => dispatch(ModalActions.closeModal(MODALS.APPLICATION_MODAL)),
+    [dispatch]
+  );
+
+  const diagnosisModalOpen = useSelector(state => state.modal[MODALS.DIAGNOSIS]);
+  const openDiagnosisModal = () => dispatch(ModalActions.openModal(MODALS.DIAGNOSIS));
+  const closeDiagnosisModal = useCallback(
+    () => dispatch(ModalActions.closeModal(MODALS.DIAGNOSIS)),
     [dispatch]
   );
 
@@ -55,6 +65,20 @@ const AnimalView = () => {
     dispatch(MyDataActions.getMyData());
     return () => closeModal();
   }, [dispatch, id, closeModal]);
+
+  /**
+   *  Adoptad?
+   *    si:
+   *        Soy yo el adoptandte?\
+   *          si: puedo subir diagnostico
+   *          no: No mostrar nada
+   *    no:
+   *      soy yo el rescatista?
+   *        si: ver postulaciones
+   *        no: postularse
+   *
+   *
+   */
 
   return (
     <LoadingWrapper loading={animalLoading || meLoading || postulationsLoading}>
@@ -82,7 +106,14 @@ const AnimalView = () => {
                 <img src={getAnimalImage(animal.imagePath)} className={`half-width ${styles.photo}`} />
               </div>
             </div>
-            {me.id === animal.userId ? (
+            {animal?.adopted && me?.id === animal?.adopter ? (
+              <Button
+                label="Subir diagnóstico del veterinario"
+                onClick={openDiagnosisModal}
+                type="button"
+                className={styles.button}
+              />
+            ) : me.id === animal.userId ? (
               <div>
                 <Button
                   type="button"
@@ -150,6 +181,30 @@ const AnimalView = () => {
                 placeholder="Por favor describí cómo sería la vida hogareña del animal y cómo va a poder adaptarse..."
                 value={description}
                 onChange={handleDescriptionChange}
+              />
+              <Button
+                disabled={description.length < 10}
+                label="Confirmar"
+                onClick={submitApplication}
+                type="button"
+                className={`full-width ${styles.button}`}
+              />
+            </div>
+          </CustomModal>
+          <CustomModal
+            className={styles.modalContainer}
+            modal={MODALS.DIAGNOSIS}
+            onClose={closeDiagnosisModal}
+            isOpen={diagnosisModalOpen}
+            hideCloseButton>
+            <div className="column center middle">
+              <p className="row center large-text m-bottom-6">Ingrese el diagnóstico del veterinario</p>
+              <textarea
+                maxLength={400}
+                className={`small-text ${styles.textArea}`}
+                placeholder="Por favor describí el último diagnóstico del veterinario..."
+                value={diagnosis}
+                onChange={handleDiagnosisChange}
               />
               <Button
                 disabled={description.length < 10}
