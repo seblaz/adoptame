@@ -13,9 +13,10 @@ export const actions = createTypes(
     'GET_ANIMAL',
     'GET_ANIMALS',
     'GET_POSTULATIONS',
-    'ACCEPT_POSTULATION',
+    'EDIT_POSTULATION',
     'GET_MY_ANIMALS',
-    'GET_POSTULATIONS'
+    'GET_POSTULATIONS',
+    'GET_MY_ANIMALS_ADOPTED'
   ]),
   '@@ANIMAL'
 );
@@ -32,7 +33,6 @@ export const actionCreators = {
       })
     ]
   }),
-
   getAnimal: id => ({
     type: actions.GET_ANIMAL,
     target: TARGETS.ANIMAL,
@@ -40,15 +40,21 @@ export const actionCreators = {
     service: AnimalService.getAnimal
   }),
 
-  getAnimals: () => ({
+  getAnimals: onlyNotAdopted => ({
     type: actions.GET_ANIMALS,
     target: TARGETS.ANIMALS,
+    payload: onlyNotAdopted,
     service: AnimalService.getAnimals
   }),
   getMyAnimalsPosts: () => ({
     type: actions.GET_ANIMALS,
     target: TARGETS.MY_ANIMALS,
     service: AnimalService.getMyAnimals
+  }),
+  getMyAnimalsAdopted: () => ({
+    type: actions.GET_MY_ANIMALS_ADOPTED,
+    target: TARGETS.MY_ANIMALS_ADOPTED,
+    service: AnimalService.getMyAnimalsAdopted
   }),
   postulateForAdoption: ({ id, description }) => ({
     type: actions.ADOPT_ANIMAL,
@@ -61,7 +67,6 @@ export const actionCreators = {
       })
     ]
   }),
-
   getPostulationsForAnimal: id => ({
     type: actions.GET_POSTULATIONS,
     target: TARGETS.POSTULATIONS,
@@ -69,11 +74,11 @@ export const actionCreators = {
     service: AnimalService.getPostulationsForAnimal
   }),
 
-  acceptPostulation: id => ({
-    type: actions.ACCEPT_POSTULATION,
+  editPostulation: payload => ({
+    type: actions.EDIT_POSTULATION,
     target: TARGETS.POSTULATIONS,
-    payload: id,
-    service: PostulationService.acceptPostulation
+    payload,
+    service: PostulationService.editPostulation
   })
 };
 
