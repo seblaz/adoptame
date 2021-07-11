@@ -3,5 +3,6 @@ export const TARGETS = {
   ANIMALS: 'animals',
   MY_ANIMALS: 'myAnimals',
   POSTULATIONS: 'postulations',
-  MY_ANIMALS_ADOPTED: 'myAnimalsAdopted'
+  MY_ANIMALS_ADOPTED: 'myAnimalsAdopted',
+  DIAGNOSES: 'diagnosis'
 };

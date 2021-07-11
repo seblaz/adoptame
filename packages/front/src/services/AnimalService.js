@@ -13,3 +13,6 @@ export const postulateForAdoption = ({ id, description }) =>
   api.post('/postulations', { animalId: id, description });
 export const getPostulationsForAnimal = id => api.get(`/postulations/${id}`);
 export const getMyAnimalsAdopted = () => api.get('/me/adoptedAnimals');
+export const diagnoseAnimal = ({ id, diagnosis }) =>
+  api.post('/diagnoses', { animalId: id, data: diagnosis });
+export const getDiagnoses = animalId => api.get(`/diagnoses?animalId=${animalId}`);

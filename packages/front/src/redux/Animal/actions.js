@@ -17,7 +17,10 @@ export const actions = createTypes(
     'EDIT_POSTULATION',
     'GET_MY_ANIMALS',
     'GET_POSTULATIONS',
-    'GET_MY_ANIMALS_ADOPTED'
+    'GET_MY_ANIMALS_ADOPTED',
+    'CLEAR_POSTULATIONS',
+    'DIAGNOSE_ANIMAL',
+    'GET_DIAGNOSES'
   ]),
   '@@ANIMAL'
 );
@@ -89,10 +92,38 @@ export const actionCreators = {
     payload,
     service: PostulationService.editPostulation,
     injections: [
+      withPostSuccess(dispatch => {
+        dispatch(push(ROUTES.HOME));
+      }),
       withPostFailure(() => {
         toast.error('Ha ocurrido un error editando la postulación');
       })
     ]
+  }),
+  clearPostulations: () => ({
+    type: actions.CLEAR_POSTULATIONS,
+    target: TARGETS.POSTULATIONS,
+    payload: []
+  }),
+  diagnoseAnimal: payload => ({
+    type: actions.DIAGNOSE_ANIMAL,
+    target: TARGETS.DIAGNOSIS,
+    payload,
+    service: AnimalService.diagnoseAnimal,
+    injections: [
+      withPostSuccess(dispatch => {
+        dispatch(push(ROUTES.HOME));
+      }),
+      withPostFailure(() => {
+        toast.error('Ha ocurrido un error agregando el diagnóstico');
+      })
+    ]
+  }),
+  getDiagnoses: payload => ({
+    type: actions.GET_DIAGNOSES,
+    target: TARGETS.DIAGNOSES,
+    payload,
+    service: AnimalService.getDiagnoses
   })
 };
 

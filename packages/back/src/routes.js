@@ -35,7 +35,7 @@ const {
 } = require('./controllers/postulations');
 
 const {
-  createDiagnoses,
+  createDiagnoses, getDiagnoses,
 } = require('./controllers/diagnoses');
 
 const { validateSchemaAndFail } = require('./middlewares/params');
@@ -83,4 +83,5 @@ module.exports = (app) => {
 
   // diagnoses
   app.post('/diagnoses', [authenticate], createDiagnoses);
+  app.get('/diagnoses', [authenticate], getDiagnoses);
 };

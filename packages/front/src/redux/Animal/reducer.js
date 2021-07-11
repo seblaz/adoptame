@@ -10,7 +10,8 @@ const initialState = {
   [TARGETS.ANIMALS]: null,
   [TARGETS.POSTULATIONS]: [],
   [TARGETS.MY_ANIMALS]: null,
-  [TARGETS.MY_ANIMALS_ADOPTED]: []
+  [TARGETS.MY_ANIMALS_ADOPTED]: [],
+  [TARGETS.DIAGNOSES]: []
 };
 
 const completedState = completeState(initialState);
@@ -21,7 +22,10 @@ const reducerDescription = {
     actions.GET_ANIMAL,
     actions.GET_ANIMALS,
     actions.GET_POSTULATIONS,
-    actions.GET_MY_ANIMALS_ADOPTED
+    actions.GET_MY_ANIMALS_ADOPTED,
+    actions.CLEAR_POSTULATIONS,
+    actions.DIAGNOSE_ANIMAL,
+    actions.GET_DIAGNOSES
   ]
 };
 

@@ -25,15 +25,14 @@ const AnimalView = () => {
   const { animal, animalLoading } = useSelector(state => state.animals);
   const { me, meLoading } = useSelector(state => state.user);
   const { postulations, postulationsLoading } = useSelector(state => state.animals);
-
-  // const [postulationsOpen] = useState(false);
+  const { diagnosis, diagnosisLoading } = useSelector(state => state.animals);
 
   const [description, setDescription] = useState('');
-  const [diagnosis, setDiagnosis] = useState('');
+  const [diagnosisText, setDiagnosis] = useState('');
 
   const handleDiagnosisChange = e => setDiagnosis(e.target.value);
+  const submitDiagnosis = () => dispatch(AnimalActions.diagnoseAnimal({ id, diagnosis: diagnosisText }));
 
-  // const modalOpen = useSelector(state => state.modal[MODALS.APPLICATION_MODAL]);
   const modalOpenPostulate = useSelector(state => state.modal[MODALS.POSTULATE_MODAL]);
   const openModalPostulate = () => dispatch(ModalActions.openModal(MODALS.POSTULATE_MODAL));
   const closeModalPostulate = useCallback(
@@ -67,34 +66,24 @@ const AnimalView = () => {
     dispatch(AnimalActions.editPostulation(payload));
   };
 
-  const closeModals = useCallback(() => {
+  const cleanup = useCallback(() => {
     closeModalPostulate();
     closeDiagnosisModal();
     closeModalSeePostulations();
-  }, [closeModalSeePostulations, closeModalPostulate, closeDiagnosisModal]);
+    dispatch(AnimalActions.clearPostulations());
+  }, [closeModalSeePostulations, closeModalPostulate, closeDiagnosisModal, dispatch]);
 
   useEffect(() => {
     dispatch(AnimalActions.getAnimal(id));
     dispatch(AnimalActions.getPostulationsForAnimal(id));
     dispatch(MyDataActions.getMyData());
-    return () => closeModals();
-  }, [dispatch, id, closeModals]);
+    dispatch(AnimalActions.getDiagnoses(id));
+    return () => cleanup();
+  }, [dispatch, id, cleanup]);
 
-  /**
-   *  Adoptad?
-   *    si:
-   *        Soy yo el adoptandte?\
-   *          si: puedo subir diagnostico
-   *          no: No mostrar nada
-   *    no:
-   *      soy yo el rescatista?
-   *        si: ver postulaciones
-   *        no: postularse
-   *
-   *
-   */
+  const lastDiagnosis = diagnosis?.length ? diagnosis[diagnosis.length - 1] : null;
   return (
-    <LoadingWrapper loading={animalLoading || meLoading || postulationsLoading}>
+    <LoadingWrapper loading={animalLoading || meLoading || postulationsLoading || diagnosisLoading}>
       {animal && me && (
         <>
           <div className={`column full-width full-height ${styles.animalViewContainer}`}>
@@ -106,13 +95,21 @@ const AnimalView = () => {
               <div className={`row space-between full-height ${styles.rowContainer}`}>
                 <div className={`column half-width ${styles.infoContainer}`}>
                   <h3 className={`large-text bold ${styles.animalInfoTitle}`}>Datos del animal</h3>
-                  {INFO_FIELDS.map(({ label, key }) => (
-                    <InfoItem key={label} value={animal[key]} label={label} className={styles.infoItem} />
-                  ))}
+                  <div className={`column full-width ${styles.animalData}`}>
+                    {INFO_FIELDS.map(({ label, key }) => (
+                      <InfoItem key={label} value={animal[key]} label={label} className={styles.infoItem} />
+                    ))}
+                  </div>
                   {animal?.notas && (
-                    <div className="column full-width">
+                    <div className="column full-width m-bottom-2">
                       <span className="large-text bold">Notas adicionales:</span>
                       <span className="text">{animal.notas}</span>
+                    </div>
+                  )}
+                  {lastDiagnosis && (
+                    <div className={`column full-width ${styles.diagnosis}`} key={lastDiagnosis.id}>
+                      <span className="large-text bold">Último diagnóstico:</span>
+                      <span className="text">{lastDiagnosis.data}</span>
                     </div>
                   )}
                 </div>
@@ -127,12 +124,14 @@ const AnimalView = () => {
                 className={styles.button}
               />
             ) : me.id === animal.userId ? (
-              <Button
-                type="button"
-                className={`row center middle m-bottom-6 ${styles.button}`}
-                label="Ver Postulaciones"
-                onClick={openModalSeePostulations}
-              />
+              !!postulations.length && (
+                <Button
+                  type="button"
+                  className={`row center middle m-bottom-6 ${styles.button}`}
+                  label="Ver Postulaciones"
+                  onClick={openModalSeePostulations}
+                />
+              )
             ) : (
               <Button
                 label="Postularse como adoptante"
@@ -212,13 +211,13 @@ const AnimalView = () => {
                 maxLength={400}
                 className={`small-text ${styles.textArea}`}
                 placeholder="Por favor describí el último diagnóstico del veterinario..."
-                value={diagnosis}
+                value={diagnosisText}
                 onChange={handleDiagnosisChange}
               />
               <Button
-                disabled={description.length < 10}
+                disabled={diagnosisText.length < 10}
                 label="Confirmar"
-                onClick={submitApplication}
+                onClick={submitDiagnosis}
                 type="button"
                 className={`full-width ${styles.button}`}
               />
