@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
@@ -32,7 +32,10 @@ const AnimalView = () => {
 
   const modalOpen = useSelector(state => state.modal[MODALS.APPLICATION_MODAL]);
   const openModal = () => dispatch(ModalActions.openModal(MODALS.APPLICATION_MODAL));
-  const closeModal = () => dispatch(ModalActions.closeModal(MODALS.APPLICATION_MODAL));
+  const closeModal = useCallback(
+    () => dispatch(ModalActions.closeModal(MODALS.APPLICATION_MODAL)),
+    [dispatch]
+  );
 
   const handleDescriptionChange = e => setDescription(e.target.value);
 
@@ -50,7 +53,8 @@ const AnimalView = () => {
     dispatch(AnimalActions.getAnimal(id));
     dispatch(AnimalActions.getPostulationsForAnimal(id));
     dispatch(MyDataActions.getMyData());
-  }, [dispatch, id]);
+    return () => closeModal();
+  }, [dispatch, id, closeModal]);
 
   return (
     <LoadingWrapper loading={animalLoading || meLoading || postulationsLoading}>
