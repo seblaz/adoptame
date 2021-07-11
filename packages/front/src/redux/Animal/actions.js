@@ -1,5 +1,6 @@
-import { completeTypes, createTypes, withPostSuccess } from 'redux-recompose';
+import { completeTypes, createTypes, withPostSuccess, withPostFailure } from 'redux-recompose';
 import { push } from 'connected-react-router';
+import { toast } from 'react-toastify';
 
 import * as AnimalService from '~services/AnimalService';
 import * as PostulationService from '~services/PostulationService';
@@ -30,6 +31,11 @@ export const actionCreators = {
     injections: [
       withPostSuccess((dispatch, { data: { id } }) => {
         dispatch(push(`${ROUTES.ANIMALS}/${id}`));
+      }),
+      withPostFailure(() => {
+        toast.error(
+          'Ocurrió un error creando el animal. Procure que todos los datos sean correctos y vuelva a intentar'
+        );
       })
     ]
   }),
@@ -64,6 +70,9 @@ export const actionCreators = {
     injections: [
       withPostSuccess(dispatch => {
         dispatch(push(ROUTES.ANIMALS));
+      }),
+      withPostFailure(() => {
+        toast.error('Ya existe una postulacion a este animal por parte de este usuario');
       })
     ]
   }),
@@ -78,7 +87,12 @@ export const actionCreators = {
     type: actions.EDIT_POSTULATION,
     target: TARGETS.POSTULATIONS,
     payload,
-    service: PostulationService.editPostulation
+    service: PostulationService.editPostulation,
+    injections: [
+      withPostFailure(() => {
+        toast.error('Ha ocurrido un error editando la postulación');
+      })
+    ]
   })
 };
 
