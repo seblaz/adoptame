@@ -77,7 +77,7 @@ const UserProfile = ({ loading, user, me }) => {
             <div className="column full-width">
               <div>
                 {!!ownAnimals?.length && (
-                  <h4 className="large-text bold m-bottom-2 m-left-4 m-top-4">Mis mascotas rescatadas</h4>
+                  <h4 className="large-text bold m-bottom-2 m-left-4 m-top-4">Mascotas rescatadas</h4>
                 )}
                 <div className={`row wrap full-width ${styles.scroll}`}>
                   {ownAnimals && ownAnimals.map(animal => <AnimalCard key={animal.id} animal={animal} />)}
@@ -85,7 +85,7 @@ const UserProfile = ({ loading, user, me }) => {
               </div>
               <div>
                 {!!myAnimalsAdopted?.length && (
-                  <h4 className="large-text bold m-bottom-2 m-left-4 m-top-4">Mis mascotas adoptadas</h4>
+                  <h4 className="large-text bold m-bottom-2 m-left-4 m-top-4">Mascotas adoptadas</h4>
                 )}
                 <div className={`row wrap full-width ${styles.scroll}`}>
                   {myAnimalsAdopted &&

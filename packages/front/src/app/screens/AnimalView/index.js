@@ -10,6 +10,7 @@ import ModalActions from '~redux/Modal/actions';
 import { MODALS } from '~redux/Modal/constants';
 import MyDataActions from '~redux/User/actions';
 import { getAnimalImage } from '~utils/animal';
+import { capitalize } from '~utils/string';
 
 import AcceptApplicationButton from './components/Buttons/AcceptApplicationButton';
 import RejectApplicationButton from './components/Buttons/RejectApplicationButton';
@@ -64,24 +65,6 @@ const AnimalView = () => {
       accept
     };
     dispatch(AnimalActions.editPostulation(payload));
-  };
-
-  const formatDate = date => {
-    // eslint-disable-next-line prefer-const
-    let d = new Date(date),
-      month = `${d.getMonth() + 1}`,
-      day = `${d.getDate()}`,
-      // eslint-disable-next-line prefer-const
-      year = d.getFullYear();
-
-    if (month.length < 2) {
-      month = `0${month}`;
-    }
-    if (day.length < 2) {
-      day = `0${day}`;
-    }
-
-    return [day, month, year].join('-');
   };
 
   const closeModals = useCallback(() => {
@@ -166,20 +149,19 @@ const AnimalView = () => {
               hideCloseButton>
               <div className="column center middle">
                 {postulations.map(postulation => (
-                  <div key={postulation.id} className={`row full-width space-between ${styles.postulation}`}>
-                    <InfoItem value={postulation.user.email} label="Email" className="column" />
-                    <InfoItem
-                      value={formatDate(postulation.user.createdAt)}
-                      label="Miembro desde:"
-                      className="column"
-                    />
-                    <div className="column half-width">
-                      <InfoItem
-                        value={postulation.description}
-                        label="Descripcion del adoptante:"
-                        className="column"
-                      />
-                      <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
+                  <div
+                    key={postulation.id}
+                    className={`row full-width middle space-between ${styles.postulation}`}>
+                    <div className="column full-width">
+                      <span className="large-text m-bottom-4">
+                        {capitalize(postulation.description || '')}
+                      </span>
+                      <div className="row middle full-width">
+                        <span className="text m-right-2">{`${postulation.user.email} - `}</span>
+                        <a className={`text ${styles.emailLink}`} href={`/users/${postulation.user.id}`}>
+                          Ver perfil
+                        </a>
+                      </div>
                     </div>
                     {!animal.adopted && (
                       <AcceptApplicationButton onClick={() => handleEditPostulation(postulation.id, true)} />
