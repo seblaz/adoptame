@@ -9,7 +9,7 @@ import { setAuthHeader } from '~config/api';
 
 import { TARGETS } from './constants';
 
-export const actions = createTypes(completeTypes(['SIGN_IN']), '@@AUTH');
+export const actions = createTypes(completeTypes(['SIGN_IN', 'SIGN_OFF', 'REGISTER']), '@@AUTH');
 
 export const actionCreators = {
   signIn: ({ email, password }) => ({
@@ -30,9 +30,16 @@ export const actionCreators = {
       })
     ]
   }),
-
+  signOff: () => {
+    LocalStorageService.removeSessionToken();
+    return {
+      type: actions.SIGN_OFF,
+      target: TARGETS.USER,
+      payload: {}
+    };
+  },
   register: ({ email, password }) => ({
-    type: actions.LOGIN,
+    type: actions.REGISTER,
     target: TARGETS.USER,
     payload: { email, password },
     service: UserService.register,

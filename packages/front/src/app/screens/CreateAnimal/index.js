@@ -17,19 +17,34 @@ const CreateAnimal = () => {
   const [tamanio, setTamanio] = useState();
   const [sexo, setSexo] = useState();
   const dispatch = useDispatch();
+  const [file, setFile] = useState();
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(actionCreators.createAnimal({ nombre, edad, especie, tamanio, sexo, notas }));
+    const formData = new FormData();
+    formData.append('photo', file);
+    formData.append('nombre', nombre);
+    formData.append('edad', edad);
+    formData.append('especie', especie);
+    formData.append('tamanio', tamanio);
+    formData.append('sexo', sexo);
+    formData.append('notas', notas);
+    dispatch(actionCreators.createAnimal(formData));
+  };
+
+  const onFileChange = e => {
+    setFile(e.target.files[0]);
   };
 
   const isDataComplete = nombre && edad && especie && tamanio && sexo;
-
   return (
     <div className={`column center full-width full-height ${styles.container}`}>
       <div className={`column full-width ${styles.centerContainer}`}>
         <h1 className="title bold m-bottom-4">Crear publicación</h1>
-        <form onSubmit={handleSubmit} className={`column middle ${styles.formContainer}`}>
+        <form
+          onSubmit={handleSubmit}
+          className={`column middle ${styles.formContainer}`}
+          encType="multipart/form-data">
           <Input
             name="nombre"
             label="Nombre"
@@ -93,7 +108,12 @@ const CreateAnimal = () => {
             onChange={event => setNotas(event.target.value)}
             inputClassName={styles.input}
             labelClassName="subtitle bold"
+            required
           />
+          {/* <span> Foto </span>
+          <input type="file" id="photo" name="photo"   /> */}
+          <label htmlFor="photo">Selecciona una foto:</label>
+          <input name="photo" type="file" required="" value="" onChange={onFileChange} />
           <Button
             type="submit"
             className={`row center middle ${styles.submit}`}

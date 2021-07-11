@@ -20,7 +20,7 @@ setAuthHeader(token);
 const completedState = completeState(initialState);
 
 const reducerDescription = {
-  primaryActions: [actions.SIGN_IN]
+  primaryActions: [actions.SIGN_IN, actions.SIGN_OFF, actions.REGISTER]
 };
 
 const reducer = createReducer(new Immutable(completedState), completeReducer(reducerDescription));
