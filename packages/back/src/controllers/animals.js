@@ -42,14 +42,13 @@ const getAnimals = async (req, res) => {
       code: 200,
       res,
     }));
-  } else {
-    return Animal.find()
-    .then((response) => endRequest({
-      response,
-      code: 200,
-      res,
-    }));
   }
+  return Animal.find()
+  .then((response) => endRequest({
+    response,
+    code: 200,
+    res,
+  }));
 };
 
 const getMyPostedAnimals = async (req, res) => Animal.find().byUserId(req.user.id)
