@@ -1,4 +1,3 @@
 export const MODALS = {
-  POSTULATE_MODAL: 'postulate_modal',
-  POSTULATIONS_MODAL: 'postulations_modal'
+  APPLICATION_MODAL: 'application_modal'
 };

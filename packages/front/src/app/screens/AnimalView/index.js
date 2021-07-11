@@ -17,7 +17,6 @@ import InfoItem from './components/InfoItem';
 import { INFO_FIELDS } from './constants';
 import styles from './styles.module.scss';
 
-// eslint-disable-next-line complexity
 const AnimalView = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -25,18 +24,15 @@ const AnimalView = () => {
   const { me, meLoading } = useSelector(state => state.user);
   const { postulations, postulationsLoading } = useSelector(state => state.animals);
 
-  // const [postulationsOpen] = useState(false);
+  const [postulationsOpen, setPostulationsOpen] = useState(false);
+
+  const togglePostulations = () => setPostulationsOpen(!postulationsOpen);
 
   const [description, setDescription] = useState('');
 
-  // const modalOpen = useSelector(state => state.modal[MODALS.APPLICATION_MODAL]);
-  const modalOpenPostulate = useSelector(state => state.modal[MODALS.POSTULATE_MODAL]);
-  const openModalPostulate = () => dispatch(ModalActions.openModal(MODALS.POSTULATE_MODAL));
-  const closeModalPostulate = () => dispatch(ModalActions.closeModal(MODALS.POSTULATE_MODAL));
-
-  const modalOpenPostulations = useSelector(state => state.modal[MODALS.POSTULATIONS_MODAL]);
-  const openModalSeePostulations = () => dispatch(ModalActions.openModal(MODALS.POSTULATIONS_MODAL));
-  const closeModalSeePostulations = () => dispatch(ModalActions.closeModal(MODALS.POSTULATIONS_MODAL));
+  const modalOpen = useSelector(state => state.modal[MODALS.APPLICATION_MODAL]);
+  const openModal = () => dispatch(ModalActions.openModal(MODALS.APPLICATION_MODAL));
+  const closeModal = () => dispatch(ModalActions.closeModal(MODALS.APPLICATION_MODAL));
 
   const handleDescriptionChange = e => setDescription(e.target.value);
 
@@ -48,24 +44,6 @@ const AnimalView = () => {
       accept
     };
     dispatch(AnimalActions.editPostulation(payload));
-  };
-
-  const formatDate = date => {
-    // eslint-disable-next-line prefer-const
-    let d = new Date(date),
-      month = `${d.getMonth() + 1}`,
-      day = `${d.getDate()}`,
-      // eslint-disable-next-line prefer-const
-      year = d.getFullYear();
-
-    if (month.length < 2) {
-      month = `0${month}`;
-    }
-    if (day.length < 2) {
-      day = `0${day}`;
-    }
-
-    return [day, month, year].join('-');
   };
 
   useEffect(() => {
@@ -82,7 +60,7 @@ const AnimalView = () => {
             <h1 className="title bold m-bottom-4">Adoptar Mascota</h1>
             <div className={`column m-bottom-4 ${styles.animalInfo}`}>
               <h2 className={`subtitle bold undeline italic m-bottom-6 ${styles.animalName}`}>
-                {`${animal.nombre} ${animal.adopted ? '(Adoptado)' : ''}`}
+                {animal.nombre}
               </h2>
               <div className={`row space-between full-height ${styles.rowContainer}`}>
                 <div className={`column half-width ${styles.infoContainer}`}>
@@ -100,61 +78,53 @@ const AnimalView = () => {
                 <img src={getAnimalImage(animal.imagePath)} className={`half-width ${styles.photo}`} />
               </div>
             </div>
-            {me.id === animal.userId && (
+            {me.id === animal.userId ? (
               <div>
                 <Button
                   type="button"
                   className={`row center middle m-bottom-6 ${styles.button}`}
                   label="Ver Postulaciones"
-                  onClick={openModalSeePostulations}
+                  onClick={togglePostulations}
                 />
-              </div>
-            )}
-            <CustomModal
-              className={styles.modalContainer}
-              modal={MODALS.POSTULATIONS_MODAL}
-              onClose={closeModalSeePostulations}
-              isOpen={modalOpenPostulations}
-              hideCloseButton>
-              <div className="column center middle">
-                <div className={styles.postulationsContainer}>
-                  {postulations.map(postulation => (
-                    <div
-                      key={postulation.id}
-                      className={`row full-width space-between ${styles.postulation}`}>
-                      <InfoItem value={postulation.user.email} label="Email" className="column" />
-                      <InfoItem
-                        value={formatDate(postulation.user.createdAt)}
-                        label="Miembro desde:"
-                        className="column"
-                      />
-                      <div className="column half-width">
+                {postulationsOpen && (
+                  <div className={styles.postulationsContainer}>
+                    {postulations.map(postulation => (
+                      <div
+                        key={postulation.id}
+                        className={`row full-width space-between ${styles.postulation}`}>
+                        <InfoItem value={postulation.user.email} label="Email" className="column" />
                         <InfoItem
-                          value={postulation.description}
-                          label="Descripcion del adoptante:"
+                          value={postulation.user.createdAt}
+                          label="Miembro desde:"
                           className="column"
                         />
-                        <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
+                        <div className="column half-width">
+                          <InfoItem
+                            value={postulation.description}
+                            label="Descripcion del adoptante:"
+                            className="column"
+                          />
+                          <a href={`/users/${postulation.user.id}`}>Ver perfil</a>
+                        </div>
+                        {!animal.adopted && (
+                          <AcceptApplicationButton
+                            onClick={() => handleEditPostulation(postulation.id, true)}
+                          />
+                        )}
+                        {postulation.accepted && (
+                          <RejectApplicationButton
+                            onClick={() => handleEditPostulation(postulation.id, false)}
+                          />
+                        )}
                       </div>
-                      {!animal.adopted && (
-                        <AcceptApplicationButton
-                          onClick={() => handleEditPostulation(postulation.id, true)}
-                        />
-                      )}
-                      {postulation.accepted && (
-                        <RejectApplicationButton
-                          onClick={() => handleEditPostulation(postulation.id, false)}
-                        />
-                      )}
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            </CustomModal>
-            {!animal.adopted && animal.userId !== me.id && (
+            ) : (
               <Button
                 label="Postularse como adoptante"
-                onClick={openModalPostulate}
+                onClick={openModal}
                 type="button"
                 className={styles.button}
               />
@@ -162,9 +132,9 @@ const AnimalView = () => {
           </div>
           <CustomModal
             className={styles.modalContainer}
-            modal={MODALS.POSTULATE_MODAL}
-            onClose={closeModalPostulate}
-            isOpen={modalOpenPostulate}
+            modal={MODALS.APPLICATION_MODAL}
+            onClose={closeModal}
+            isOpen={modalOpen}
             hideCloseButton>
             <div className="column center middle">
               <p className="row center large-text m-bottom-6">
