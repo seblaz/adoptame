@@ -13,7 +13,7 @@ import styles from './styles.module.scss';
 const AuthenticatedRoute = ({ title, description, path, isPublic, component: Component, ...props }) => {
   const { user } = useSelector(state => state.auth);
   const isAuth = Boolean(user?.token);
-  const showNavbar = isAuth && path !== ROUTES.LOGIN;
+  const showNavbar = isAuth && path !== ROUTES.LOGIN && path !== ROUTES.REGISTRATION;
   return (
     <>
       <Helmet>
