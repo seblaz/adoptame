@@ -42,3 +42,18 @@
   width: 100%;
   margin-bottom: 20px;
 }
+
+.preview {
+  height: 180px;
+  width: 180px;
+  border-radius: 5px;
+  border: 1px solid silver;
+  box-shadow: 1px 1px 3px 0px silver;
+  margin-left: 15px;
+}
+
+.input-label {
+  font-size: 15px;
+  line-height: 24px;
+  padding-left: 15px;
+}

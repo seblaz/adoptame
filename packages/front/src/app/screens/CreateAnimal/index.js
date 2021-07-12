@@ -35,7 +35,7 @@ const CreateAnimal = () => {
   const onFileChange = e => {
     setFile(e.target.files[0]);
   };
-
+  console.log(file);
   const isDataComplete = nombre && edad && especie && tamanio && sexo;
   return (
     <div className={`column center full-width full-height ${styles.container}`}>
@@ -112,8 +112,14 @@ const CreateAnimal = () => {
           />
           {/* <span> Foto </span>
           <input type="file" id="photo" name="photo"   /> */}
-          <label htmlFor="photo">Selecciona una foto:</label>
-          <input name="photo" type="file" required="" value="" onChange={onFileChange} />
+          <label className={`bold ${styles.inputLabel} ${styles.input} m-bottom-2`} htmlFor="photo">
+            Seleccioná una foto:
+          </label>
+          {file ? (
+            <img src={URL.createObjectURL(file)} className={styles.preview} />
+          ) : (
+            <input name="photo" type="file" required value={file?.name} onChange={onFileChange} />
+          )}
           <Button
             type="submit"
             className={`row center middle ${styles.submit}`}
