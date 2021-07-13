@@ -1,11 +1,11 @@
 .container { 
-  padding: 50px;
-  padding: 50px;
+  padding: 20px 50px;
 }
 
 .center-container {
   max-width: 800px;
   margin: 0 auto;
+  overflow-y: auto;
 }
 
 .form-container {
@@ -41,4 +41,19 @@
   max-width: 100%;
   width: 100%;
   margin-bottom: 20px;
+}
+
+.preview {
+  height: 180px;
+  width: 180px;
+  border-radius: 5px;
+  border: 1px solid silver;
+  box-shadow: 1px 1px 3px 0px silver;
+  margin-left: 15px;
+}
+
+.input-label {
+  font-size: 15px;
+  line-height: 24px;
+  padding-left: 15px;
 }
